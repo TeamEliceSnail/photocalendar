@@ -1,11 +1,15 @@
-import React from 'react'
+import React from "react";
+import { RecoilRoot } from "recoil";
+import DetailPage from "./pages/detailPage";
 
 const App = () => {
-  return (
-    <div>App</div>
+    return (
+        <RecoilRoot>
+            <div>
+                <DetailPage />
+            </div>
+        </RecoilRoot>
+    );
+};
 
-    
-  )
-}
-
-export default App
+export default App;
