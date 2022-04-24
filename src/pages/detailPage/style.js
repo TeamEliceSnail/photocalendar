@@ -27,5 +27,6 @@ export default styled.div`
     /* display: grid; */
     /* grid-template-columns: 1fr 1fr;
     gap: 10px 20px; */
+    align-items: center;
     justify-content: space-evenly;
 `;
