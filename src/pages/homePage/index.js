@@ -1,10 +1,14 @@
-import React from 'react'
-import Wrapper from './style'
+import CalendarHeader from './components/calendarHeader';
+// import CalendarSection from './components/calendarSection';
+import { HomePageContainer } from './style';
 
 const HomePage = () => {
     return (
-        <Wrapper></Wrapper>
-    )
-}
+        <HomePageContainer>
+            <CalendarHeader />
+            {/* <CalendarSection /> */}
+        </HomePageContainer>
+    );
+};
 
-export default HomePage
+export default HomePage;
