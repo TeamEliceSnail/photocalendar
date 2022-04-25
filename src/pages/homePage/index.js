@@ -1,4 +1,4 @@
-import CalendarHeader from './components/calendarHeader';
+import CalendarHeader from './components/CalendarHeader';
 // import CalendarSection from './components/calendarSection';
 import { HomePageContainer } from './style';
 
