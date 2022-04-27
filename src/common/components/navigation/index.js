@@ -6,7 +6,6 @@ import NavForm from "././components/navForm";
 
 const Navigation = ({ navFlag, navToggle }) => {
     if (window.location.pathname === "/login") return null;
-
     return (
         <Wrapper navFlag={navFlag}>
             <img src={xImg} alt="toggle-off-btn" onClick={navToggle} />
@@ -14,6 +13,6 @@ const Navigation = ({ navFlag, navToggle }) => {
             <NavForm />
         </Wrapper>
   );
-};
+}
 
-export default Navigation;
+export default Navigation
