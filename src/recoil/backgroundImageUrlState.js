@@ -1,8 +1,8 @@
-import { atom } from "recoil";
+import { atom } from 'recoil';
 
 const backgroundImageUrlState = atom({
-    key: "backgroundImageUrlState",
-    default: "",
+    key: 'backgroundImageUrlState',
+    default: '',
 });
 
 export default backgroundImageUrlState;
