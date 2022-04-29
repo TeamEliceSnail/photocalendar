@@ -10,6 +10,7 @@ export default styled.div`
         all: unset;
         padding: 0.5em 2em;
         border-radius: 10px;
+        cursor: pointer;
         &:hover {
             transition: all 0.3s ease-in-out;
             background-color: rgba(255, 255, 255, 0.2);
