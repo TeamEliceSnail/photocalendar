@@ -8,7 +8,6 @@ const Header = () => {
 
     const handleOpenModal = () => {
         setModalFlag(!modalFlag);
-        console.log(modalFlag);
     };
     const content = [
         { name: '추가', key: 'c' },
