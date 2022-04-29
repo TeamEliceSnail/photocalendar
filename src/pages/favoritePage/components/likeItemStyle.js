@@ -8,7 +8,7 @@ export default styled.div`
     align-items: center;
     padding-top: 5%;
     height: 300px;
-    border-radius: 15px;
+    /* border-radius: 15px; */
 
     & > #img-container  {
         position: relative;
