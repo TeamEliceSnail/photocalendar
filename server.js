@@ -30,24 +30,24 @@ app.get('/', (req, res)=>{
 
 //insert test
 
-    const mainP = new mainPage({
-        date: '20220426',
-          photoUrl: '테스트이미지주소',
-          title: '제목',
-          content:'내용',
-          dateTag: {
-              month: 4,
-              day : 26
-          },
-          bookmark: true,
-    } );
-        mainP.save()
-        .then(()=>{
-            console.log('데이터 삽입 성공')
-        })
-        .catch((err)=>{
-            console.log(err)
-        })
+    // const mainP = new mainPage({
+    //     date: '20220426',
+    //       photoUrl: '테스트이미지주소',
+    //       title: '제목',
+    //       content:'내용',
+    //       dateTag: {
+    //           month: 4,
+    //           day : 26
+    //       },
+    //       bookmark: true,
+    // } );
+    //     mainP.save()
+    //     .then(()=>{
+    //         console.log('데이터 삽입 성공')
+    //     })
+    //     .catch((err)=>{
+    //         console.log(err)
+    //     })
         
 
 
