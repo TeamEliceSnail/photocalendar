@@ -1,12 +1,12 @@
-import CalendarHeader from './components/CalendarHeader';
-// import CalendarSection from './components/calendarSection';
+import CalendarHeader from './components/calendarHeader';
+import CalendarMain from './components/calendarMain';
 import { HomePageContainer } from './style';
 
 const HomePage = () => {
     return (
         <HomePageContainer>
             <CalendarHeader />
-            {/* <CalendarSection /> */}
+            <CalendarMain />
         </HomePageContainer>
     );
 };
