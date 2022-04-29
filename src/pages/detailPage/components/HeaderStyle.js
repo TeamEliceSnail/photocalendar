@@ -10,7 +10,7 @@ export default styled.div`
     justify-content: space-between;
     align-items: center;
     border-bottom: solid;
-    z-index: -1;
+    z-index: -0.5;
     .date {
         margin-left: 50px;
         font-weight: bold;
@@ -18,5 +18,7 @@ export default styled.div`
     }
     .menu {
         margin-right: 20px;
+        cursor: pointer;
+        z-index: 99;
     }
 `;
