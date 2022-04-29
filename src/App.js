@@ -13,24 +13,29 @@ import Navigation from "./common/components/navigation";
 import HomePage from "./pages/homePage";
 import Login from "./pages/logIn";
 import DetailPage from "./pages/detailPage";
+import FavoritePage from "./pages/favoritePage";
 
 // recoil
 import { RecoilRoot } from "recoil";
 
+// testComponent
+import BookMark from "./common/components/bookmark";
+
 
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
-    const navToggle = () => navFlag ? setNavFlag(false) : setNavFlag(true);
+    const navToggle = () => setNavFlag(!navFlag)
 
     return (
         <RecoilRoot>
         <BrowserRouter>
-            <ToggleButton navToggle={navToggle} toggleImg={toggleImg} />
-            <Navigation navFlag={navFlag} navToggle={navToggle} />
+            {/* <ToggleButton navToggle={navToggle} toggleImg={toggleImg} />
+            <Navigation navFlag={navFlag} navToggle={navToggle} /> */}
             <Routes>
                 <Route path="/login" element={<Login />}></Route>
-                <Route path="/" element={<HomePage />}></Route>
-                <Route path="/detailPage" element={<DetailPage />}></Route>
+                <Route path="/" element={<FavoritePage />}></Route>
+                <Route path="/detailage" element={<DetailPage />}></Route>
+                <Route path="/component" element={<BookMark />}></Route>
             </Routes>
         </BrowserRouter>
         </RecoilRoot>
