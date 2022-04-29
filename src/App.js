@@ -31,10 +31,10 @@ const App = () => {
                 {/* <ToggleButton navToggle={navToggle} toggleImg={toggleImg} />
             <Navigation navFlag={navFlag} navToggle={navToggle} /> */}
                 <Routes>
-                    <Route path="/login" element={<Login />}></Route>
-                    <Route path="/" element={<FavoritePage />}></Route>
-                    <Route path="/detailpage" element={<DetailPage />}></Route>
-                    <Route path="/component" element={<BookMark />}></Route>
+                    <Route path='/login' element={<Login />}></Route>
+                    <Route path='/' element={<HomePage />}></Route>
+                    <Route path='/detailpage' element={<DetailPage />}></Route>
+                    <Route path='/component' element={<BookMark />}></Route>
                 </Routes>
             </BrowserRouter>
         </RecoilRoot>
