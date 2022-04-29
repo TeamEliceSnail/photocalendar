@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import CalendarHeaderContainer from './calendarHeaderStyle';
+import CalendarHeaderContainer from './CalendarHeaderStyle';
 
 const CalendarHeader = () => {
     const monthList = [
@@ -43,9 +43,17 @@ const CalendarHeader = () => {
 
     return (
         <CalendarHeaderContainer>
-            <MdKeyboardArrowLeft onClick={handleClick} id='left' className='icon_arrow' />
-            <h1 className='month'>{paintMonth(nowMonth)}</h1>
-            <MdKeyboardArrowRight onClick={handleClick} id='right' className='icon_arrow' />
+            <MdKeyboardArrowLeft
+                onClick={handleClick}
+                id="left"
+                className="icon_arrow"
+            />
+            <h1 className="month">{paintMonth(nowMonth)}</h1>
+            <MdKeyboardArrowRight
+                onClick={handleClick}
+                id="right"
+                className="icon_arrow"
+            />
         </CalendarHeaderContainer>
     );
 };
@@ -54,7 +62,7 @@ function paintMonth(str) {
     const [highlightWord, rest] = [str.slice(0, 3), str.slice(3)];
     return (
         <>
-            <span className='highlight'>{highlightWord}</span>
+            <span className="highlight">{highlightWord}</span>
             <span>{rest}</span>
         </>
     );
