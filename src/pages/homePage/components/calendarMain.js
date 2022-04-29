@@ -1,5 +1,5 @@
-import { DayComponent } from './day';
-import { Wrapper } from './calendarMainStyle';
+import { DayComponent } from './Day';
+import { Wrapper } from './CalendarMainStyle';
 
 const CalendarMain = () => {
     const currentYear = '2022';
@@ -13,7 +13,7 @@ const CalendarMain = () => {
 
     return (
         <Wrapper>
-            <section className='weekday'>
+            <section className="weekday">
                 <li>Sun</li>
                 <li>Mon</li>
                 <li>Tue</li>
