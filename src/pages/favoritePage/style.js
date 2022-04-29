@@ -9,5 +9,5 @@ export default styled.div`
         gap: 30px;
         height: 100%;
         padding: 12% 7% 0% 7%;
-    }
+    } 
 `

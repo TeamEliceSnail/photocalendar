@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import Wrapper from './likeItemStyle'
 import favoriteImg from '../../../common/img/favorite.png'
 
