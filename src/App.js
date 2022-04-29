@@ -3,7 +3,8 @@ import { useState } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 
 // img
-import toggleImg from "./common/img/menu.png";
+import toggleOnImg from "./common/img/menu.png";
+import toggleOffImg from "./common/img/x.png";
 
 // components
 import ToggleButton from "./common/components/toggleButton";
@@ -24,19 +25,26 @@ import BookMark from "./common/components/bookmark";
 
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
-    const navToggle = () => setNavFlag(!navFlag)
+    const [navBtnImg, setNavBtnImg] = useState(toggleOnImg);
+
+    const navToggle = () => {
+        navFlag 
+            ? (() => {setNavFlag(false); setNavBtnImg(toggleOnImg);})()
+            : (() => {setNavFlag(true); setNavBtnImg(toggleOffImg);})()
+    }
 
     return (
         <RecoilRoot>
         <BrowserRouter>
-            {/* <ToggleButton navToggle={navToggle} toggleImg={toggleImg} />
-            <Navigation navFlag={navFlag} navToggle={navToggle} /> */}
+            <div style={{ display: "flex"}}>
+            <ToggleButton navToggle={navToggle} toggleImg={navBtnImg} />
+            <Navigation navFlag={navFlag} navToggle={navToggle} />
             <Routes>
                 <Route path="/login" element={<Login />}></Route>
                 <Route path="/" element={<FavoritePage />}></Route>
                 <Route path="/detailage" element={<DetailPage />}></Route>
-                <Route path="/component" element={<BookMark />}></Route>
             </Routes>
+            </div>
         </BrowserRouter>
         </RecoilRoot>
     );

@@ -15,7 +15,7 @@ const LikeItem = () => {
             <div id="img-container"><img src={favoriteImg} alt="" /></div>
             <div id="detail-container">
                 <div id="detail-date">2022.04.27</div>
-                <div id="detail-content">Remember that happiness is a way of travel not a destination. Doesn’t matter which road you take, as long as you get to your destination.</div>
+                <div id="detail-content">정신차려 정진우l not a destination. Doesn’t matter which road you take, as long as you get to your destination.</div>
             </div>
         </Wrapper>
   )

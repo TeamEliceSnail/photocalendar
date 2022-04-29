@@ -10,8 +10,8 @@ const navOff = keyframes`
     to {margin-left: -250px;}
 `;
 
-    export default styled.nav`
-    position: fixed;
+export default styled.nav`
+    /* position: fixed; */
     display: flex;
     flex-direction: column;
     align-items: center;
