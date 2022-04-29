@@ -1,38 +1,31 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 export default styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
-    margin: 3%;
-    width: 25%;
-    overflow: hidden;
-
-    & div {
-        margin: 10px;
-    }
-
-    .btnDiv {
-        width: 100%;
-        display: flex;
-        justify-content: space-evenly;
-    }
-
+    margin: 3vh;
     .btn {
         all: unset;
-        border: 1px solid coral;
         padding: 0.5em 2em;
-        color: coral;
         border-radius: 10px;
+        cursor: pointer;
         &:hover {
             transition: all 0.3s ease-in-out;
-            background-color: coral;
-            color: #fff;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: white;
         }
     }
-    .sliderContainer {
-        width: ${(props) => props.size || "100"}%;
+    .slideContainer {
+        height: 70vh;
         display: flex;
+        flex-direction: column;
+        overflow: hidden;
+    }
+    .slider {
+        height: 100%;
+        display: flex;
+        text-align: center;
     }
 `;
