@@ -1,5 +1,5 @@
-import CalendarHeader from './components/calendarHeader';
-import CalendarMain from './components/calendarMain';
+import CalendarHeader from './components/CalendarHeader';
+import CalendarMain from './components/CalendarMain';
 import { HomePageContainer } from './style';
 import { Route, Link } from 'react-router-dom';
 
