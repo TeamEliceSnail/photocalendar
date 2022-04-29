@@ -35,6 +35,7 @@ const App = () => {
                     <Route path='/' element={<HomePage />}></Route>
                     <Route path='/detailpage' element={<DetailPage />}></Route>
                     <Route path='/component' element={<BookMark />}></Route>
+                    <Route path='/FavoritePage' element={<FavoritePage />}></Route>
                 </Routes>
             </BrowserRouter>
         </RecoilRoot>
