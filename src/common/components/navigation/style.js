@@ -10,8 +10,8 @@ const navOff = keyframes`
     to {margin-left: -250px;}
 `;
 
-    export default styled.nav`
-    position: fixed;
+export default styled.nav`
+    /* position: fixed; */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -20,20 +20,20 @@ const navOff = keyframes`
     width: 250px;
     height: 100vh;
     animation: ${(props) =>
-        props.navFlag
-        ? css`
-            ${navOn} 0.4s ease-out forwards
-            `
-        : css`
-            ${navOff} 0.4s ease-out forwards
-            `};
+    props.navFlag
+    ? css`
+        ${navOn} 0.4s ease-out forwards
+        `
+    : css`
+        ${navOff} 0.4s ease-out forwards
+        `};
 
-    & > img {
+    /* & > img {
         position: fixed;
         left: 200px;
         top: 20px;
-        width: 25px;
-        height: 25px;
+        width: 20px;
+        height: 20px;
         animation: ${(props) =>
         props.navFlag
             ? css`
@@ -47,5 +47,5 @@ const navOff = keyframes`
 
     & > img:hover {
         transform: scale(1.1);
-    }
+    } */
 `;

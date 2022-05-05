@@ -1,6 +1,6 @@
-import React from "react";
-import Wrapper from "./profileFormStyle";
-import profileimg from "../../../img/profile.jpg";
+import React from 'react';
+import Wrapper from './ProfileFormStyle';
+import profileimg from '../../../img/profile.jpg';
 
 const ProfileForm = () => {
     return (
