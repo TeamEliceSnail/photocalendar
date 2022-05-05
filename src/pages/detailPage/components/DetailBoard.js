@@ -29,14 +29,24 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
                 {!createBoard ? (
                     title
                 ) : (
-                    <textarea onChange={handleTitle} value={title} />
+                    <textarea
+                        className="title_textarea"
+                        onChange={handleTitle}
+                        value={title}
+                        placeholder="제목을 입력하세요."
+                    />
                 )}
             </div>
             <div id="content">
                 {!createBoard ? (
                     content
                 ) : (
-                    <textarea onChange={handleContent} value={content} />
+                    <textarea
+                        className="content_textarea"
+                        onChange={handleContent}
+                        value={content}
+                        placeholder="내용을 입력하세요."
+                    />
                 )}
             </div>
             <div id="btn_detail_confirm_cancle">

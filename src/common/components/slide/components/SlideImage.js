@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import Slide from './Image';
 import Wrapper from './SlideImageStyle';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
@@ -20,6 +20,7 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData }) => {
             ? setCurrentSlide(0)
             : setCurrentSlide(currentSlide + 1);
     };
+
     const prevSlide = () => {
         if (createBoard) {
             popData();
@@ -29,6 +30,7 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData }) => {
             ? setCurrentSlide(data.length - 1)
             : setCurrentSlide(currentSlide - 1);
     };
+
     useEffect(() => {
         setCurrentSlide(page);
     }, [page]);
@@ -43,11 +45,13 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData }) => {
 
     return (
         <Wrapper>
-            <MdArrowBackIos
-                className="btn prevBtn"
-                size={btnSize}
-                onClick={prevSlide}
-            />
+            <div>
+                <MdArrowBackIos
+                    className="btn prevBtn"
+                    size={btnSize}
+                    onClick={prevSlide}
+                />
+            </div>
             <div className="slideContainer">
                 <div className="slider" ref={slideRef}>
                     {data.map((item, i) => (
@@ -55,11 +59,13 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData }) => {
                     ))}
                 </div>
             </div>
-            <MdArrowForwardIos
-                className="btn nextBtn"
-                size={btnSize}
-                onClick={nextSlide}
-            />
+            <div>
+                <MdArrowForwardIos
+                    className="btn nextBtn"
+                    size={btnSize}
+                    onClick={nextSlide}
+                />
+            </div>
         </Wrapper>
     );
 };

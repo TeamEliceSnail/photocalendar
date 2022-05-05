@@ -8,6 +8,7 @@ export default styled.div`
         right: 0;
         bottom: 0;
         background-image: ${(props) => `url(${props.imgUrl})`};
+        background-color: #fef7c6;
         background-size: cover;
         background-repeat: no-repeat;
         width: 100%;
@@ -36,5 +37,7 @@ export default styled.div`
         margin: 40px;
         justify-content: space-around;
         display: flex;
+        background-color: #fff;
+        box-shadow: 4px 4px 10px grey;
     }
 `;
