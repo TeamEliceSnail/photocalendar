@@ -5,9 +5,7 @@ export const HomePageContainer = styled.div`
     position: absolute;
     top: 50%;
     left: 50%;
-    width: 1400px;
-    height: 900px;
+    width: 73%;
+    height: 95%;
     transform: translate(-50%, -50%);
-    justify-content: space-between;
-    flex-direction: column;
 `;
