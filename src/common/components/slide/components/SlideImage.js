@@ -3,21 +3,35 @@ import Slide from './Image';
 import Wrapper from './SlideImageStyle';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
 import PropTypes from 'prop-types';
+import { useRecoilState } from 'recoil';
+import { createBoardState } from '../../../../recoil';
 
-const SlideImage = ({ data, btnSize, handlePage }) => {
+const SlideImage = ({ data, btnSize, handlePage, page, popData }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
+    const [createBoard, setCreateBoard] = useRecoilState(createBoardState);
     const slideRef = useRef(null);
 
     const nextSlide = () => {
+        if (createBoard) {
+            popData();
+            setCreateBoard(false);
+        }
         currentSlide >= data.length - 1
             ? setCurrentSlide(0)
             : setCurrentSlide(currentSlide + 1);
     };
     const prevSlide = () => {
+        if (createBoard) {
+            popData();
+            setCreateBoard(false);
+        }
         currentSlide === 0
             ? setCurrentSlide(data.length - 1)
             : setCurrentSlide(currentSlide - 1);
     };
+    useEffect(() => {
+        setCurrentSlide(page);
+    }, [page]);
 
     useEffect(() => {
         handlePage(currentSlide);
