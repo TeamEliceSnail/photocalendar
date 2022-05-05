@@ -2,7 +2,7 @@ import React from 'react';
 import Wrapper from './style';
 import LikeItem from './components/LikeItem';
 
-const FavoritePage = () => {
+const LikePage = () => {
     return (
         <Wrapper>
             <div id="like-item-container">
@@ -14,4 +14,4 @@ const FavoritePage = () => {
     );
 };
 
-export default FavoritePage;
+export default LikePage;
