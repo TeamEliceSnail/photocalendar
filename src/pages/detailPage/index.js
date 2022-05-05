@@ -1,5 +1,5 @@
 import { useRecoilState } from 'recoil';
-import { createBoardState, modalState } from '../../recoil';
+import { boardEditState, modalState } from '../../recoil';
 import DetailBoard from './components/DetailBoard';
 import StyledDetailPage from './style';
 import CustomSlide from '../../common/components/slide/index';
@@ -31,7 +31,8 @@ const obj = [
 const DetailPage = () => {
     const [page, setPage] = useState(0);
     const [modalFlag, setModalFlag] = useRecoilState(modalState);
-    const [createBoard, setCreateBoard] = useRecoilState(createBoardState);
+    const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
+    const [addFlag, setAddFlag] = useState(false);
     const [data, setData] = useState(obj);
 
     const handlePage = (p) => {
@@ -42,20 +43,25 @@ const DetailPage = () => {
         data.push({ url: '', title: '', content: '' });
         setData(data);
         setModalFlag(!modalFlag);
+        setAddFlag(!addFlag);
         handlePage(data.length - 1);
-        setCreateBoard(!createBoard);
+        setBoardEditFlag(!boardEditFlag);
     };
     const cancelBoard = () => {
-        popData();
-        handlePage(data.length - 1);
-        setCreateBoard(!createBoard);
+        if (addFlag) {
+            popData();
+            handlePage(data.length - 1);
+            setAddFlag(!addFlag);
+        }
+        setBoardEditFlag(!boardEditFlag);
     };
     const popData = () => {
         data.pop();
         setData(data);
     };
     const modifyBoard = () => {
-        setCreateBoard(!createBoard);
+        setBoardEditFlag(!boardEditFlag);
+        setModalFlag(!modalFlag);
     };
 
     const deleteBoard = () => {};
@@ -63,13 +69,14 @@ const DetailPage = () => {
     return (
         <>
             <StyledDetailPage>
-                <Header addBoard={addBoard} />
+                <Header addBoard={addBoard} modifyBoard={modifyBoard} />
                 <div className="content">
                     <CustomSlide
                         data={data}
                         handlePage={handlePage}
                         page={page}
                         popData={popData}
+                        addFlag={addFlag}
                     />
                     <DetailBoard
                         data={data}

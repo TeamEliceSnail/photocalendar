@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 export default styled.div`
-    /* background-color: gray; */
     display: flex;
     flex-direction: column;
     width: 60vh;
@@ -12,28 +11,20 @@ export default styled.div`
     border-left: 2px solid gray;
     margin: 3vh;
     & > #title {
-        /* background-color: gray; */
-        /* width: 90vh; */
         width: 100%;
         margin-left: 8vh;
         font-size: 3rem;
-        /* box-shadow: 2px 2px; */
     }
 
     & > #content {
         margin: 3vh;
         font-size: 25px;
-        /* background-color: gray; */
         height: 55vh;
         width: 52vh;
         word-break: break-all;
-        /* box-shadow: 2px 2px; */
-        /* padding: 30px; */
-        /* border-radius: 30px; */
     }
 
     .title_textarea {
-        /* border: none; */
         border: solid #ffebcc;
         width: 87%;
         height: 100%;

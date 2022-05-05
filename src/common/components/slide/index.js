@@ -14,7 +14,7 @@ const default_data = [
 ];
 // const TOTAL_SLIDES = json.length;
 
-const CustomSlide = ({ data, btnSize, handlePage, page, popData }) => {
+const CustomSlide = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
     return (
         <SlideImage
             data={data}
@@ -22,6 +22,7 @@ const CustomSlide = ({ data, btnSize, handlePage, page, popData }) => {
             handlePage={handlePage}
             page={page}
             popData={popData}
+            addFlag={addFlag}
         />
     );
 };
@@ -36,4 +37,8 @@ CustomSlide.defaultProps = {
 CustomSlide.propTypes = {
     data: PropTypes.array,
     btnSize: PropTypes.number,
+    handlePage: PropTypes.func,
+    page: PropTypes.number,
+    popData: PropTypes.func,
+    addFlag: PropTypes.bool,
 };
