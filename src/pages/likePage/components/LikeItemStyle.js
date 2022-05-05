@@ -36,12 +36,23 @@ export default styled.div`
         flex-direction: column;
     }
 
-    & > #detail-container > #detail-date {
+    & > #detail-container > #detail-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin: 1% 0% 3% 0%;
         height: 30%;
-        margin: 3% 0 3% 0;
     }
 
-    & > #detail-container > #detail-content {
+    /* & > #detail-container > #detail-header > #detail-date {
+    }
+
+    & > #detail-container > #detail-header > #like-btn {
+        height: 30%;
+        margin-top: 2%;
+    } */
+
+    & > #detail-container > #detail-body {
         height: 40%;
         color: gray;
         font-weight: 200;
@@ -49,7 +60,4 @@ export default styled.div`
         overflow-x: hidden;
         text-overflow: ellipsis
     }
-
-
-
 `
