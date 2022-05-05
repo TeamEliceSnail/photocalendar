@@ -1,14 +1,14 @@
 // modules
-import { useState } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useState } from 'react';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 // img
 import toggleOnImg from "./common/img/menu.png";
 import toggleOffImg from "./common/img/x.png";
 
 // components
-import ToggleButton from "./common/components/toggleButton";
-import Navigation from "./common/components/navigation";
+import ToggleButton from './common/components/toggleButton';
+import Navigation from './common/components/navigation';
 
 // pages
 import HomePage from "./pages/homePage";
@@ -16,8 +16,9 @@ import Login from "./pages/logIn";
 import DetailPage from "./pages/detailPage";
 import LikePage from "./pages/likePage";
 
+
 // recoil
-import { RecoilRoot } from "recoil";
+import { RecoilRoot } from 'recoil';
 
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);

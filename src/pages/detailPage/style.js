@@ -38,8 +38,8 @@ export default styled.div`
         width: 90%;
         height: 90%;
         margin: 40px;
-        border-radius: 30px;
-        background-color: rgba(255, 235, 204, 0.3);
+        /* border-radius: 30px; */
+        /* background-color: rgba(255, 235, 204, 0.3); */
         justify-content: space-around;
         /* align-items: center; */
         display: flex;
