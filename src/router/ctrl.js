@@ -1,16 +1,11 @@
-const mongoose = require("../../server.js");
-
-if(mongoose){
-    console.log("연결성공!");
-}
-
-
+const mongoose = require("mongoose");
+const { mainPage } = require("../../db");
 const output={
     home: (req, res) =>{
         res.send("Hello");
     },
     login: (req,res)=>{
-        res.json("로그인 페이지");
+        res.json("mainpagedata");
     },
     input: (req, res)=>{
         res.send("/detail page");
@@ -26,3 +21,13 @@ const output={
 module.exports={
     output,
 }
+
+
+mainPage.findOne({ date: "20220426"}, function (err, docs) {
+    if (err){
+        console.log(err)
+    }
+    else{
+        console.log("Result : ", docs);
+    }
+});

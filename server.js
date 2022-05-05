@@ -33,13 +33,7 @@ mongoose.connect(process.env.DBURL, {
 
 
 
-
 var now = new Date();
-
-
-
 
 app.use("/", home);
 
-
-modules.exports=mongoose;
