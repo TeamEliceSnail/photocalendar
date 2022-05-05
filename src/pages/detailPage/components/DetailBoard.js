@@ -1,10 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import createBoardState from '../../../recoil/createBoardState';
 import Wrapper from './DetailBoardStyle';
+import PropTypes from 'prop-types';
 
-const DetailBoard = () => {
+const DetailBoard = ({ data, page }) => {
     const [createBoard, setCreateBoard] = useRecoilState(createBoardState);
+
     const [title, setTitle] = useState('TITLE');
     const [content, setContent] = useState(
         'contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent'
@@ -17,6 +19,12 @@ const DetailBoard = () => {
     const handleContent = (e) => {
         setContent(e.target.value);
     };
+
+    useEffect(() => {
+        setTitle(data[page].title);
+        setContent(data[page].content);
+    }, [page]);
+
     return (
         <Wrapper>
             <div id="title">
@@ -38,3 +46,17 @@ const DetailBoard = () => {
 };
 
 export default DetailBoard;
+
+DetailBoard.defaultProps = {
+    data: [
+        {
+            url: 'images/picture01.jpg',
+            title: '없음',
+            content: '없음',
+        },
+    ],
+};
+
+DetailBoard.propTypes = {
+    data: PropTypes.array,
+};
