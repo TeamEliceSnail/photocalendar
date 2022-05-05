@@ -25,17 +25,10 @@ import axios from 'axios';
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
     const navToggle = () => setNavFlag(!navFlag);
-    const callApi = async()=>{
-        const response = await axios.get('http://localhost:5030/')
-        const data = await response.json();
-        return data;
-    }
-    callApi()
-    .then(res=>console.log(res))
-    .catch(err=>console.log(err))
-   
+    axios.get('http://localhost:5030')
+    .then(data=>console.log(data))
+    .catch(error=>console.log(error))
     
-  
     return (
         <RecoilRoot>
             <BrowserRouter>
