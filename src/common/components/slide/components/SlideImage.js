@@ -2,23 +2,25 @@ import { useEffect, useRef, useState } from 'react';
 import Slide from './Image';
 import Wrapper from './SlideImageStyle';
 import { MdArrowBackIos, MdArrowForwardIos } from 'react-icons/md';
+import PropTypes from 'prop-types';
 
-const SlideImage = ({ jsonObj, btnSize }) => {
+const SlideImage = ({ data, btnSize, handlePage }) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const slideRef = useRef(null);
 
     const nextSlide = () => {
-        currentSlide >= jsonObj.length - 1
+        currentSlide >= data.length - 1
             ? setCurrentSlide(0)
             : setCurrentSlide(currentSlide + 1);
     };
     const prevSlide = () => {
         currentSlide === 0
-            ? setCurrentSlide(jsonObj.length - 1)
+            ? setCurrentSlide(data.length - 1)
             : setCurrentSlide(currentSlide - 1);
     };
 
     useEffect(() => {
+        handlePage(currentSlide);
         slideRef.current.style.transition = 'all 0.5s ease-in-out';
         slideRef.current.style.transform = `translateX(-${
             currentSlide * 100
@@ -34,7 +36,7 @@ const SlideImage = ({ jsonObj, btnSize }) => {
             />
             <div className="slideContainer">
                 <div className="slider" ref={slideRef}>
-                    {jsonObj.map((item, i) => (
+                    {data.map((item, i) => (
                         <Slide key={i} img={item.url}></Slide>
                     ))}
                 </div>
@@ -46,6 +48,20 @@ const SlideImage = ({ jsonObj, btnSize }) => {
             />
         </Wrapper>
     );
+};
+
+SlideImage.defaultProps = {
+    data: [
+        {
+            url: 'images/picture01.jpg',
+            title: '없음',
+            content: '없음',
+        },
+    ],
+};
+
+SlideImage.propTypes = {
+    data: PropTypes.array,
 };
 
 export default SlideImage;
