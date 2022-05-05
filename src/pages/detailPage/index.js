@@ -58,21 +58,23 @@ const DetailPage = () => {
         setCreateBoard(!createBoard);
     };
 
+    const deleteBoard = () => {};
+
     return (
         <>
             <StyledDetailPage>
                 <Header addBoard={addBoard} />
                 <div className="content">
-                    <DetailBoard
-                        data={data}
-                        page={page}
-                        cancelBoard={cancelBoard}
-                    />
                     <CustomSlide
                         data={data}
                         handlePage={handlePage}
                         page={page}
                         popData={popData}
+                    />
+                    <DetailBoard
+                        data={data}
+                        page={page}
+                        cancelBoard={cancelBoard}
                     />
                 </div>
             </StyledDetailPage>
