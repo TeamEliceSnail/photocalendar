@@ -17,7 +17,7 @@ const Header = () => {
     return (
         <>
             <HeaderStyle>
-                <div className="date">3일의 기록</div>
+                <div className="date">4월 3일</div>
                 <BsThreeDots
                     size={30}
                     className="menu"
