@@ -6,7 +6,9 @@ import Wrapper from './DetailBoardStyle';
 const DetailBoard = () => {
     const [createBoard, setCreateBoard] = useRecoilState(createBoardState);
     const [title, setTitle] = useState('TITLE');
-    const [content, setContent] = useState('content');
+    const [content, setContent] = useState(
+        'contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent'
+    );
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -17,13 +19,13 @@ const DetailBoard = () => {
     };
     return (
         <Wrapper>
-            {/* <div id="title">
+            <div id="title">
                 {!createBoard ? (
                     title
                 ) : (
                     <textarea onChange={handleTitle} value={title} />
                 )}
-            </div> */}
+            </div>
             <div id="content">
                 {!createBoard ? (
                     content
