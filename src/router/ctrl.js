@@ -1,4 +1,3 @@
-const mongoose = require("mongoose");
 const { mainPage } = require("../../db");
 const output={
     home: (req, res) =>{

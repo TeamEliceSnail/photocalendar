@@ -1,29 +1,16 @@
 const mongoose = require("mongoose");
 
-const mainPageSchema = mongoose.Schema({
-    date: {
+const articleSchema = mongoose.Schema({
+    id_token: {
       type: String
     },
-    photoUrl: {
-      type: String
+    articleList: {
+      type: object
     },
-    title: {
-      type: String
-    },
-    content: {
-      type: String
-    },
-    dateTag: {
-        month: Number,
-        day : Number
-    },
-    bookmark:{
-        type: Boolean,
-        default: false
-    }
+    
 },
 {timestamps:true});
 
-const mainPage = mongoose.model("mainPage", mainPageSchema);
+const article = mongoose.model("article", articleSchema);
 
-module.exports = { mainPage };
+module.exports = { article };

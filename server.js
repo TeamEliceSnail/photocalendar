@@ -4,7 +4,7 @@ const app = express();
 const mongoose = require("mongoose");
 const react = require("react");
 const cors = require('cors')
-const { mainPage } = require("./db");
+const { article } = require("./db");
 
 
 
