@@ -3,17 +3,18 @@ import { BsThreeDots } from 'react-icons/bs';
 import Modal from '../../../common/components/modal';
 import { useRecoilState } from 'recoil';
 import modalState from '../../../recoil/modalState';
-const Header = () => {
+const Header = ({ addBoard }) => {
     const [modalFlag, setModalFlag] = useRecoilState(modalState);
 
     const handleOpenModal = () => {
         setModalFlag(!modalFlag);
     };
     const content = [
-        { name: '추가', key: 'c' },
+        { name: '추가', key: 'c', event: addBoard },
         { name: '수정', key: 'u' },
         { name: '삭제', key: 'd' },
     ];
+
     return (
         <>
             <HeaderStyle>

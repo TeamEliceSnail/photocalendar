@@ -4,13 +4,11 @@ import createBoardState from '../../../recoil/createBoardState';
 import Wrapper from './DetailBoardStyle';
 import PropTypes from 'prop-types';
 
-const DetailBoard = ({ data, page }) => {
+const DetailBoard = ({ data, page, cancelBoard }) => {
     const [createBoard, setCreateBoard] = useRecoilState(createBoardState);
 
-    const [title, setTitle] = useState('TITLE');
-    const [content, setContent] = useState(
-        'contentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontentcontent'
-    );
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
 
     const handleTitle = (e) => {
         setTitle(e.target.value);
@@ -39,6 +37,14 @@ const DetailBoard = ({ data, page }) => {
                     content
                 ) : (
                     <textarea onChange={handleContent} value={content} />
+                )}
+            </div>
+            <div id="btn_detail_confirm_cancle">
+                {!createBoard ? null : (
+                    <>
+                        <button onClick={cancelBoard}>확인</button>
+                        <button onClick={cancelBoard}>취소</button>
+                    </>
                 )}
             </div>
         </Wrapper>
