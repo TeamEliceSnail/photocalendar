@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const CalendarHeaderContainer = styled.header`
+export const Wrapper = styled.header`
     display: flex;
     width: 100%;
     height: 100px;
@@ -8,7 +8,7 @@ const CalendarHeaderContainer = styled.header`
     align-items: center;
 
     .icon_arrow {
-        font-size: 4rem;
+        font-size: 5rem;
         cursor: pointer;
     }
 
@@ -25,5 +25,3 @@ const CalendarHeaderContainer = styled.header`
         }
     }
 `;
-
-export default CalendarHeaderContainer;

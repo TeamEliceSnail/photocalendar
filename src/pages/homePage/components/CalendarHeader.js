@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
-import CalendarHeaderContainer from './calendarHeaderStyle';
+import { Wrapper } from './CalendarHeaderStyle';
 
 const CalendarHeader = () => {
     const monthList = [
@@ -18,35 +18,38 @@ const CalendarHeader = () => {
         'December',
     ];
     const nowDate = new Date();
-    const [pos, setPos] = useState(nowDate.getMonth());
-    const [nowMonth, setMonth] = useState(monthList[pos]);
+    const [monthPosition, setMonthPositon] = useState(nowDate.getMonth());
+    const [nowMonth, setNowMonth] = useState(monthList[monthPosition]);
 
-    const handleClick = (event) => {
-        const direction = event.target.id;
-        let currentPos = pos;
-        if (direction === 'left') {
-            if (currentPos - 1 < 0) {
-                currentPos = 11;
-            } else {
-                currentPos -= 1;
-            }
-        } else if (direction === 'right') {
-            if (currentPos + 1 > 11) {
-                currentPos = 0;
-            } else {
-                currentPos += 1;
-            }
+    const handleLeftClick = () => {
+        let currentPos = monthPosition;
+        if (currentPos - 1 < 0) {
+            currentPos = 11;
+        } else {
+            currentPos -= 1;
         }
-        setPos(currentPos);
-        setMonth(monthList[currentPos]);
+        setMonthPositon(currentPos);
+        setNowMonth(monthList[currentPos]);
+    };
+
+    const handleRightClick = () => {
+        let currentPos = monthPosition;
+
+        if (currentPos + 1 > 11) {
+            currentPos = 0;
+        } else {
+            currentPos += 1;
+        }
+        setMonthPositon(currentPos);
+        setNowMonth(monthList[currentPos]);
     };
 
     return (
-        <CalendarHeaderContainer>
-            <MdKeyboardArrowLeft onClick={handleClick} id='left' className='icon_arrow' />
+        <Wrapper>
+            <MdKeyboardArrowLeft onClick={handleLeftClick} className='icon_arrow' />
             <h1 className='month'>{paintMonth(nowMonth)}</h1>
-            <MdKeyboardArrowRight onClick={handleClick} id='right' className='icon_arrow' />
-        </CalendarHeaderContainer>
+            <MdKeyboardArrowRight onClick={handleRightClick} className='icon_arrow' />
+        </Wrapper>
     );
 };
 
