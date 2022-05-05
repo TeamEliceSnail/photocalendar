@@ -21,12 +21,3 @@ module.exports={
     output,
 }
 
-
-mainPage.findOne({ date: "20220426"}, function (err, docs) {
-    if (err){
-        console.log(err)
-    }
-    else{
-        console.log("Result : ", docs);
-    }
-});
