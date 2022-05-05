@@ -20,11 +20,22 @@ import { RecoilRoot } from 'recoil';
 
 // testComponent
 import BookMark from './common/components/bookmark';
+import axios from 'axios';
 
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
     const navToggle = () => setNavFlag(!navFlag);
-
+    const callApi = async()=>{
+        const response = await axios.get('http://localhost:5030/')
+        const data = await response.json();
+        return data;
+    }
+    callApi()
+    .then(res=>console.log(res))
+    .catch(err=>console.log(err))
+   
+    
+  
     return (
         <RecoilRoot>
             <BrowserRouter>
@@ -41,5 +52,4 @@ const App = () => {
         </RecoilRoot>
     );
 };
-
 export default App;
