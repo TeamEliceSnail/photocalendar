@@ -8,7 +8,6 @@ export default styled.div`
     margin: 3vh;
     .btn {
         all: unset;
-        /* padding: 0.5em 2em; */
         border-radius: 10px;
         cursor: pointer;
         &:hover {
@@ -16,17 +15,7 @@ export default styled.div`
             background-color: rgba(255, 255, 255, 0.2);
             color: white;
         }
-        /* position: absolute; */
     }
-    /* .prevBtn {
-        left: 85px;
-        top: 50px;
-    }
-
-    .nextBtn {
-        left: 20px;
-        top: 50px;
-    } */
     .slideContainer {
         position: relative;
         height: 70vh;

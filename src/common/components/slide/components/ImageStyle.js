@@ -5,5 +5,4 @@ export default styled.img`
     object-fit: contain;
     background-color: rgba(0, 0, 0, 0.8);
     vertical-align: middle;
-    /* border-radius: 30px; */
 `;

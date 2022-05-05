@@ -1,5 +1,5 @@
-import createBoardState from './createBoardState';
+import boardEditState from './boardEditState';
 import currentDateState from './currentDateState';
 import modalState from './modalState';
 
-export { createBoardState, currentDateState, modalState };
+export { boardEditState, currentDateState, modalState };

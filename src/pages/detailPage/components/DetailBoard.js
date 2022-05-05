@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
 import { useRecoilState } from 'recoil';
-import createBoardState from '../../../recoil/createBoardState';
+import boardEditState from '../../../recoil/boardEditState';
 import Wrapper from './DetailBoardStyle';
 import PropTypes from 'prop-types';
 
 const DetailBoard = ({ data, page, cancelBoard }) => {
-    const [createBoard, setCreateBoard] = useRecoilState(createBoardState);
+    const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
 
     const [title, setTitle] = useState('');
     const [content, setContent] = useState('');
@@ -26,7 +26,7 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
     return (
         <Wrapper>
             <div id="title">
-                {!createBoard ? (
+                {!boardEditFlag ? (
                     title
                 ) : (
                     <textarea
@@ -38,7 +38,7 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
                 )}
             </div>
             <div id="content">
-                {!createBoard ? (
+                {!boardEditFlag ? (
                     content
                 ) : (
                     <textarea
@@ -50,7 +50,7 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
                 )}
             </div>
             <div id="btn_detail_confirm_cancle">
-                {!createBoard ? null : (
+                {!boardEditFlag ? null : (
                     <>
                         <button onClick={cancelBoard}>확인</button>
                         <button onClick={cancelBoard}>취소</button>
