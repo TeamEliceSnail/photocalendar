@@ -1,18 +1,25 @@
+const mongoose = require("../../server.js");
+
+if(mongoose){
+    console.log("연결성공!");
+}
+
+
 const output={
     home: (req, res) =>{
         res.send("Hello");
     },
     login: (req,res)=>{
-        res.render("로그인 페이지");
+        res.json("로그인 페이지");
     },
     input: (req, res)=>{
-        res.render("/detail page");
+        res.send("/detail page");
     },
     detail: (req,res)=>{
-        res.render("/detail page");
+        res.send("/detail page");
     },
     profile: (req,res)=>{
-        res.render("/profile page");
+        res.send("/profile page");
     },
 }
 

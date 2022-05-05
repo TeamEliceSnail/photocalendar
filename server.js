@@ -12,7 +12,7 @@ app.listen(process.env.PORT, ()=>{
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 })
 
-const home = require("./src/router");
+const home = require("./src/router/router");
 
 
 app.set("views", "./src/pages");
@@ -40,3 +40,6 @@ var now = new Date();
 
 
 app.use("/", home);
+
+
+modules.exports=mongoose;
