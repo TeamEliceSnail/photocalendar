@@ -1,6 +1,6 @@
 const output={
     home: (req, res) =>{
-        res.render("인덱스페이지");
+        res.send("Hello");
     },
     login: (req,res)=>{
         res.render("로그인 페이지");
