@@ -5,7 +5,8 @@ const articleSchema = mongoose.Schema({
       type: String
     },
     articleList: {
-      type: object
+      type: object,
+      timestamps:true
     },
     
 },
