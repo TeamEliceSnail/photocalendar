@@ -3,7 +3,7 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const react = require("react");
-
+const cors = require('cors')
 const { mainPage } = require("./db");
 
 app.listen(process.env.PORT, ()=>{
