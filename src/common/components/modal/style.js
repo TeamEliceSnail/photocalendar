@@ -53,7 +53,6 @@ export default styled.div`
         align-items: center;
         width: 100%;
         height: 10vh;
-        /* border: solid; */
         cursor: pointer;
     }
     .btn:hover {
@@ -66,7 +65,6 @@ export default styled.div`
         align-items: center;
         width: 100%;
         height: 10vh;
-        /* border: solid; */
         cursor: pointer;
     }
     .closeBtn:hover {
