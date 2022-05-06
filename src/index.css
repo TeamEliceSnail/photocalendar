@@ -1,18 +1,17 @@
 @font-face {
     font-family: 'ACCchildrenheartOTF-Regular';
-    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112-2@1.0/ACCchildrenheartOTF-Regular.woff') format('woff');
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112-2@1.0/ACCchildrenheartOTF-Regular.woff')
+        format('woff');
     font-weight: normal;
     font-style: normal;
 }
 
 body {
     margin: 0;
+}
+
+body * {
     font-family: 'ACCchildrenheartOTF-Regular';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
 }

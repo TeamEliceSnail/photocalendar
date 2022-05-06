@@ -43,7 +43,7 @@ const App = () => {
                     <Navigation navFlag={navFlag} navToggle={navToggle} />
                     <Routes>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/" element={<LikePage />}></Route>
+                        <Route path="/" element={<HomePage />}></Route>
                         <Route
                             path="/detailpage"
                             element={<DetailPage />}
