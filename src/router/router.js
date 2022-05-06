@@ -9,28 +9,7 @@ const { uploadFile, getFileStream } = require('../../s3');
 const unlinkFile = util.promisify(fs.unlink)
 
 
-// uploadImg: (req,res)=>{
-//     res.send(`<!DOCTYPE html>
-// <html lang="en">
-// <head>
-//     <meta charset="UTF-8">
-//     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-//     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-//     <title></title>
-// </head>
-// <body>
-//     <form action="/sendImg" method="post" enctype="multipart/form-data">
-//         <input type="file" name='image' placeholder="Select file"/>
-//         <br/>
-//         <button>Upload</button>
-//     </form>
-// </body>
-// </html>`);
-
-
 router.get("/", ctrl.output.home);
-
-
 
 
 //이미지업로드 테스트케이스
