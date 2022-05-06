@@ -1,10 +1,12 @@
 const express = require("express");
 const router = express.Router();
 const ctrl = require("./ctrl");
-const { uploadFile } = require('../../s3');
+const { uploadFile, getFileStream } = require('../../s3');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
-
+const util = require('util');
+const fs = require('fs');
+const unlinkFile = util.promisify(fs.unlink)
 
 
 
@@ -12,6 +14,9 @@ const upload = multer({dest: 'uploads/'});
 router.get("/", ctrl.output.home);
 
 
+
+
+//이미지업로드 테스트케이스
 router.get("/images", (req,res)=>{
     res.send(`<!DOCTYPE html>
     <html lang="en">
@@ -35,10 +40,26 @@ router.post('/sendImg', upload.single('image'), async(req, res)=>{
     const file = req.file
     console.log(file);
     const result = await uploadFile(file)
+    await unlinkFile(file.path);
     console.log(result)
     const description = req.body.description;
-    res.send("해냈다 해냈어");
+    res.send({imagePath: `/images/${result.Key}`});
 })
+
+router.get('/images/:key', (req,res)=>{
+    const key = req.params.key
+    const readStream = getFileStream(key);
+
+    readStream.pipe(res)
+
+})
+
+
+//------------------이미지업로드 테스트케이스--------------------
+
+
+
+
 // router.get("/login", ctrl.output.login);
 
 // router.post("/login", "보안 미들웨어", ctrl.output.home);
