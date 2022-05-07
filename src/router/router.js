@@ -17,6 +17,14 @@ router.get("/login", ctrl.output.login);
 
 router.get("/like",ctrl.output.like);
 
+router.get("/user/:idToken/date/:date", ctrl.output.detail);
+
+router.post("/detailPost", ctrl.output.detailPost);
+
+router.delete("/detail/:post_id", ctrl.output.detailDel);
+
+
+
 //이미지업로드 테스트케이스
 router.get("/images", ctrl.output.uploadImg)
 
@@ -38,20 +46,5 @@ router.get('/images/:key', (req,res)=>{
 
 //------------------이미지업로드 테스트케이스--------------------
 
-// router.get("/login", ctrl.output.login);
-
-// router.post("/login", "보안 미들웨어", ctrl.output.home);
-
-// router.get("/home", "보안 미들웨어", ctrl.output.home);
-
-// router.post("/input", "보안 미들웨어", ctrl.output.detail);
-
-// router.get("/detail", "보안 미들웨어",ctrl.output.detail)
-
-// router.post("/detail", "보안 미들웨어", ctrl.output.detail)
-
-// router.get("/profile", "보안 미들웨어", ctrl.output.profile)
-
-// router.post("/profile", "보안 미들웨어", ctrl.output.profile);
 
 module.exports = router;
