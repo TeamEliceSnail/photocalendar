@@ -31,11 +31,7 @@ router.get('/images/:key', (req,res)=>{
     readStream.pipe(res)
 })
 
-
 //------------------이미지업로드 테스트케이스--------------------
-
-
-
 
 // router.get("/login", ctrl.output.login);
 
