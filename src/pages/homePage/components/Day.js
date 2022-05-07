@@ -4,7 +4,9 @@ export const DayComponent = ({ informationDay }) => {
     return (
         <Wrapper
             styledCount={informationDay.day}
-            className={`${informationDay.state} ${isNowDate(informationDay)}`.trim()}
+            className={`${informationDay.state} ${isNowDate(
+                informationDay
+            )}`.trim()}
         >
             {informationDay.date}
         </Wrapper>
