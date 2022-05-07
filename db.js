@@ -21,7 +21,7 @@ const articleSchema = mongoose.Schema({
     imgurl:{
       type: String,
     },
-    Like:{
+    like:{
       type: Boolean,
       default: false,
     },
