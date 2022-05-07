@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
 
+
+
 const articleSchema = mongoose.Schema({
     id_token: {
-      type: String
+      type: String,
+      required:true,
+      
     },
     articleList: {
-      type: object,
-      timestamps:true
+      type: Array
     },
     
 },
