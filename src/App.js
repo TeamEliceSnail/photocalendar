@@ -54,5 +54,4 @@ const App = () => {
         </RecoilRoot>
     );
 };
-
 export default App;
