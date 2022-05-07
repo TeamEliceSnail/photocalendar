@@ -8,8 +8,22 @@ const articleSchema = mongoose.Schema({
       required:true,
       
     },
-    articleList: {
-      type: Array
+    date: {
+      type: Date,
+      required:true,
+    },
+    title:{
+      type: String,
+    },
+    content:{
+      type: String,
+    },
+    imgurl:{
+      type: String,
+    },
+    Like:{
+      type: Boolean,
+      default: false,
     },
     
 },

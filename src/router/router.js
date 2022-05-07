@@ -5,11 +5,9 @@ const ctrl = require("./ctrl");
 
 router.get("/", ctrl.output.home);
 
-// router.get("/login", ctrl.output.login);
-
-// router.post("/login", "보안 미들웨어", ctrl.output.home);
-
-// router.get("/home", "보안 미들웨어", ctrl.output.home);
+router.get("/login/:id", ctrl.output.login);
+router.get("/login", ctrl.output.login);
+router.get("/like",ctrl.output.home);
 
 
 // router.post("/input", "보안 미들웨어", ctrl.output.detail);

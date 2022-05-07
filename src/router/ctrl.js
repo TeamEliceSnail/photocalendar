@@ -1,22 +1,32 @@
 const { article } = require("../../db");
 
-// article.insertMany({id_token:"dfd",articleList:[{data:"20220505",imgUrl:"https://www.notion.so/image/https%3A%2F%2Fs3-us-west-2.amazonaws.com%2Fsecure.notion-static.com%2Fd6ebe2bd-7112-48cb-9263-f4f6fa19eddf%2F250F764250E2616A28.jpeg?table=block&id=98f12356-bd08-4920-9289-faf033e5aaf2&spaceId=3c47c5dc-57b2-4650-8134-7a627f04552f&width=2000&userId=af17e12c-b75e-477f-aacb-2aabaf421d79&cache=v2",title:"Big제목",content:"어떠한내용내용",like:false}]})
-// console.log()
+article.insertMany({
+    id_token:'aaa',
+    date: new Date(2022,3,1,12,30),
+    title: '첫번째',
+    content: '첫번째 내용입니다잉',
+    imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/053aa6171b0c65328586ee6fc9e7dd47',
+    Like: false,
+})
 
+let now = Date.now();
 
 
 const output={
     home: (req, res) =>{
-        res.send(article.findOne({id_token:"ddd"},function(err,data){
+        article.find({articleList:[{Like:false}]},function(err,data){
             if(err){
                 console.log(err)
             }else{
-                console.log(data)
+                res.json(data);
             }
-        }));
+        })
+        
     },
-    login: (req,res)=>{
+    login: (req,res,next)=>{
         res.json("mainpagedata");
+        console.log(typeof(req.params.id))
+        next()
     },
     input: (req, res)=>{
         res.send("/detail page");
@@ -25,6 +35,9 @@ const output={
         res.send("/detail page");
     },
     profile: (req,res)=>{
+        res.send("/profile page");
+    },
+    like: (req,res)=>{
         res.send("/profile page");
     },
 }
