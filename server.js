@@ -5,11 +5,23 @@ const mongoose = require("mongoose");
 const react = require("react");
 const cors = require('cors')
 const { article } = require("./db");
-
+const { uploadFile } = require('./s3');
+const multer = require('multer');
+const upload = multer({dest: 'uploads/'});
 
 
 app.listen(process.env.PORT, ()=>{
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
+})
+
+
+app.post('/images', upload.single('image'), async(req, res)=>{
+    const file = req.file
+    console.log(file);
+    const result = await uploadFile(file)
+    console.log(result)
+    const description = req.body.description;
+    res.send("해냈다 해냈어");
 })
 
 const home = require("./src/router/router");
@@ -36,4 +48,6 @@ mongoose.connect(process.env.DBURL, {
 var now = new Date();
 
 app.use("/", home);
+
+
 
