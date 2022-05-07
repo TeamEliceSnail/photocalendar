@@ -8,13 +8,13 @@ const { article } = require("./db");
 const { uploadFile } = require('./s3');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
-
+const bodyParser = require('body-parser');
 
 app.listen(process.env.PORT, ()=>{
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 })
 
-
+app.use(bodyParser.json());
 app.post('/images', upload.single('image'), async(req, res)=>{
     const file = req.file
     console.log(file);
