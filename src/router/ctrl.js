@@ -334,14 +334,13 @@ let now = Date.now();
 
 const output={
     home: (req, res) =>{
-        article.find({like:false},function(err,data){
+        article.find({id_token:'aaa'},function(err,data){
             if(err){
                 console.log(err)
             }else{
                 res.json(data);
             }
         })
-        
     },
     login: (req,res,next)=>{
         res.json("mainpagedata");
@@ -358,8 +357,15 @@ const output={
         res.send("/profile page");
     },
     like: (req,res)=>{
-        res.send("/profile page");
-    },
+        article.find({like:true},function(err,data){
+            if(err){
+                console.log(err)
+            }else{
+                res.json(data);
+            }
+        })
+        
+    }, 
 }
 
 module.exports={

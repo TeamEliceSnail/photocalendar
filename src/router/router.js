@@ -7,7 +7,7 @@ router.get("/", ctrl.output.home);
 
 router.get("/login/:id", ctrl.output.login);
 router.get("/login", ctrl.output.login);
-router.get("/like",ctrl.output.home);
+router.get("/like",ctrl.output.like);
 
 
 // router.post("/input", "보안 미들웨어", ctrl.output.detail);

@@ -25,7 +25,7 @@ import axios from 'axios';
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
     const navToggle = () => setNavFlag(!navFlag);
-    axios.get('http://localhost:5030/')
+    axios.get('http://localhost:5030/like')
     .then(data=>console.log(data))
     .catch(error=>console.log(error))
     
