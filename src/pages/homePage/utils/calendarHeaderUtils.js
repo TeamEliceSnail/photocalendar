@@ -3,7 +3,7 @@ export function paintMonth(month, year) {
     return (
         <>
             <p>
-                <span className='highlight_month'>{highlightWord}</span>
+                <span className="highlight_month">{highlightWord}</span>
                 <span>{rest}</span>
             </p>
             <p>{year}</p>

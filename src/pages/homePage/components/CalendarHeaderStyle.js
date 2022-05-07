@@ -26,9 +26,7 @@ const downside = keyframes`
 
 export const Wrapper = styled.header`
     display: flex;
-    position: absolute;
-    right: -15%;
-    width: 200px;
+    width: 10%;
     height: 100%;
     justify-content: center;
     align-items: center;
@@ -60,5 +58,6 @@ export const Wrapper = styled.header`
         span.highlight_month {
             color: #ff9999;
         }
+        cursor: pointer;
     }
 `;

@@ -5,8 +5,8 @@ import { HomePageContainer } from './style';
 const HomePage = () => {
     return (
         <HomePageContainer>
-            <CalendarHeader />
             <CalendarMain />
+            <CalendarHeader />
         </HomePageContainer>
     );
 };
