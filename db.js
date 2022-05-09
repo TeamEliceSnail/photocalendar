@@ -6,7 +6,6 @@ const articleSchema = mongoose.Schema({
     id_token: {
       type: String,
       required:true,
-      
     },
     date: {
       type: Date,
