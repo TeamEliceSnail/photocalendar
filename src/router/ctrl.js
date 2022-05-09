@@ -1,6 +1,7 @@
 const { article } = require("../../db");
 const axios = require('axios')
 const qs=require('qs')
+const jwt = require('jsonwebtoken');
 const kakaoClientID = '904d1d2aa96e5c26e05b03905933ef87'
 const kakaoClientSecret = 'rzK8inmejYty3s16HLr8QuuExuUqsP0H'
 const redirectUri = 'http://localhost:5030/auth/kakao/callback'
@@ -63,8 +64,14 @@ const output={
         }catch(err){
             res.json(err.data)
         }
+        const jwttoken = jwt.sign({
+            id: token.data.id
+        }, process.env.JWT_SECRET,{
+            issuer: "snail",
+        });
         console.log(token)
         console.log(user)
+        console.log(jwttoken);
         res.send('ok');
     
     },
