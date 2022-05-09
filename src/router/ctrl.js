@@ -1,4 +1,9 @@
 const { article } = require("../../db");
+const axios = require('axios')
+const qs=require('qs')
+const kakaoClientID = '904d1d2aa96e5c26e05b03905933ef87'
+const kakaoClientSecret = 'rzK8inmejYty3s16HLr8QuuExuUqsP0H'
+const redirectUri = 'http://localhost:5030/auth/kakao/callback'
 
 // article.insertMany([{
 //     id_token:'aaa',
@@ -341,6 +346,43 @@ const output={
                 res.json(data);
             }
         })
+    },
+    kakao:async(req,res)=>{
+        let token;
+        try{
+            token=await axios({ 
+                method:'POST',
+                url:'https://kauth.kakao.com/oauth/token',
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                data:qs.stringify({
+                    grant_type:'authorization_code',
+                    client_id:kakaoClientID,
+                    client_secret:kakaoClientSecret,
+                    redirectUri:redirectUri,
+                    code:req.query.code,
+                })
+            })
+        }catch(err){
+            res.json(err.data)
+        }
+        let user;
+        try{
+            user=await axios({
+                method:'GET',
+                url:'https://kapi.kakao.com/v2/user/me',
+                headers:{
+                    Authorization:`Bearer ${token.data.access_token}`
+                }
+            })
+        }catch(err){
+            res.json(err.data)
+        }
+        console.log(token)
+        console.log(user)
+        res.send('ok');
+    
     },
     login: (req,res,next)=>{
         res.json("mainpagedata");
