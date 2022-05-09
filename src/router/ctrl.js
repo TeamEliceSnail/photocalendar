@@ -9,10 +9,23 @@ const { mainPage } = require("../../db");
 let now = Date.now();
 
 const output={
-    home: (req, res) =>{
-        article.find({id_token:'aaa'},function(err,data){
+    home: (req, res) =>{ 
+        let d = req.params.d 
+        let d1 = 0;
+        if(Number(d[d.length-1])===1){
+            d1 = 12
+        }else{ 
+            d1 = Number(d[d.length-1])+1 
+        }
+        console.log(d.slice(0,4)+"-"+d1.toString())
+        const start = new Date(d)
+        const end  = new Date(d.slice(0,4)+"-"+d1.toString())   
+            
+        console.log(start)  
+        console.log(end)
+        article.find({date:{$gte:start,$lt:end}},function(err,data){
             if(err){
-                console.log(err)
+                console.log(err) 
             }else{
                 res.json(data);
             }
