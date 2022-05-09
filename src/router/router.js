@@ -19,17 +19,22 @@ router.get("/like",ctrl.output.like);
 
 router.get("/auth/kakao/callback",ctrl.output.kakao)
 
-router.get("/user/:idToken/date/:date", ctrl.output.detail);
+
+
+
+
+//----디테일페이지----
+router.get("/user/:idToken/date/:date", ctrl.output.detailGet);
 
 router.post("/detailPost", ctrl.output.detailPost);
 
-router.delete("/detail/:post_id", ctrl.output.detailDel);
+router.delete("/detailDel/:post_id", ctrl.output.detailDelete);
+
+router.put("/detailUpdate/:post_id", ctrl.output.detailUpdate);
+//---디테일페이지---
 
 
-
-//이미지업로드 테스트케이스
-router.get("/images", ctrl.output.uploadImg)
-
+//----이미지업로드---
 router.post('/sendImg', upload.single('image'),async(req, res)=>{
     const file = req.file
     console.log(file);
@@ -37,16 +42,15 @@ router.post('/sendImg', upload.single('image'),async(req, res)=>{
     await unlinkFile(file.path);
     console.log(result)
     const description = req.body.description;
-    res.send({imagePath: `/images/${result.Key}`});
+    res.status(200).json({
+        message: "Update success",
+        data:{
+            url: result.Location
+        }
+    })
 })
 
-router.get('/images/:key', (req,res)=>{
-    const key = req.params.key
-    const readStream = getFileStream(key);
-    readStream.pipe(res)
-})
 
-//------------------이미지업로드 테스트케이스--------------------
 
 
 module.exports = router;
