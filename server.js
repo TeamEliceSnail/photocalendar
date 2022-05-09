@@ -13,14 +13,15 @@ app.listen(process.env.PORT, ()=>{
 })
 
 const home = require("./src/router/router");
-
+const { Logger } = require("concurrently");
+const logger = require('morgan')
 
 app.set("views", "./src/pages");
 app.set("view engine", "react");
 app.engine("html", require("ejs").renderFile);
 
 app.use(cors());
-
+app.use(logger('dev'))
 
 mongoose.connect(process.env.DBURL, {
     useNewUrlParser: true, 
