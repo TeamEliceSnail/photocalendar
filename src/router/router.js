@@ -9,7 +9,7 @@ const { uploadFile, getFileStream } = require('../../s3');
 const unlinkFile = util.promisify(fs.unlink)
 
 
-router.get("/", ctrl.output.home);
+router.get("/:d", ctrl.output.home);
 
 router.get("/login/:id", ctrl.output.login);
 
