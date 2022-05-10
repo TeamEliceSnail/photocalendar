@@ -75,8 +75,7 @@ const DetailPage = () => {
 
     const deleteBoard = () => {};
 
-    const uploadImage = (e) => {
-        // e.preventDefault();
+    const uploadImage = () => {
         imgInput.current.click();
     };
 
