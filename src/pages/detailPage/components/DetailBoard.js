@@ -19,8 +19,8 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
     };
 
     useEffect(() => {
-        setTitle(data[page].title);
-        setContent(data[page].content);
+        setTitle(data[page].title || '');
+        setContent(data[page].content || '');
     }, [page]);
 
     return (
