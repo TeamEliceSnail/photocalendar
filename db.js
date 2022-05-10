@@ -31,8 +31,12 @@ const articleSchema = mongoose.Schema({
 
 
 const userSchema = mongoose.Schema({
-    id: {
+    id_token: {
       type: String,
+      required:true,
+    },
+    nickname:{
+      type:String,
     },
     email: {
       type: String,
