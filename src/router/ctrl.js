@@ -72,19 +72,24 @@ const output={
             res.json(err.data)
         }
         
-        users.findOne({id_token:user.data.id},(err,data)=>{
-            if(err){
-                console.log(err)
-            }else{
-                if(data){
-                    users.insertOne({ id_token : user.data.id, nickname : user.data.properties.nickname, email : user.data.kakao_account.email, refresh_token:token.data.refresh_token  } )
-
-                }else{
- 
-                } 
-            }
-        })
-
+        // users.findOne({id_token:user.data.id},(err,data)=>{
+        //     if(err){
+        //         console.log(err)
+        //     }else{
+        //         console.log(data)
+  
+                  
+        //     }
+        // }) 
+        console.log(token.data.refresh_token) 
+         
+        let atc = new users({ id_token : user.data.id, nickname : user.data.properties.nickname, email : user.data.kakao_account.email,refresh_token:token.data.refresh_token})
+        atc.save().then(newUser =>{
+            console.log("create 완료!")
+            
+        } )
+        
+      
         // db에 id_token값을 찾거나 없으면 만들어줌 passport
         const jwttoken = jwt.sign({ 
             id_token: user.data.id,

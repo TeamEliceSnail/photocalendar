@@ -8,9 +8,9 @@ const Login = () => {
           <a href={KAKAO_AUTH_URL}>
             <img src="//k.kakaocdn.net/14/dn/btqCn0WEmI3/nijroPfbpCa4at5EIsjyf0/o.jpg" /> </a>
         </div>
-      );
+      ); 
 }
 
-export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientID}&redirect_uri=${kakaoRedirectUri}&response_type=code&prompt=login`;
+export const KAKAO_AUTH_URL = `https://kauth.kakao.com/oauth/authorize?client_id=${kakaoClientID}&redirect_uri=${kakaoRedirectUri}&response_type=code`;
 
 export default Login
