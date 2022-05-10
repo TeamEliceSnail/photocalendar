@@ -6,7 +6,16 @@ import PropTypes from 'prop-types';
 import { useRecoilState } from 'recoil';
 import { boardEditState } from '../../../../recoil';
 
-const SlideImage = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
+const SlideImage = ({
+    data,
+    btnSize,
+    handlePage,
+    page,
+    popData,
+    addFlag,
+    uploadImage,
+    fileDataURL,
+}) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
     const slideRef = useRef(null);
@@ -55,7 +64,12 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
             <div className="slideContainer">
                 <div className="slider" ref={slideRef}>
                     {data.map((item, i) => (
-                        <Slide key={i} imgurl={item.imgurl} />
+                        <Slide
+                            key={i}
+                            imgurl={item.imgurl}
+                            uploadImage={uploadImage}
+                            fileDataURL={fileDataURL}
+                        />
                     ))}
                 </div>
             </div>
