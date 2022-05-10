@@ -1,346 +1,79 @@
 const { article } = require("../../db");
-
-// article.insertMany([{
-//     id_token:'aaa',
-//     date: new Date(2022,3,1,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/053aa6171b0c65328586ee6fc9e7dd47',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,1,12,30),
-//     title: '두번째',
-//     content: '두번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/11ef05ca5c4805df041fe50b052d775a',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,1,12,30),
-//     title: '세번째',
-//     content: '세번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/1b04ba6ed84c211d861ea49717c0cadc',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,2,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/2e3472a03978eae3a37d1a2af23f0347',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,2,12,30),
-//     title: '두번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/379d2d952a08dea7fe076e85c64b5c2a',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,3,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/3e46574234ce40cfb5730df74ba87831',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,4,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/41c3621d987d03e609d2247ddc02cf82',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,5,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/41d2bec6c78eebb239f763701c521f47',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,6,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/4f650352f21fcb93ec97cd2112717644',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,7,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/5be53bbf145f4cbd8d90cb900b58a7b3',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,8,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/60928fc2faf9ccf21e0ecc980e782a66',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,9,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/80eee05760eee70ed016adffcd2976eb',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,10,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/90f1f3985f960467ed7628a134a3522e',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,11,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/963a1c66e66bba4dabeeaad6ea12f614',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,12,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/976fa57e29e40fe6f9b8c64fe17347ab',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,13,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'ttps://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/9c399fdb7ca2e6251669cf320f0dc2a8',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,14,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/a49207c605b6c00eb1eaa2b89725f3e2',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,15,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/a4c3435a65fd0377d457d6ef1719665e',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,16,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/053aa6171b0c65328586ee6fc9e7dd47',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,17,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/abd5ce04262b0150464933067be3f8c8',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,18,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/aef9f0b46a5e378600da1ad2a6098cf3',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,19,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/afbf6d3855c7c37508d42caaeeaad48b',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,20,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/b4cefb1ac8a2697dc7ad85977ee5a1c6',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,21,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/b4d9659d2296f7721a378eef4768dbc5',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,22,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/bb72a2111701a659b74f50d44534b20f',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,23,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/c0e6f68e6e9ce56098233cd8ee1e520a',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,24,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/d7338f7515a44941336cf42c4b3810d6',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,25,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/dc858180fd93098fedcbfb841b2a52e6',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,26,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/dec84ac9d84c53fcbb15c9af45a1a9ad',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,27,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/e242fdc2a004c4501b2f12f6ef12b45b',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,28,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/e47993f4c2859c547be68e67c8fd720d',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,29,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/f2737f6177867e4adc8b00e1b6c80c63',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,3,30,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/e4d8383d41ba6c9eabd72aae5bd3e422',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,1,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/f9c260f147037bebb2a823771ee5546d',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,2,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/2345db0a9c8aea3a1fe3c724d423882a',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,3,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/38051817e1127caf399ad74b2b99483f',
-//     like: true,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,4,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/5b0528cbbd9dfb8b29c017a81e5ae8f4',
-//     like: false,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,5,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/06cc7e6bc79aa3dc3417aa6002ef20ae',
-//     like: false,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,6,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/b772ce9c24e2cf6b740af6494dd3e142',
-//     like: false,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,7,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/2e00352be3ea91f8af7bd970a93d8190',
-//     like: false,
-// },
-// {
-//     id_token:'aaa',
-//     date: new Date(2022,4,8,12,30),
-//     title: '첫번째',
-//     content: '첫번째 내용입니다잉',
-//     imgurl: 'https://team-elice-snail-photocalendar.s3.ap-northeast-2.amazonaws.com/464baaa8a0fab2b2461bd21725a83dee',
-//     like: false,
-// }])
+const axios = require('axios')
+const qs=require('qs')
+const jwt = require('jsonwebtoken');
+const kakaoClientID = '904d1d2aa96e5c26e05b03905933ef87'
+const kakaoClientSecret = 'rzK8inmejYty3s16HLr8QuuExuUqsP0H'
+const redirectUri = 'http://localhost:5030/auth/kakao/callback'
+const { mainPage } = require("../../db");
 
 let now = Date.now();
 
-
 const output={
-    home: (req, res) =>{
-        article.find({id_token:'aaa'},function(err,data){
+    home: (req, res) =>{ 
+        let d = req.params.d 
+        let d1 = 0;
+        if(Number(d[d.length-1])===1){
+            d1 = 12
+        }else{ 
+            d1 = Number(d[d.length-1])+1 
+        }
+        console.log(d.slice(0,4)+"-"+d1.toString())
+        const start = new Date(d)
+        const end  = new Date(d.slice(0,4)+"-"+d1.toString())   
+            
+        console.log(start)  
+        console.log(end)
+        article.find({date:{$gte:start,$lt:end}},function(err,data){
             if(err){
-                console.log(err)
+                console.log(err) 
             }else{
                 res.json(data);
             }
         })
+    },
+    kakao:async(req,res)=>{
+        let token;
+        try{
+            token=await axios({ 
+                method:'POST',
+                url:'https://kauth.kakao.com/oauth/token',
+                headers:{
+                    'content-type':'application/x-www-form-urlencoded'
+                },
+                data:qs.stringify({
+                    grant_type:'authorization_code',
+                    client_id:kakaoClientID,
+                    client_secret:kakaoClientSecret,
+                    redirectUri:redirectUri,
+                    code:req.query.code,
+                })
+            })
+        }catch(err){
+            res.json(err.data)
+        }
+        let user;
+        try{
+            user=await axios({
+                method:'GET',
+                url:'https://kapi.kakao.com/v2/user/me',
+                headers:{
+                    Authorization:`Bearer ${token.data.access_token}`
+                }
+            })
+        }catch(err){
+            res.json(err.data)
+        }
+        const jwttoken = jwt.sign({
+            id: token.data.id
+        }, process.env.JWT_SECRET,{
+            issuer: "snail",
+        });
+        console.log(token)
+        console.log(user)
+        console.log(jwttoken);
+        res.send('ok');
+    
     },
     login: (req,res,next)=>{
         res.json("mainpagedata");
@@ -348,9 +81,6 @@ const output={
         next()
     },
     input: (req, res)=>{
-        res.send("/detail page");
-    },
-    detail: (req,res)=>{
         res.send("/detail page");
     },
     profile: (req,res)=>{
@@ -366,7 +96,88 @@ const output={
         })
         
     }, 
+    detailGet: (req,res)=>{
+        const inputDate = req.params.date;
+        const nextDate = (parseInt(inputDate) + 1).toString()
+
+        const fixedDate = inputDate.slice(0, 4) + '-' + inputDate.slice(4,6) + '-' + inputDate.slice(6,8);
+        const fixedNext = nextDate.slice(0, 4) + '-' + nextDate.slice(4,6) + '-' + nextDate.slice(6,8);
+
+        const inputId = req.params.idToken
+        datetag = new Date(fixedDate);
+        dateend = new Date(fixedNext);
+
+        article.find({id_token: inputId, date:{$gte:datetag,$lt:dateend}}, (err, data)=>{
+            if(err){
+                console.log(err)
+            }
+            else{
+                res.json(data);
+            }
+        })
+    },
+    detailPost: (req, res)=>{
+        const { id_token, date, title, content, imgurl, like } = req.body;
+        const parsedDate = date.slice(0, 4) + '-' + date.slice(4,6) + '-' + date.slice(6,8);
+        const datetag = new Date(parsedDate);
+        var atc = new article({id_token, datetag, title, content, imgurl, like});
+        atc.save()
+        .then(newPost =>{
+            console.log("create 완료!")
+            res.json({
+                message: "Create Success!",
+                data: {
+                    post: newPost
+                }
+            })
+        })
+    },
+    detailDelete: async (req, res, next)=>{
+        const post_id = req.params.post_id; //_id로 삭제할겁니다. 고유값이니까
+        article
+            .deleteOne({ _id: post_id })
+            .then(output=>{
+                if(output.n == 0)
+                    return res.status(404).json({ message: "post not found"});
+                console.log("Delete 완료");
+                res.status(200).json({
+                    message: "Delete Success"
+                });
+            })
+            .catch(err=>{
+                res.status(500).json({
+                    message:err
+                })
+            })
+    },
+
+    detailUpdate: async (req, res)=>{
+        const post_id = req.params.post_id;
+        const { title, content, like } = req.body;
+        try{
+            let post = await article.findById(post_id);
+            if(!post) return res.status(404).json({message:"해당 글이 없습니다"});
+            post.title = title;
+            post.content = content;
+            post.like = like;
+            var output = await post.save();
+            console.log("업데이트 완료!");
+            res.status(200).json({
+                message: "Update success",
+                data:{
+                    post: output
+                }
+            });
+        } catch(err){
+            res.status(500).json({
+                message: err
+            });
+        }
+    },
 }
+
+
+
 
 module.exports={
     output,
