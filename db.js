@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { string } = require("prop-types");
 
 
 
@@ -6,7 +7,6 @@ const articleSchema = mongoose.Schema({
     id_token: {
       type: String,
       required:true,
-      
     },
     date: {
       type: Date,
@@ -29,6 +29,19 @@ const articleSchema = mongoose.Schema({
 },
 {timestamps:true});
 
-const article = mongoose.model("article", articleSchema);
 
-module.exports = { article };
+const userSchema = mongoose.Schema({
+    id: {
+      type: String,
+    },
+    email: {
+      type: String,
+      default: "",
+    }
+},
+{timestamps:true});
+
+
+const article = mongoose.model("article", articleSchema);
+const user = mongoose.model("user", userSchema);
+module.exports = { article, user};
