@@ -1,13 +1,24 @@
 import React from 'react';
 import { ImgStyle, AddImgStyle } from './ImageStyle';
+import { useRecoilState } from 'recoil';
+import { boardEditState } from '../../../../recoil';
 
 const Slide = ({ imgurl, uploadImage, fileDataURL }) => {
+    const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
+
     const handleSlide = () => {
         uploadImage();
     };
 
     return imgurl ? (
-        <ImgStyle src={imgurl} />
+        boardEditFlag ? (
+            <AddImgStyle
+                src={fileDataURL ? fileDataURL : imgurl}
+                onClick={() => handleSlide()}
+            />
+        ) : (
+            <ImgStyle src={imgurl} />
+        )
     ) : (
         <AddImgStyle
             src={
