@@ -6,7 +6,7 @@ import CustomSlide from '../../common/components/slide/index';
 
 // import ControlMenu from './components/ControlMenu';
 import Header from './components/Header';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { logDOM } from '@testing-library/react';
@@ -21,6 +21,9 @@ const DetailPage = () => {
     const [data, setData] = useState([]);
     const [loading, setLoading] = useState(true);
     const { date } = useParams();
+    const imgInput = useRef(null);
+    const [file, setFile] = useState(null);
+    const [fileDataURL, setFileDataURL] = useState(null);
 
     const USER_ID = 'aaa';
 
@@ -72,6 +75,34 @@ const DetailPage = () => {
 
     const deleteBoard = () => {};
 
+    const uploadImage = (e) => {
+        // e.preventDefault();
+        imgInput.current.click();
+    };
+
+    const onImgChange = (e) => {
+        const file = e.target.files[0];
+        setFile(file);
+    };
+    useEffect(() => {
+        let reader,
+            isCancel = false;
+        if (file) {
+            reader = new FileReader();
+            reader.onload = (e) => {
+                const { result } = e.target;
+                if (result && !isCancel) {
+                    setFileDataURL(result);
+                }
+            };
+            reader.readAsDataURL(file);
+        }
+        return () => {
+            isCancel = true;
+            if (reader && reader.readyState === 1) reader.abort();
+        };
+    }, [file]);
+
     return (
         <>
             <StyledDetailPage>
@@ -86,6 +117,8 @@ const DetailPage = () => {
                             page={page}
                             popData={popData}
                             addFlag={addFlag}
+                            uploadImage={uploadImage}
+                            fileDataURL={fileDataURL}
                         />
                         <DetailBoard
                             data={data}
@@ -94,6 +127,13 @@ const DetailPage = () => {
                         />
                     </div>
                 )}
+                <input
+                    ref={imgInput}
+                    style={{ display: 'none' }}
+                    type="file"
+                    accept="image/*"
+                    onChange={onImgChange}
+                />
             </StyledDetailPage>
         </>
     );

@@ -1,16 +1,20 @@
 import React from 'react';
 import { ImgStyle, AddImgStyle } from './ImageStyle';
 
-const Slide = ({ imgurl }) => {
+const Slide = ({ imgurl, uploadImage, fileDataURL }) => {
     const handleSlide = () => {
-        console.log('click');
+        uploadImage();
     };
 
     return imgurl ? (
         <ImgStyle src={imgurl} />
     ) : (
         <AddImgStyle
-            src={`${process.env.PUBLIC_URL}/images/add_Btn3.png`}
+            src={
+                fileDataURL
+                    ? fileDataURL
+                    : `${process.env.PUBLIC_URL}/images/add_Btn3.png`
+            }
             onClick={() => handleSlide()}
         />
     );
