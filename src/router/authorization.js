@@ -6,7 +6,6 @@ const verifyToken = (req, res, next) => {
   try {
     const clientToken = req.cookies.user;
     const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
- 
     if (decoded) {
       res.locals.userId = decoded.user_id;
       next();
@@ -14,7 +13,8 @@ const verifyToken = (req, res, next) => {
       res.status(401).json({ error: 'unauthorized' });
     }
   } catch (err) {
-    res.status(401).json({ error: 'token expired' });
+    res.clearCookie('user');
+    res.render('../pages/logIn/index.js');
   }
 };
  
