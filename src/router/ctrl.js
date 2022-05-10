@@ -1,4 +1,6 @@
 const { article } = require("../../db");
+const express = require("express");
+const app = express();
 const axios = require('axios')
 const qs=require('qs')
 const jwt = require('jsonwebtoken');
@@ -6,6 +8,9 @@ const kakaoClientID = '904d1d2aa96e5c26e05b03905933ef87'
 const kakaoClientSecret = 'rzK8inmejYty3s16HLr8QuuExuUqsP0H'
 const redirectUri = 'http://localhost:5030/auth/kakao/callback'
 const { mainPage } = require("../../db");
+const { constSelector } = require("recoil");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 let now = Date.now();
 
@@ -64,17 +69,25 @@ const output={
         }catch(err){
             res.json(err.data)
         }
+        
         const jwttoken = jwt.sign({
             id: token.data.id
         }, process.env.JWT_SECRET,{
             issuer: "snail",
+            expiresIn: '7d'
         });
+
+        res.cookie('user', jwttoken);
+
+    
         console.log(token)
         console.log(user)
-        console.log(jwttoken);
+        console.log(jwttoken)
+
         res.send('ok');
     
     },
+    
     login: (req,res,next)=>{
         res.json("mainpagedata");
         console.log(typeof(req.params.id))
