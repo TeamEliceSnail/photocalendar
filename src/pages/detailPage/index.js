@@ -6,25 +6,10 @@ import CustomSlide from '../../common/components/slide/index';
 
 // import ControlMenu from './components/ControlMenu';
 import Header from './components/Header';
-import { useState } from 'react';
-
-const obj = [
-    {
-        url: 'images/picture02.jpg',
-        title: '안녕.',
-        content: '나는 산이야.',
-    },
-    {
-        url: 'images/picture01.jpg',
-        title: '메롱.',
-        content: 'ㅎㅎㅎㅎ',
-    },
-    {
-        url: 'images/picture03.jpg',
-        title: '메롱.',
-        content: 'ㅋㅋㅋ',
-    },
-];
+import { useEffect, useState } from 'react';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
+import { logDOM } from '@testing-library/react';
 
 // 상세페이지 메인
 // 필요 컴포넌트 1. 왼쪽 글,일자, 감정표현 2.슬라이드
@@ -33,20 +18,41 @@ const DetailPage = () => {
     const [modalFlag, setModalFlag] = useRecoilState(modalState);
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
     const [addFlag, setAddFlag] = useState(false);
-    const [data, setData] = useState(obj);
+    const [data, setData] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const { date } = useParams();
+
+    const USER_ID = 'aaa';
+
+    const getData = async () => {
+        try {
+            const res = await axios.get(
+                `http://localhost:5030/user/${USER_ID}/date/${date}`
+            );
+            setLoading((prev) => false);
+            setData((prev) => res.data);
+        } catch (error) {
+            console.log(`Error >>> ${error}`);
+        }
+    };
+
+    useEffect(() => {
+        getData();
+    }, []);
 
     const handlePage = (p) => {
         setPage(p);
     };
 
     const addBoard = () => {
-        data.push({ url: '', title: '', content: '' });
+        data.push({ imgurl: '', title: '', content: '' });
         setData(data);
         setModalFlag(!modalFlag);
         setAddFlag(!addFlag);
         handlePage(data.length - 1);
         setBoardEditFlag(!boardEditFlag);
     };
+
     const cancelBoard = () => {
         if (addFlag) {
             popData();
@@ -70,20 +76,24 @@ const DetailPage = () => {
         <>
             <StyledDetailPage>
                 <Header addBoard={addBoard} modifyBoard={modifyBoard} />
-                <div className="content">
-                    <CustomSlide
-                        data={data}
-                        handlePage={handlePage}
-                        page={page}
-                        popData={popData}
-                        addFlag={addFlag}
-                    />
-                    <DetailBoard
-                        data={data}
-                        page={page}
-                        cancelBoard={cancelBoard}
-                    />
-                </div>
+                {loading ? (
+                    <div>loading...</div>
+                ) : (
+                    <div className="content">
+                        <CustomSlide
+                            data={data}
+                            handlePage={handlePage}
+                            page={page}
+                            popData={popData}
+                            addFlag={addFlag}
+                        />
+                        <DetailBoard
+                            data={data}
+                            page={page}
+                            cancelBoard={cancelBoard}
+                        />
+                    </div>
+                )}
             </StyledDetailPage>
         </>
     );

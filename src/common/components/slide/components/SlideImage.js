@@ -55,7 +55,7 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
             <div className="slideContainer">
                 <div className="slider" ref={slideRef}>
                     {data.map((item, i) => (
-                        <Slide key={i} img={item.url}></Slide>
+                        <Slide key={i} imgurl={item.imgurl} />
                     ))}
                 </div>
             </div>
