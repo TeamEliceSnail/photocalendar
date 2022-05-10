@@ -16,15 +16,15 @@ const output={
         if(Number(d[d.length-1])===1){
             d1 = 12
         }else{ 
-            d1 = Number(d[d.length-1])+1 
+            d1 = Number(d[d.length-1])+1 ///6  
         }
         console.log(d.slice(0,4)+"-"+d1.toString())
-        const start = new Date(d)
-        const end  = new Date(d.slice(0,4)+"-"+d1.toString())   
+        const start = new Date(d) //2022-5
+        const end  = new Date(d.slice(0,4)+"-"+d1.toString())  //2022-6 
             
         console.log(start)  
         console.log(end)
-        article.find({date:{$gte:start,$lt:end}},function(err,data){
+        article.find({date:{$gte:start,$lt:end}},function(err,data){ 
             if(err){
                 console.log(err) 
             }else{
