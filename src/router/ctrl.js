@@ -1,11 +1,16 @@
 const { article } = require("../../db");
+const express = require("express");
+const app = express();
 const axios = require('axios')
 const qs=require('qs')
+const jwt = require('jsonwebtoken');
 const kakaoClientID = '904d1d2aa96e5c26e05b03905933ef87'
 const kakaoClientSecret = 'rzK8inmejYty3s16HLr8QuuExuUqsP0H'
 const redirectUri = 'http://localhost:5030/auth/kakao/callback'
 const { mainPage } = require("../../db");
-
+const { constSelector } = require("recoil");
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
 
 let now = Date.now();
 
@@ -64,20 +69,31 @@ const output={
         }catch(err){
             res.json(err.data)
         }
+        
+        const jwttoken = jwt.sign({
+            id: token.data.id
+        }, process.env.JWT_SECRET,{
+            issuer: "snail",
+            expiresIn: '7d'
+        });
+
+        res.cookie('user', jwttoken);
+
+    
         console.log(token)
         console.log(user)
+        console.log(jwttoken)
+
         res.send('ok');
     
     },
+    
     login: (req,res,next)=>{
         res.json("mainpagedata");
         console.log(typeof(req.params.id))
         next()
     },
     input: (req, res)=>{
-        res.send("/detail page");
-    },
-    detail: (req,res)=>{
         res.send("/detail page");
     },
     profile: (req,res)=>{
@@ -93,11 +109,18 @@ const output={
         })
         
     }, 
-    detail: (req,res)=>{
+    detailGet: (req,res)=>{
         const inputDate = req.params.date;
+        const nextDate = (parseInt(inputDate) + 1).toString()
+
+        const fixedDate = inputDate.slice(0, 4) + '-' + inputDate.slice(4,6) + '-' + inputDate.slice(6,8);
+        const fixedNext = nextDate.slice(0, 4) + '-' + nextDate.slice(4,6) + '-' + nextDate.slice(6,8);
+
         const inputId = req.params.idToken
-        datetag = new Date(inputDate);
-        article.find({id_token: inputId, date: datetag}, (err, data)=>{
+        datetag = new Date(fixedDate);
+        dateend = new Date(fixedNext);
+
+        article.find({id_token: inputId, date:{$gte:datetag,$lt:dateend}}, (err, data)=>{
             if(err){
                 console.log(err)
             }
@@ -108,7 +131,9 @@ const output={
     },
     detailPost: (req, res)=>{
         const { id_token, date, title, content, imgurl, like } = req.body;
-        var atc = new article({id_token, date, title, content, imgurl, like});
+        const parsedDate = date.slice(0, 4) + '-' + date.slice(4,6) + '-' + date.slice(6,8);
+        const datetag = new Date(parsedDate);
+        var atc = new article({id_token, datetag, title, content, imgurl, like});
         atc.save()
         .then(newPost =>{
             console.log("create 완료!")
@@ -120,7 +145,7 @@ const output={
             })
         })
     },
-    detailDel: (req, res, next)=>{
+    detailDelete: async (req, res, next)=>{
         const post_id = req.params.post_id; //_id로 삭제할겁니다. 고유값이니까
         article
             .deleteOne({ _id: post_id })
@@ -139,23 +164,28 @@ const output={
             })
     },
 
-    uploadImg: (req,res)=>{
-        res.send(`<!DOCTYPE html>
-    <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title></title>
-    </head>
-    <body>
-        <form action="/sendImg" method="post" enctype="multipart/form-data">
-            <input type="file" name='image' placeholder="Select file"/>
-            <br/>
-            <button>Upload</button>
-        </form>
-    </body>
-    </html>`);
+    detailUpdate: async (req, res)=>{
+        const post_id = req.params.post_id;
+        const { title, content, like } = req.body;
+        try{
+            let post = await article.findById(post_id);
+            if(!post) return res.status(404).json({message:"해당 글이 없습니다"});
+            post.title = title;
+            post.content = content;
+            post.like = like;
+            var output = await post.save();
+            console.log("업데이트 완료!");
+            res.status(200).json({
+                message: "Update success",
+                data:{
+                    post: output
+                }
+            });
+        } catch(err){
+            res.status(500).json({
+                message: err
+            });
+        }
     },
 }
 
