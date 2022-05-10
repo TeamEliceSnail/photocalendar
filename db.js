@@ -41,11 +41,14 @@ const userSchema = mongoose.Schema({
     email: {
       type: String,
       default: "",
+    },
+    refresh_token:{
+      type:String,
     }
 },
 {timestamps:true});
 
 
 const article = mongoose.model("article", articleSchema);
-const user = mongoose.model("user", userSchema);
-module.exports = { article, user};
+const users = mongoose.model("user", userSchema);
+module.exports = { article, users};  
