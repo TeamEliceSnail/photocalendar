@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const YOUR_SECRET_KEY = process.env.JWT_SECRET;
 require('dotenv').config();
- 
+
 const verifyToken = (req, res, next) => {
   try {
     const clientToken = req.cookies.user;
@@ -13,8 +13,9 @@ const verifyToken = (req, res, next) => {
       res.status(401).json({ error: 'unauthorized' });
     }
   } catch (err) {
-    res.clearCookie('user');
-    res.render('../pages/logIn/index.js');
+    console.log(err)
+    res
+    .redirect('http://localhost:3000/login');
   }
 };
  

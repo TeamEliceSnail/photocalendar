@@ -72,22 +72,22 @@ const output={
             res.json(err.data)
         }
         
-        // users.findOne({id_token:user.data.id},(err,data)=>{
-        //     if(err){
-        //         console.log(err)
-        //     }else{
-        //         console.log(data)
-  
-                  
-        //     }
-        // }) 
+        users.findOne({id_token:user.data.id})
+        .exec()
+        .then((data)=>{
+            if(!data){
+                console.log(`해당 유저는 없습니다.${user.data.id}님에 대한 유저 생성 시작`)
+                let atc = new users({ id_token : user.data.id, nickname : user.data.properties.nickname, email : user.data.kakao_account.email,refresh_token:token.data.refresh_token})
+                atc.save()
+                .then((newUser) =>{
+                console.log("create 완료!")
+                })
+            }else{
+               console.log(data)
+            }
+        })
         console.log(token.data.refresh_token) 
          
-        let atc = new users({ id_token : user.data.id, nickname : user.data.properties.nickname, email : user.data.kakao_account.email,refresh_token:token.data.refresh_token})
-        atc.save().then(newUser =>{
-            console.log("create 완료!")
-            
-        } )
         
       
         // db에 id_token값을 찾거나 없으면 만들어줌 passport
@@ -102,13 +102,13 @@ const output={
             expiresIn: '120m'
         });
         res.cookie('user', jwttoken);
-     
+        
         //console.log(token)
         //console.log(user)
         const a = jwt.verify(jwttoken, YOUR_SECRET_KEY)
         
-        res.send('ok');
-    
+        // res.send('ok');
+        res.redirect('http://localhost:3000')
     }, 
     login: (req,res,next)=>{
         res.json("mainpagedata");

@@ -7,30 +7,29 @@ const util = require('util');
 const fs = require('fs');
 const { uploadFile, getFileStream } = require('../../s3');
 const unlinkFile = util.promisify(fs.unlink)
+const {verifyToken} = require("./authorization");
 
+router.get("/:d",verifyToken,ctrl.output.home);
 
-router.get("/:d",ctrl.output.home);
-
-router.get("/login/:id", ctrl.output.login);
+router.get("/login/:id", verifyToken,ctrl.output.login);
 
 router.get("/login", ctrl.output.login);
 
-router.get("/like",ctrl.output.like);
+router.get("/like", verifyToken, ctrl.output.like);
 
-router.get("/auth/kakao/callback",ctrl.output.kakao)
+router.get("/auth/kakao/callback", ctrl.output.kakao)
 
-//router.post("/refresh",ctrl.output.tokenRefresh) 
+//router.post("/refresh",ctrl.output.tokenRefresh)
 
-router.get("/user/:idToken/date/:date", ctrl.output.detailGet); 
+router.get("/user/:idToken/date/:date", verifyToken, ctrl.output.detailGet); 
 
-router.post("/detailPost", ctrl.output.detailPost);
+router.post("/detailPost", verifyToken, ctrl.output.detailPost);
 
-router.delete("/detail/:post_id", ctrl.output.detailDelete);
+router.delete("/detail/:post_id", verifyToken, ctrl.output.detailDelete);
+
+router.put("/detailUpdate/:post_id", verifyToken, ctrl.output.detailUpdate);
 
 
-
-// //이미지업로드 테스트케이스 
-// router.get("/images", ctrl.output.uploadImg)
 
 router.post('/sendImg', upload.single('image'),async(req, res)=>{
     const file = req.file
