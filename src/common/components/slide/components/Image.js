@@ -13,7 +13,7 @@ const Slide = ({ imgurl, uploadImage, fileDataURL }) => {
     return imgurl ? (
         boardEditFlag ? (
             <AddImgStyle
-                src={fileDataURL ? fileDataURL : imgurl}
+                src={fileDataURL || imgurl}
                 onClick={() => handleSlide()}
             />
         ) : (
@@ -21,11 +21,7 @@ const Slide = ({ imgurl, uploadImage, fileDataURL }) => {
         )
     ) : (
         <AddImgStyle
-            src={
-                fileDataURL
-                    ? fileDataURL
-                    : `${process.env.PUBLIC_URL}/images/add_Btn3.png`
-            }
+            src={fileDataURL || `${process.env.PUBLIC_URL}/images/add_Btn3.png`}
             onClick={() => handleSlide()}
         />
     );

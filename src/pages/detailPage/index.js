@@ -70,7 +70,6 @@ const DetailPage = () => {
         formData.append('imageFile', file);
 
         const res = await postImage(formData);
-        console.log(res);
     };
 
     const cancelBoard = () => {

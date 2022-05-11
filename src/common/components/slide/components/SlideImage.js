@@ -54,32 +54,46 @@ const SlideImage = ({
 
     return (
         <Wrapper>
-            <div>
-                <MdArrowBackIos
-                    className="btn prevBtn"
-                    size={btnSize}
-                    onClick={prevSlide}
-                />
-            </div>
+            {data.length > 1 ? (
+                <div>
+                    <MdArrowBackIos
+                        className="btn prevBtn"
+                        size={btnSize}
+                        onClick={prevSlide}
+                    />
+                </div>
+            ) : null}
+
             <div className="slideContainer">
                 <div className="slider" ref={slideRef}>
-                    {data.map((item, i) => (
+                    {data.length !== 0 ? (
+                        data.map((item, i) => (
+                            <Slide
+                                key={i}
+                                imgurl={item.imgurl}
+                                uploadImage={uploadImage}
+                                fileDataURL={fileDataURL}
+                            />
+                        ))
+                    ) : (
                         <Slide
-                            key={i}
-                            imgurl={item.imgurl}
+                            key={0}
+                            imgurl={''}
                             uploadImage={uploadImage}
                             fileDataURL={fileDataURL}
                         />
-                    ))}
+                    )}
                 </div>
             </div>
-            <div>
-                <MdArrowForwardIos
-                    className="btn nextBtn"
-                    size={btnSize}
-                    onClick={nextSlide}
-                />
-            </div>
+            {data.length > 1 ? (
+                <div>
+                    <MdArrowForwardIos
+                        className="btn nextBtn"
+                        size={btnSize}
+                        onClick={nextSlide}
+                    />
+                </div>
+            ) : null}
         </Wrapper>
     );
 };
