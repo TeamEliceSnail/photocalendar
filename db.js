@@ -31,17 +31,24 @@ const articleSchema = mongoose.Schema({
 
 
 const userSchema = mongoose.Schema({
-    id: {
+    id_token: {
       type: String,
+      required:true,
+    },
+    nickname:{
+      type:String,
     },
     email: {
       type: String,
       default: "",
+    },
+    refresh_token:{
+      type:String,
     }
 },
 {timestamps:true});
 
 
 const article = mongoose.model("article", articleSchema);
-const user = mongoose.model("user", userSchema);
-module.exports = { article, user};
+const users = mongoose.model("user", userSchema);
+module.exports = { article, users};  

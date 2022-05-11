@@ -9,7 +9,7 @@ const { uploadFile } = require('./s3');
 const multer = require('multer');
 const upload = multer({dest: 'uploads/'});
 const bodyParser = require('body-parser');
-
+const cookieParser = require('cookie-parser');
 app.listen(process.env.PORT, ()=>{
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 })
@@ -23,6 +23,8 @@ app.post('/images', upload.single('image'), async(req, res)=>{
     const description = req.body.description;
     res.send("해냈다 해냈어");
 })
+app.use(cookieParser())
+
 
 const home = require("./src/router/router");
 const { Logger } = require("concurrently");

@@ -1,15 +1,22 @@
-const { article } = require("../../db");
-const axios = require('axios')
+const { article,users } = require("../../db");
+const express = require("express");
+const app = express();
+const axios = require('axios') 
 const qs=require('qs')
 const jwt = require('jsonwebtoken');
 const kakaoClientID = '904d1d2aa96e5c26e05b03905933ef87'
 const kakaoClientSecret = 'rzK8inmejYty3s16HLr8QuuExuUqsP0H'
+const YOUR_SECRET_KEY = process.env.JWT_SECRET;
 const redirectUri = 'http://localhost:5030/auth/kakao/callback'
 const { mainPage } = require("../../db");
+const { constSelector } = require("recoil");
+const cookieParser = require("cookie-parser");
+
+app.use(cookieParser());
 
 let now = Date.now();
 
-const output={
+const output={ 
     home: (req, res) =>{ 
         let d = req.params.d 
         let d1 = 0;
@@ -19,12 +26,12 @@ const output={
             d1 = Number(d[d.length-1])+1 
         }
         console.log(d.slice(0,4)+"-"+d1.toString())
-        const start = new Date(d)
-        const end  = new Date(d.slice(0,4)+"-"+d1.toString())   
+        const start = new Date(d) 
+        const end  = new Date(d.slice(0,4)+"-"+d1.toString())
             
         console.log(start)  
         console.log(end)
-        article.find({date:{$gte:start,$lt:end}},function(err,data){
+        article.find({date:{$gte:start,$lt:end}},function(err,data){ 
             if(err){
                 console.log(err) 
             }else{
@@ -64,17 +71,45 @@ const output={
         }catch(err){
             res.json(err.data)
         }
-        const jwttoken = jwt.sign({
-            id: token.data.id
+        
+        users.findOne({id_token:user.data.id})
+        .exec()
+        .then((data)=>{
+            if(!data){
+                console.log(`해당 유저는 없습니다.${user.data.id}님에 대한 유저 생성 시작`)
+                let atc = new users({ id_token : user.data.id, nickname : user.data.properties.nickname, email : user.data.kakao_account.email,refresh_token:token.data.refresh_token})
+                atc.save()
+                .then((newUser) =>{
+                console.log("create 완료!")
+                })
+            }else{
+               console.log(data)
+            }
+        })
+        console.log(token.data.refresh_token) 
+         
+        
+      
+        // db에 id_token값을 찾거나 없으면 만들어줌 passport
+        const jwttoken = jwt.sign({ 
+            id_token: user.data.id,
+            nickname: user.data.properties.nickname,
+            profile_image: user.data.properties.profile_image,
+            thumbnail_image: user.data.properties.thumbnail_image,
+            email: user.data.kakao_account.email,  
         }, process.env.JWT_SECRET,{
-            issuer: "snail",
+            issuer: "snail", 
+            expiresIn: '120m'
         });
-        console.log(token)
-        console.log(user)
-        console.log(jwttoken);
-        res.send('ok');
-    
-    },
+        res.cookie('user', jwttoken);
+        
+        //console.log(token)
+        //console.log(user)
+        const a = jwt.verify(jwttoken, YOUR_SECRET_KEY)
+        
+        // res.send('ok');
+        res.redirect('http://localhost:3000')
+    }, 
     login: (req,res,next)=>{
         res.json("mainpagedata");
         console.log(typeof(req.params.id))
