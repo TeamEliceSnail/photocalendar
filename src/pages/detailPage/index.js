@@ -35,13 +35,22 @@ const DetailPage = () => {
             setLoading((prev) => false);
             setData((prev) => res.data);
         } catch (error) {
-            console.log(`Error >>> ${error}`);
+            console.log(`상세페이지 데이터 호출 실패 >>> ${error}`);
         }
     };
 
     useEffect(() => {
         getData();
     }, []);
+
+    const postImage = async (formData) => {
+        try {
+            const res = await axios.post('localhost:5030/sendImg', formData);
+            return res.data;
+        } catch (error) {
+            console.log(`이미지 전송 실패 >>> ${error}`);
+        }
+    };
 
     const handlePage = (p) => {
         setPage(p);
@@ -50,27 +59,35 @@ const DetailPage = () => {
     const addBoard = () => {
         data.push({ imgurl: '', title: '', content: '' });
         setData(data);
-        setModalFlag(!modalFlag);
-        setAddFlag(!addFlag);
+        setModalFlag(false);
+        setAddFlag(true);
         handlePage(data.length - 1);
-        setBoardEditFlag(!boardEditFlag);
+        setBoardEditFlag(true);
+    };
+
+    const confirmBoard = async () => {
+        const formData = new FormData();
+        formData.append('imageFile', file);
+
+        const res = await postImage(formData);
+        console.log(res);
     };
 
     const cancelBoard = () => {
-        if (addFlag) {
+        if (addFlag === true) {
             popData();
             handlePage(data.length - 1);
-            setAddFlag(!addFlag);
+            setAddFlag(false);
         }
-        setBoardEditFlag(!boardEditFlag);
+        setBoardEditFlag(false);
     };
     const popData = () => {
         data.pop();
         setData(data);
     };
     const modifyBoard = () => {
-        setBoardEditFlag(!boardEditFlag);
-        setModalFlag(!modalFlag);
+        setBoardEditFlag(true);
+        setModalFlag(false);
     };
 
     const deleteBoard = () => {};
@@ -123,6 +140,7 @@ const DetailPage = () => {
                             data={data}
                             page={page}
                             cancelBoard={cancelBoard}
+                            confirmBoard={confirmBoard}
                         />
                     </div>
                 )}
