@@ -19,9 +19,10 @@ let now = Date.now();
 const output={ 
     home: (req, res) =>{ 
         let d = req.params.d 
+        let id = req.params.id
         let d1 = 0;
         if(Number(d[d.length-1])===1){
-            d1 = 12
+            d1 = 12 
         }else{ 
             d1 = Number(d[d.length-1])+1 
         }
@@ -31,8 +32,8 @@ const output={
             
         console.log(start)  
         console.log(end)
-        article.find({date:{$gte:start,$lt:end}},function(err,data){ 
-            if(err){
+        article.find({id_token:id,date:{$gte:start,$lt:end}},function(err,data){ 
+            if(err){ 
                 console.log(err) 
             }else{
                 res.json(data);
@@ -122,8 +123,9 @@ const output={
         res.send("/profile page");
     },
     like: (req,res)=>{
-        article.find({like:true},function(err,data){
-            if(err){
+        let id_token = req.params.idToken
+        article.find({id_token: id_token, like:true },(err,data)=>{
+            if(err){ 
                 console.log(err)
             }else{
                 res.json(data);

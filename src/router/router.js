@@ -9,14 +9,14 @@ const { uploadFile, getFileStream } = require('../../s3');
 const unlinkFile = util.promisify(fs.unlink)
 const {verifyToken} = require("./authorization");
 
-router.get("/:d",verifyToken,ctrl.output.home);
-
+router.get("/home/:id/:d",verifyToken,ctrl.output.home);
+  
 router.get("/login/:id", verifyToken,ctrl.output.login);
 
 router.get("/login", ctrl.output.login);
 
-router.get("/like", verifyToken, ctrl.output.like);
-
+router.get("/like/:idToken", verifyToken, ctrl.output.like);
+ 
 router.get("/auth/kakao/callback", ctrl.output.kakao)
 
 //router.post("/refresh",ctrl.output.tokenRefresh)
