@@ -4,7 +4,7 @@ import boardEditState from '../../../recoil/boardEditState';
 import Wrapper from './DetailBoardStyle';
 import PropTypes from 'prop-types';
 
-const DetailBoard = ({ data, page, cancelBoard }) => {
+const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
 
     const [title, setTitle] = useState('');
@@ -52,7 +52,7 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
             <div id="btn_detail_confirm_cancle">
                 {!boardEditFlag ? null : (
                     <>
-                        <button onClick={cancelBoard}>확인</button>
+                        <button onClick={confirmBoard}>확인</button>
                         <button onClick={cancelBoard}>취소</button>
                     </>
                 )}
