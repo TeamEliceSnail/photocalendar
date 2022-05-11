@@ -19,8 +19,10 @@ const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
     };
 
     useEffect(() => {
-        setTitle(data[page].title || '');
-        setContent(data[page].content || '');
+        if (data.length !== 0) {
+            setTitle(data[page].title);
+            setContent(data[page].content);
+        }
     }, [page]);
 
     return (
@@ -32,7 +34,7 @@ const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
                     <textarea
                         className="title_textarea"
                         onChange={handleTitle}
-                        value={title}
+                        value={title || ''}
                         placeholder="제목을 입력하세요."
                     />
                 )}
@@ -44,7 +46,7 @@ const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
                     <textarea
                         className="content_textarea"
                         onChange={handleContent}
-                        value={content}
+                        value={content || ''}
                         placeholder="내용을 입력하세요."
                     />
                 )}
@@ -53,7 +55,9 @@ const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
                 {!boardEditFlag ? null : (
                     <>
                         <button onClick={confirmBoard}>확인</button>
-                        <button onClick={cancelBoard}>취소</button>
+                        {data.length !== 0 ? (
+                            <button onClick={cancelBoard}>취소</button>
+                        ) : null}
                     </>
                 )}
             </div>
