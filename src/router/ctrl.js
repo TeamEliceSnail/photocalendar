@@ -19,11 +19,11 @@ let now = Date.now();
 const output={ 
     home: (req, res) =>{ 
         let d = req.params.d 
-        let decodeValue = jwtdecode(req.params.jwtValue)
-        let d1 = 0;
+        let decodeValue = jwtdecode(req.cookies.user)
+        let d1 = 0; 
         if(Number(d[d.length-1])===1){
             d1 = 12 
-        }else{  
+        }else{   
             d1 = Number(d[d.length-1])+1 
         }
         console.log(d.slice(0,4)+"-"+d1.toString())
@@ -90,7 +90,7 @@ const output={
         console.log(token.data.refresh_token) 
          
         
-      
+       
         // db에 id_token값을 찾거나 없으면 만들어줌 passport
         const jwttoken = jwt.sign({ 
             id_token: user.data.id,
@@ -103,7 +103,7 @@ const output={
             expiresIn: '120m'
         });
         res.cookie('user', jwttoken);
-        
+         
         //console.log(token)
         //console.log(user)
         const a = jwt.verify(jwttoken, YOUR_SECRET_KEY)
@@ -123,18 +123,37 @@ const output={
         res.send("/profile page");
     },
     like: (req,res)=>{
-        let decodeValue = jwtdecode(req.params.jwtValue)
-        article.find({id_token: decodeValue.id_token, like:true }
-            .sort({date:1})
-            .limit(15),(err,data)=>{
-            if(err){  
-                console.log(err)
-            }else{
-                res.json(data);
-            }
-        })
+        let decodeValue = jwtdecode(req.cookies.user)
+        const d =new Date('2022-5-12') 
+        let page = req.params.pageNumber 
+       // article.find({id_token:decodeValue.id_token, like:true},(err,data)=>{if(err){console.log(err)}else{ page = data.length}})
         
+        article.find({date:{$lte:d},id_token:decodeValue.id_token, like:true },(err,data)=>{
+            if(err){   
+                console.log(err) 
+            }else{  
+                res.json(data);
+            } 
+        }).sort({date:-1})
+        .skip((page-1)*2)
+        .limit(2)    
+         
     }, 
+    likePost:(req,res)=>{
+        
+        const { _id,like } = req.body;
+        article.updateOne({_id:_id},{$set:{like:like}},(err,data)=>{
+            if(err){ 
+                console.log(err)
+                res.json({error:"like 수정을 실패했습니다."})
+            }else{
+                res.json({succes:`${_id}에 like를 수정하였습니다.`})
+            }
+        }) 
+
+
+    },
+
     detailGet: (req,res)=>{
         const inputDate = req.params.date;
         const nextDate = (parseInt(inputDate) + 1).toString()
@@ -142,8 +161,8 @@ const output={
         const fixedDate = inputDate.slice(0, 4) + '-' + inputDate.slice(4,6) + '-' + inputDate.slice(6,8);
         const fixedNext = nextDate.slice(0, 4) + '-' + nextDate.slice(4,6) + '-' + nextDate.slice(6,8);
 
-        const decodeValue = jwtdecode(req.params.jwtValue) 
-        datetag = new Date(fixedDate);
+        const decodeValue = jwtdecode(req.cookies.user) 
+        datetag = new Date(fixedDate);  
         dateend = new Date(fixedNext);
 
         article.find({id_token: decodeValue.id_token, date:{$gte:datetag,$lt:dateend}}, (err, data)=>{
@@ -159,7 +178,7 @@ const output={
         const { id_token, date, title, content, imgurl, like } = req.body;
         const parsedDate = date.slice(0, 4) + '-' + date.slice(4,6) + '-' + date.slice(6,8);
         const datetag = new Date(parsedDate);
-        var atc = new article({id_token, datetag, title, content, imgurl, like});
+        let atc = new article({id_token, datetag, title, content, imgurl, like});
         atc.save()
         .then(newPost =>{
             console.log("create 완료!")
