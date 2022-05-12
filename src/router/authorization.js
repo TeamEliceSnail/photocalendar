@@ -4,7 +4,7 @@ require('dotenv').config();
 
 const verifyToken = (req, res, next) => {
   try {
-    const clientToken = req.cookies.user;    
+    const {clientToken} = req.cookies.user;    
     if(!clientToken) res.redirect('http://localhost:3000/login')
     const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
     if (decoded) { 
@@ -18,7 +18,7 @@ const verifyToken = (req, res, next) => {
     console.log(err)
     res
     .redirect('http://localhost:3000/login');
-  }
+  } 
 };
  
 exports.verifyToken = verifyToken;
