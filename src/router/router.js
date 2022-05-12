@@ -6,25 +6,25 @@ const upload = multer({ dest: 'uploads/' });
 const util = require('util');
 const fs = require('fs');
 const { uploadFile, getFileStream } = require('../../s3');
-const unlinkFile = util.promisify(fs.unlink);
-const { verifyToken } = require('./authorization');
-// const { ConfigurationServicePlaceholders } = require("aws-sdk/lib/config_service_placeholders");
+const unlinkFile = util.promisify(fs.unlink)
+const {verifyToken} = require("./authorization");
 
-router.get('/home/:jwtValue/:d', verifyToken, ctrl.output.home);
+router.get("/home/:d",verifyToken,ctrl.output.home);
+   
+router.get("/login/:id", verifyToken,ctrl.output.login);
+
 
 router.get('/login/:id', verifyToken, ctrl.output.login);
 
-router.get('/login', ctrl.output.login);
 
-router.get('/like/:jwtValue', verifyToken, ctrl.output.like);
+router.get("/like/:d/:pageNumber", verifyToken, ctrl.output.like);
+router.post("/like",verifyToken,ctrl.output.likePost); 
+router.get("/auth/kakao/callback", ctrl.output.kakao); 
+  
 
-router.get('/auth/kakao/callback', ctrl.output.kakao);
-
-//router.post("/refresh",ctrl.output.tokenRefresh)
-
-router.get('/user/:jwtValue/date/:date', verifyToken, ctrl.output.detailGet);
-
-router.post('/detailPost', verifyToken, ctrl.output.detailPost);
+router.get("/user/:date", verifyToken, ctrl.output.detailGet); 
+  
+router.post("/detailPost", verifyToken, ctrl.output.detailPost);
 
 router.delete('/detail/:post_id', verifyToken, ctrl.output.detailDelete);
 
@@ -56,5 +56,6 @@ router.get('/images/:key', (req, res) => {
 });
 
 //------------------이미지업로드 테스트케이스--------------------
+
 
 module.exports = router;
