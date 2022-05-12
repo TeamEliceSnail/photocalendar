@@ -11,7 +11,7 @@ const redirectUri = 'http://localhost:5030/auth/kakao/callback'
 const { mainPage } = require("../../db");
 const { constSelector } = require("recoil");
 const cookieParser = require("cookie-parser");
-
+require("dotenv").config();
 app.use(cookieParser());
 
 let now = Date.now();
