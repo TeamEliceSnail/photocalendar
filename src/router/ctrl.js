@@ -11,7 +11,7 @@ const redirectUri = 'http://localhost:5030/auth/kakao/callback'
 const { mainPage } = require("../../db");
 const { constSelector } = require("recoil");
 const cookieParser = require("cookie-parser");
-
+const {jwtdecode} = require("./decode"); 
 app.use(cookieParser());
 
 let now = Date.now();
@@ -19,11 +19,11 @@ let now = Date.now();
 const output={ 
     home: (req, res) =>{ 
         let d = req.params.d 
-        let id = req.params.id
+        let decodeValue = jwtdecode(req.params.jwtValue)
         let d1 = 0;
         if(Number(d[d.length-1])===1){
             d1 = 12 
-        }else{ 
+        }else{  
             d1 = Number(d[d.length-1])+1 
         }
         console.log(d.slice(0,4)+"-"+d1.toString())
@@ -32,7 +32,7 @@ const output={
             
         console.log(start)  
         console.log(end)
-        article.find({id_token:id,date:{$gte:start,$lt:end}},function(err,data){ 
+        article.find({id_token:decodeValue.id_token,date:{$gte:start,$lt:end}},function(err,data){ 
             if(err){ 
                 console.log(err) 
             }else{
@@ -51,7 +51,7 @@ const output={
                 },
                 data:qs.stringify({
                     grant_type:'authorization_code',
-                    client_id:kakaoClientID,
+                    client_id:kakaoClientID, 
                     client_secret:kakaoClientSecret,
                     redirectUri:redirectUri,
                     code:req.query.code,
@@ -123,8 +123,8 @@ const output={
         res.send("/profile page");
     },
     like: (req,res)=>{
-        let id_token = req.params.idToken
-        article.find({id_token: id_token, like:true },(err,data)=>{
+        let decodeValue = jwtdecode(req.params.jwtValue)
+        article.find({id_token: decodeValue.id_token, like:true },(err,data)=>{
             if(err){ 
                 console.log(err)
             }else{
@@ -140,11 +140,11 @@ const output={
         const fixedDate = inputDate.slice(0, 4) + '-' + inputDate.slice(4,6) + '-' + inputDate.slice(6,8);
         const fixedNext = nextDate.slice(0, 4) + '-' + nextDate.slice(4,6) + '-' + nextDate.slice(6,8);
 
-        const inputId = req.params.idToken
+        const decodeValue = jwtdecode(req.params.jwtValue) 
         datetag = new Date(fixedDate);
         dateend = new Date(fixedNext);
 
-        article.find({id_token: inputId, date:{$gte:datetag,$lt:dateend}}, (err, data)=>{
+        article.find({id_token: decodeValue.id_token, date:{$gte:datetag,$lt:dateend}}, (err, data)=>{
             if(err){
                 console.log(err)
             }
