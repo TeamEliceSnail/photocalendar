@@ -6,7 +6,16 @@ import PropTypes from 'prop-types';
 import { useRecoilState } from 'recoil';
 import { boardEditState } from '../../../../recoil';
 
-const SlideImage = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
+const SlideImage = ({
+    detailBoardData,
+    btnSize,
+    handlePage,
+    page,
+    popData,
+    addFlag,
+    uploadImage,
+    fileDataURL,
+}) => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
     const slideRef = useRef(null);
@@ -16,7 +25,7 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
             if (addFlag) popData();
             setBoardEditFlag(false);
         }
-        currentSlide >= data.length - 1
+        currentSlide >= detailBoardData.length - 1
             ? setCurrentSlide(0)
             : setCurrentSlide(currentSlide + 1);
     };
@@ -27,7 +36,7 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
             setBoardEditFlag(false);
         }
         currentSlide === 0
-            ? setCurrentSlide(data.length - 1)
+            ? setCurrentSlide(detailBoardData.length - 1)
             : setCurrentSlide(currentSlide - 1);
     };
 
@@ -45,33 +54,52 @@ const SlideImage = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
 
     return (
         <Wrapper>
-            <div>
-                <MdArrowBackIos
-                    className="btn prevBtn"
-                    size={btnSize}
-                    onClick={prevSlide}
-                />
-            </div>
+            {detailBoardData.length > 1 ? (
+                <div>
+                    <MdArrowBackIos
+                        className="btn prevBtn"
+                        size={btnSize}
+                        onClick={prevSlide}
+                    />
+                </div>
+            ) : null}
+
             <div className="slideContainer">
                 <div className="slider" ref={slideRef}>
-                    {data.map((item, i) => (
-                        <Slide key={i} img={item.url}></Slide>
-                    ))}
+                    {detailBoardData.length !== 0 ? (
+                        detailBoardData.map((item, i) => (
+                            <Slide
+                                key={i}
+                                imgurl={item.imgurl}
+                                uploadImage={uploadImage}
+                                fileDataURL={fileDataURL}
+                            />
+                        ))
+                    ) : (
+                        <Slide
+                            key={0}
+                            imgurl={''}
+                            uploadImage={uploadImage}
+                            fileDataURL={fileDataURL}
+                        />
+                    )}
                 </div>
             </div>
-            <div>
-                <MdArrowForwardIos
-                    className="btn nextBtn"
-                    size={btnSize}
-                    onClick={nextSlide}
-                />
-            </div>
+            {detailBoardData.length > 1 ? (
+                <div>
+                    <MdArrowForwardIos
+                        className="btn nextBtn"
+                        size={btnSize}
+                        onClick={nextSlide}
+                    />
+                </div>
+            ) : null}
         </Wrapper>
     );
 };
 
 SlideImage.defaultProps = {
-    data: [
+    detailBoardData: [
         {
             url: 'images/picture01.jpg',
             title: '없음',
@@ -81,7 +109,7 @@ SlideImage.defaultProps = {
 };
 
 SlideImage.propTypes = {
-    data: PropTypes.array,
+    detailBoardData: PropTypes.array,
 };
 
 export default SlideImage;

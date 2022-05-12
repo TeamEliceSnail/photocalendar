@@ -25,6 +25,7 @@ export default styled.div`
     }
     .slider {
         height: 100%;
+        width: 100%;
         display: flex;
         text-align: center;
     }
