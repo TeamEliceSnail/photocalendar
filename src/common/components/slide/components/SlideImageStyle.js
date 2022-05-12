@@ -8,7 +8,6 @@ export default styled.div`
     margin: 3vh;
     .btn {
         all: unset;
-        padding: 0.5em 2em;
         border-radius: 10px;
         cursor: pointer;
         &:hover {
@@ -18,6 +17,7 @@ export default styled.div`
         }
     }
     .slideContainer {
+        position: relative;
         height: 70vh;
         display: flex;
         flex-direction: column;
@@ -25,6 +25,7 @@ export default styled.div`
     }
     .slider {
         height: 100%;
+        width: 100%;
         display: flex;
         text-align: center;
     }

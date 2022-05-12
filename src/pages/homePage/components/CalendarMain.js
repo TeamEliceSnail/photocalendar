@@ -18,7 +18,7 @@ const CalendarMain = () => {
 
     return (
         <Wrapper>
-            <section className='weekday'>
+            <section className="weekday">
                 <li>Sun</li>
                 <li>Mon</li>
                 <li>Tue</li>
@@ -28,7 +28,9 @@ const CalendarMain = () => {
                 <li>Sat</li>
             </section>
             {calendar.map((informationDay, index) => {
-                return <DayComponent key={index} informationDay={informationDay} />;
+                return (
+                    <DayComponent key={index} informationDay={informationDay} />
+                );
             })}
         </Wrapper>
     );
