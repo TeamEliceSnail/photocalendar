@@ -1,28 +1,28 @@
 import SlideImage from './components/SlideImage.js';
 import PropTypes from 'prop-types';
 
-const default_data = [
-    {
-        url: 'images/picture01.jpg',
-    },
-    {
-        url: 'images/picture03.jpg',
-    },
-    {
-        url: 'images/picture02.jpg',
-    },
-];
 // const TOTAL_SLIDES = json.length;
 
-const CustomSlide = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
+const CustomSlide = ({
+    detailBoardData,
+    btnSize,
+    handlePage,
+    page,
+    popData,
+    addFlag,
+    uploadImage,
+    fileDataURL,
+}) => {
     return (
         <SlideImage
-            data={data}
+            detailBoardData={detailBoardData}
             btnSize={btnSize}
             handlePage={handlePage}
             page={page}
             popData={popData}
             addFlag={addFlag}
+            uploadImage={uploadImage}
+            fileDataURL={fileDataURL}
         />
     );
 };
@@ -30,12 +30,11 @@ const CustomSlide = ({ data, btnSize, handlePage, page, popData, addFlag }) => {
 export default CustomSlide;
 
 CustomSlide.defaultProps = {
-    data: default_data,
     btnSize: 30,
 };
 
 CustomSlide.propTypes = {
-    data: PropTypes.array,
+    detailBoardData: PropTypes.array,
     btnSize: PropTypes.number,
     handlePage: PropTypes.func,
     page: PropTypes.number,
