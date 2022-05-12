@@ -8,20 +8,21 @@ const fs = require('fs');
 const { uploadFile, getFileStream } = require('../../s3');
 const unlinkFile = util.promisify(fs.unlink)
 const {verifyToken} = require("./authorization");
+const { ConfigurationServicePlaceholders } = require("aws-sdk/lib/config_service_placeholders");
 
-router.get("/:d",verifyToken,ctrl.output.home);
-
+router.get("/home/:jwtValue/:d",verifyToken,ctrl.output.home);
+  
 router.get("/login/:id", verifyToken,ctrl.output.login);
 
 router.get("/login", ctrl.output.login);
 
-router.get("/like", verifyToken, ctrl.output.like);
-
+router.get("/like/:jwtValue", verifyToken, ctrl.output.like);
+ 
 router.get("/auth/kakao/callback", ctrl.output.kakao)
 
 //router.post("/refresh",ctrl.output.tokenRefresh)
 
-router.get("/user/:idToken/date/:date", verifyToken, ctrl.output.detailGet); 
+router.get("/user/:jwtValue/date/:date", verifyToken, ctrl.output.detailGet); 
 
 router.post("/detailPost", verifyToken, ctrl.output.detailPost);
 
@@ -34,6 +35,7 @@ router.put("/detailUpdate/:post_id", verifyToken, ctrl.output.detailUpdate);
 router.post('/sendImg', upload.single('image'),async(req, res)=>{
     const file = req.file
     console.log(file);
+    try{ 
     const result = await uploadFile(file)
     await unlinkFile(file.path);
     console.log(result)
@@ -41,6 +43,10 @@ router.post('/sendImg', upload.single('image'),async(req, res)=>{
     res.json({
         url: result.Location
     })
+}catch(err){
+    console.log(err)
+    res.status(401).json({ error: '올바르지 않은 파일형식입니다. 확인해주세요.' });
+}
 })
 
 router.get('/images/:key', (req,res)=>{
