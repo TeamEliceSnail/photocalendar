@@ -12,8 +12,8 @@ const NavForm = () => {
 
     return (
         <Wrapper>
-            {buttonList.map((x) => (
-                <NavButton title={x.title} />
+            {buttonList.map((x, i) => (
+                <NavButton key={i} title={x.title} />
             ))}
         </Wrapper>
     );
