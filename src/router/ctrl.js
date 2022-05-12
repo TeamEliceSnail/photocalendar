@@ -124,8 +124,10 @@ const output={
     },
     like: (req,res)=>{
         let decodeValue = jwtdecode(req.params.jwtValue)
-        article.find({id_token: decodeValue.id_token, like:true },(err,data)=>{
-            if(err){ 
+        article.find({id_token: decodeValue.id_token, like:true }
+            .sort({date:1})
+            .limit(15),(err,data)=>{
+            if(err){  
                 console.log(err)
             }else{
                 res.json(data);
