@@ -4,7 +4,13 @@ import boardEditState from '../../../recoil/boardEditState';
 import Wrapper from './DetailBoardStyle';
 import PropTypes from 'prop-types';
 
-const DetailBoard = ({ detailBoardData, page, cancelBoard, confirmBoard }) => {
+const DetailBoard = ({
+    detailBoardData,
+    page,
+    handlePage,
+    cancelBoard,
+    confirmBoard,
+}) => {
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
 
     const [title, setTitle] = useState('');
@@ -19,12 +25,18 @@ const DetailBoard = ({ detailBoardData, page, cancelBoard, confirmBoard }) => {
     };
 
     useEffect(() => {
+        console.log(page);
         if (detailBoardData.length !== 0) {
             setTitle(detailBoardData[page].title);
             setContent(detailBoardData[page].content);
         }
     }, [page]);
-
+    useEffect(() => {
+        if (detailBoardData.length === 0) {
+            setTitle('');
+            setContent('');
+        }
+    }, [detailBoardData]);
     return (
         <Wrapper>
             <div id="title">

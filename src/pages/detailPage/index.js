@@ -37,6 +37,7 @@ const DetailPage = () => {
             setDetailBoardData((prev) => res.data);
             console.log(res.data);
             if (res.data.length !== 0) setBoardEditFlag((prev) => false);
+            else if (res.data.length === 0) setBoardEditFlag((prev) => true);
         } catch (error) {
             console.log(`상세페이지 데이터 호출 실패 >>> ${error}`);
         }
@@ -47,6 +48,7 @@ const DetailPage = () => {
     }, []);
 
     const handlePage = (p) => {
+        p = p < 0 ? 0 : p;
         setPage(p);
     };
 
@@ -79,6 +81,8 @@ const DetailPage = () => {
                     });
                     imgUrl = res.data.data.url;
                     data = { imgurl: imgUrl };
+                    setFile(null);
+                    setFileDataURL(null);
                 }
 
                 Object.assign(data, {
@@ -135,6 +139,8 @@ const DetailPage = () => {
                         },
                     }
                 );
+                setFile(null);
+                setFileDataURL(null);
                 setAddFlag(false);
                 await getData();
             } catch (error) {
@@ -170,6 +176,7 @@ const DetailPage = () => {
         if (res2.status === 200) {
             await getData();
             setPage(page - 1);
+            setModalFlag(false);
         } else {
             console.log('delete error');
         }
@@ -226,6 +233,7 @@ const DetailPage = () => {
                         <DetailBoard
                             detailBoardData={detailBoardData}
                             page={page}
+                            handlePage={handlePage}
                             cancelBoard={cancelBoard}
                             confirmBoard={confirmBoard}
                         />
