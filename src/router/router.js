@@ -18,9 +18,9 @@ router.get('/login/:id', verifyToken, ctrl.output.login);
 
 
 router.get("/like/:pageNumber", verifyToken, ctrl.output.like);
-router.post("/like",verifyToken,ctrl.output.likePost); 
+router.post("/like/:d",verifyToken,ctrl.output.likePost); 
 router.get("/auth/kakao/callback", ctrl.output.kakao); 
- 
+  
 //router.post("/refresh",ctrl.output.tokenRefresh)
 
 router.get("/user/:date", verifyToken, ctrl.output.detailGet); 

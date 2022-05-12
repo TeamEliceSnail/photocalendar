@@ -131,7 +131,7 @@ const output={
 
     like: (req,res)=>{
         let decodeValue = jwtdecode(req.cookies.user)
-        const d =new Date('2022-5-12') 
+        const d = new Date(req.params.d)
         let page = req.params.pageNumber 
        // article.find({id_token:decodeValue.id_token, like:true},(err,data)=>{if(err){console.log(err)}else{ page = data.length}})
         
