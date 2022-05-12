@@ -15,15 +15,8 @@ app.listen(process.env.PORT, ()=>{
 })
 
 app.use(bodyParser.json());
-app.post('/images', upload.single('image'), async(req, res)=>{
-    const file = req.file
-    console.log(file);
-    const result = await uploadFile(file)
-    console.log(result)
-    const description = req.body.description;
-    res.send("해냈다 해냈어");
-})
 app.use(cookieParser())
+
 
 
 const home = require("./src/router/router");
