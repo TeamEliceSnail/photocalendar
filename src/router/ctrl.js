@@ -83,7 +83,12 @@ const output={
         .then((data)=>{
             if(!data){
                 console.log(`해당 유저는 없습니다.${user.data.id}님에 대한 유저 생성 시작`)
-                let atc = new users({ id_token : user.data.id, nickname : user.data.properties.nickname, email : user.data.kakao_account.email,refresh_token:token.data.refresh_token})
+                let atc = new users({ 
+                    id_token : user.data.id, 
+                    nickname : user.data.properties.nickname, 
+                    email : user.data.kakao_account.email,
+                    refresh_token:token.data.refresh_token
+                })
                 atc.save()
                 .then((newUser) =>{
                 console.log("create 완료!")
