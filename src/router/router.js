@@ -21,16 +21,10 @@ router.get("/like/:pageNumber", verifyToken, ctrl.output.like);
 router.post("/like/:d",verifyToken,ctrl.output.likePost); 
 router.get("/auth/kakao/callback", ctrl.output.kakao); 
   
-//router.post("/refresh",ctrl.output.tokenRefresh)
 
 router.get("/user/:date", verifyToken, ctrl.output.detailGet); 
   
 router.post("/detailPost", verifyToken, ctrl.output.detailPost);
-
-
-router.get('/user/:jwtValue/date/:date', verifyToken, ctrl.output.detailGet);
-
-router.post('/detailPost', verifyToken, ctrl.output.detailPost);
 
 router.delete('/detail/:post_id', verifyToken, ctrl.output.detailDelete);
 
