@@ -7,7 +7,7 @@ import { useRecoilState } from 'recoil';
 import { boardEditState } from '../../../../recoil';
 
 const SlideImage = ({
-    data,
+    detailBoardData,
     btnSize,
     handlePage,
     page,
@@ -25,7 +25,7 @@ const SlideImage = ({
             if (addFlag) popData();
             setBoardEditFlag(false);
         }
-        currentSlide >= data.length - 1
+        currentSlide >= detailBoardData.length - 1
             ? setCurrentSlide(0)
             : setCurrentSlide(currentSlide + 1);
     };
@@ -36,7 +36,7 @@ const SlideImage = ({
             setBoardEditFlag(false);
         }
         currentSlide === 0
-            ? setCurrentSlide(data.length - 1)
+            ? setCurrentSlide(detailBoardData.length - 1)
             : setCurrentSlide(currentSlide - 1);
     };
 
@@ -54,7 +54,7 @@ const SlideImage = ({
 
     return (
         <Wrapper>
-            {data.length > 1 ? (
+            {detailBoardData.length > 1 ? (
                 <div>
                     <MdArrowBackIos
                         className="btn prevBtn"
@@ -66,8 +66,8 @@ const SlideImage = ({
 
             <div className="slideContainer">
                 <div className="slider" ref={slideRef}>
-                    {data.length !== 0 ? (
-                        data.map((item, i) => (
+                    {detailBoardData.length !== 0 ? (
+                        detailBoardData.map((item, i) => (
                             <Slide
                                 key={i}
                                 imgurl={item.imgurl}
@@ -85,7 +85,7 @@ const SlideImage = ({
                     )}
                 </div>
             </div>
-            {data.length > 1 ? (
+            {detailBoardData.length > 1 ? (
                 <div>
                     <MdArrowForwardIos
                         className="btn nextBtn"
@@ -99,7 +99,7 @@ const SlideImage = ({
 };
 
 SlideImage.defaultProps = {
-    data: [
+    detailBoardData: [
         {
             url: 'images/picture01.jpg',
             title: '없음',
@@ -109,7 +109,7 @@ SlideImage.defaultProps = {
 };
 
 SlideImage.propTypes = {
-    data: PropTypes.array,
+    detailBoardData: PropTypes.array,
 };
 
 export default SlideImage;

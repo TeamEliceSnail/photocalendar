@@ -4,7 +4,7 @@ import Modal from '../../../common/components/modal';
 import { useRecoilState } from 'recoil';
 import modalState from '../../../recoil/modalState';
 import { useParams } from 'react-router-dom';
-const Header = ({ addBoard, modifyBoard }) => {
+const Header = ({ addBoard, modifyBoard, deleteBoard }) => {
     const [modalFlag, setModalFlag] = useRecoilState(modalState);
     const { date } = useParams();
     const handleOpenModal = () => {
@@ -13,7 +13,7 @@ const Header = ({ addBoard, modifyBoard }) => {
     const content = [
         { name: '추가', key: 'c', event: addBoard },
         { name: '수정', key: 'u', event: modifyBoard },
-        { name: '삭제', key: 'd' },
+        { name: '삭제', key: 'd', event: deleteBoard },
     ];
 
     return (

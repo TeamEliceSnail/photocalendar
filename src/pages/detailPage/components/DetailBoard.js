@@ -4,7 +4,7 @@ import boardEditState from '../../../recoil/boardEditState';
 import Wrapper from './DetailBoardStyle';
 import PropTypes from 'prop-types';
 
-const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
+const DetailBoard = ({ detailBoardData, page, cancelBoard, confirmBoard }) => {
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
 
     const [title, setTitle] = useState('');
@@ -19,9 +19,9 @@ const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
     };
 
     useEffect(() => {
-        if (data.length !== 0) {
-            setTitle(data[page].title);
-            setContent(data[page].content);
+        if (detailBoardData.length !== 0) {
+            setTitle(detailBoardData[page].title);
+            setContent(detailBoardData[page].content);
         }
     }, [page]);
 
@@ -55,7 +55,7 @@ const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
                 {!boardEditFlag ? null : (
                     <>
                         <button onClick={confirmBoard}>확인</button>
-                        {data.length !== 0 ? (
+                        {detailBoardData.length !== 0 ? (
                             <button onClick={cancelBoard}>취소</button>
                         ) : null}
                     </>
@@ -68,15 +68,9 @@ const DetailBoard = ({ data, page, cancelBoard, confirmBoard }) => {
 export default DetailBoard;
 
 DetailBoard.defaultProps = {
-    data: [
-        {
-            url: 'images/picture01.jpg',
-            title: '없음',
-            content: '없음',
-        },
-    ],
+    detailBoardData: [],
 };
 
 DetailBoard.propTypes = {
-    data: PropTypes.array,
+    detailBoardData: PropTypes.array,
 };
