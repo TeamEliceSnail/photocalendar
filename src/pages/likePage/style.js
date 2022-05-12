@@ -11,5 +11,10 @@ export default styled.div`
         grid-template-columns: repeat(auto-fill, minmax(200px, auto));
         gap: 30px;
         padding: 12% 7% 7% 7%;
-    } 
+    }
+
+    & > #loading {
+        height: 100px;
+        background-color: red;
+    }
 `

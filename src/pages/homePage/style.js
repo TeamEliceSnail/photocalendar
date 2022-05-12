@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
 export const HomePageContainer = styled.div`
-    display: flex;
+    /* display: flex; */
+    display: none;
     position: absolute;
     top: 50%;
     left: 50%;
