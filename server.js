@@ -28,7 +28,7 @@ app.set("view engine", "react");
 app.engine("html", require("ejs").renderFile);
 
 app.use(cors());
-app.use(logger('dev'))
+app.use(logger('dev')) 
 
 mongoose.connect(process.env.DBURL, {
     useNewUrlParser: true, 
