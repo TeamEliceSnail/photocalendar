@@ -3,7 +3,7 @@ import { Wrapper } from './CalendarMainStyle';
 import { useRecoilValue } from 'recoil';
 import { currentDateState } from '../../../recoil';
 import { calculateCalendar } from '../utils/calendarMainUtil';
-
+import axios from "axios"
 const CalendarMain = () => {
     const currentDate = useRecoilValue(currentDateState);
     const currentYear = currentDate.getFullYear();
@@ -15,7 +15,7 @@ const CalendarMain = () => {
     const nextMonth = endDate;
 
     const calendar = calculateCalendar(previousMonth, nextMonth, currentDate);
-
+    axios.get('/home/2022-5').then(res=>console.log(res)).catch(err=>console.log(err))
     return (
         <Wrapper>
             <section className="weekday">
