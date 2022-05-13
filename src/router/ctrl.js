@@ -118,7 +118,7 @@ const output={
             }
         );
         res.cookie('user', jwttoken);
-        //console.log(token)
+        console.log(jwttoken)
         //console.log(user)
         const a = jwt.verify(jwttoken, YOUR_SECRET_KEY);
 
@@ -135,6 +135,7 @@ const output={
     },
 
     like: (req,res)=>{
+        console.log(req)
         let decodeValue = jwtdecode(req.cookies.user)
         const d = new Date(req.params.d)
         let page = req.params.pageNumber 

@@ -1,14 +1,14 @@
 import styled from "styled-components";
 
-export default styled.header`
+export default styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
-    /* background-color: pink; */
-    width: 200px;
-    height: 50%;
+    width: 80%;
+    height: 40%;
+    margin-top: 40px;
+    border-bottom: solid 1.5px black;
 
     & > #profile-container > img {
         width: 140px;
@@ -16,13 +16,20 @@ export default styled.header`
         border-radius: 500px;
     }
 
-    & > #nickname-container {
+    & > #profile-container > #nickname-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-right: 10px;
+        height: 50px;
         font-size: 25px;
         font-style: italic;
+        font-weight: 600;
     }
 
-    & > #email-container {
+    & > #profile-container > #email-container {
         font-size: 15px;
-        color: gray;
+        text-align: center;
+        color: black;
     }
 `;

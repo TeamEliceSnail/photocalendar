@@ -7,6 +7,8 @@ export default function useItemRequest(query, pageNumber) {
     const [items, setItems] = useState([])
     const [hasMore, setHasMore] = useState(false)
 
+    const DEV_URL = 'http://localhost:5030';
+
     useEffect(() => {
         setItems([])
     }, [query])
@@ -17,10 +19,11 @@ export default function useItemRequest(query, pageNumber) {
         let cancel
         axios({
             method: 'GET',
-            url: 'http://openlibrary.org/search.json',
-            params: { q: "what is", page: pageNumber },
+            url: `${DEV_URL}/like/1`,
+            // params: { q: "what is", page: pageNumber },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(res => {
+            console.log(res)
             setItems( prevItems => [...new Set([...prevItems, ...res.data.docs.map(b => b.title)])] )
             setHasMore(res.data.docs.length > 0)
             setLoading(false)

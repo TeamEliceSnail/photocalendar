@@ -21,7 +21,7 @@ import { RecoilRoot } from 'recoil';
 
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
-    const [navBtnImg, setNavBtnImg] = useState(toggleOnImg);
+    const [navBtnImg, setNavBtnImg] = useState(toggleOffImg);
 
     const navToggle = () => {
         navFlag
@@ -42,11 +42,10 @@ const App = () => {
                     <ToggleButton navToggle={navToggle} toggleImg={navBtnImg} />
                     <Navigation navFlag={navFlag} navToggle={navToggle} />
                     <Routes>
+                        <Route path="/" element={<HomePage/>}></Route>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/" element={<HomePage />}></Route>
-                        <Route
-                            path="/detailpage/:date"
-                            element={<DetailPage />}
+                        <Route path="/likepage" element={<LikePage />}></Route>
+                        <Route path="/detailpage/:date" element={<DetailPage />}
                         ></Route>
                     </Routes>
                 </div>

@@ -11,14 +11,14 @@ const navOff = keyframes`
 `;
 
 export default styled.nav`
-    /* position: fixed; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(243, 243, 243);
-    width: 250px;
+    background-color: rgb(85 104 100 / 65%);
+    /* width: 270px; */
     height: 100vh;
+    border-top-right-radius: 30px;
     animation: ${(props) =>
     props.navFlag
     ? css`
