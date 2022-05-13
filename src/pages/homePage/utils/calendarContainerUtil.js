@@ -1,8 +1,15 @@
-export function calculateCalendar(previousMonth, nextMonth, currentMonth) {
+export function calculateCalendar(
+    previousMonth,
+    nextMonth,
+    currentMonth,
+    monthData
+) {
     const prevDate = previousMonth.getDate();
     const prevDay = previousMonth.getDay();
     const nextDate = nextMonth.getDate();
     const nextDay = nextMonth.getDay();
+
+    // console.log(monthData);
 
     const calendar = [];
     let dayCount = 0;
@@ -22,13 +29,18 @@ export function calculateCalendar(previousMonth, nextMonth, currentMonth) {
 
     // 이번 달 컴포넌트를 배열에 삽입하는 반복문
     for (i = 1; i <= nextDate; i++) {
-        calendar.push({
+        const article = monthData[String(i).padStart(2, '0')];
+        let information = {
             year: currentMonth.getFullYear(),
             month: currentMonth.getMonth(),
             date: i,
             day: dayCount,
             state: 'current',
-        });
+        };
+        if (article) {
+            information = { ...information, article };
+        }
+        calendar.push(information);
         dayCount = checkWeekend(dayCount);
     }
 
@@ -57,4 +69,28 @@ function checkSunday(prevDate, prevDay) {
     } else {
         return prevDate - prevDay;
     }
+}
+
+/**
+ * 현재 날짜와 같은 날이면 'now'를 반환하는 함수 */
+export function isNowDate({ year, month, date }) {
+    const nowDate = new Date();
+    if (
+        year === nowDate.getFullYear() &&
+        month === nowDate.getMonth() &&
+        date === nowDate.getDate()
+    ) {
+        return 'now';
+    }
+    return '';
+}
+
+/**
+ * 해당 날짜의 detailpage URL을 문자열로 반환하는 함수 */
+export function getRouteString(year, month, date) {
+    return `detailpage/${
+        String(year) +
+        String(month + 1).padStart(2, '0') +
+        String(date).padStart(2, '0')
+    }`;
 }
