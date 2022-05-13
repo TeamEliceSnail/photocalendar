@@ -13,14 +13,11 @@ router.get("/home/:d",verifyToken,ctrl.output.home);
    
 router.get("/login/:id", verifyToken,ctrl.output.login);
 
-
 router.get('/login/:id', verifyToken, ctrl.output.login);
-
 
 router.get("/like/:d/:pageNumber", verifyToken, ctrl.output.like);
 router.post("/like",verifyToken,ctrl.output.likePost); 
 router.get("/auth/kakao/callback", ctrl.output.kakao); 
-  
 
 router.get("/user/:date", verifyToken, ctrl.output.detailGet); 
   
