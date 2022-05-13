@@ -3,7 +3,6 @@ import { Wrapper } from './CalendarMainStyle';
 import { useRecoilValue } from 'recoil';
 import { currentDateState } from '../../../recoil';
 import { calculateCalendar } from '../utils/calendarMainUtil';
-
 const CalendarMain = () => {
     const currentDate = useRecoilValue(currentDateState);
     const currentYear = currentDate.getFullYear();
@@ -13,14 +12,13 @@ const CalendarMain = () => {
     const endDate = new Date(currentYear, currentMonth + 1, 0);
     const previousMonth = firstDate;
     const nextMonth = endDate;
-
+ 
     const calendar = calculateCalendar(previousMonth, nextMonth, currentDate);
-
-    return (
+    return ( 
         <Wrapper>
-            <section className="weekday">
+            <section className="weekday"> 
                 <li>Sun</li>
-                <li>Mon</li>
+                <li>Mon</li> 
                 <li>Tue</li>
                 <li>Wed</li>
                 <li>Thr</li>
