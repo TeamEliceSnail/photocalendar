@@ -5,9 +5,9 @@ import { CalendarContainer } from './CalendarContainer';
 const CalendarMain = () => {
     return (
         <Wrapper>
-            <section className="weekday">
+            <section className="weekday"> 
                 <li>Sun</li>
-                <li>Mon</li>
+                <li>Mon</li> 
                 <li>Tue</li>
                 <li>Wed</li>
                 <li>Thr</li>
