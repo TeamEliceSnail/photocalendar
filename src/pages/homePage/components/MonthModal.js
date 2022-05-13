@@ -1,11 +1,11 @@
 import { Wrapper } from './MonthModalStyle';
 import { IoClose } from 'react-icons/io5';
-import { currentDateState } from '../../../recoil';
+import { currentDateAtom } from '../../../recoil';
 import { useRecoilState } from 'recoil';
 import { useState } from 'react';
 
 export const MonthModal = ({ toggleDateModal, state }) => {
-    const [currentDate, setCurrentDate] = useRecoilState(currentDateState);
+    const [currentDate, setCurrentDate] = useRecoilState(currentDateAtom);
     const [year, setYear] = useState(currentDate.getFullYear());
     const [month, setMonth] = useState(currentDate.getMonth() + 1);
 
