@@ -16,7 +16,6 @@ app.use(cookieParser());
 
 let now = Date.now();
 
-
 const output={ 
     home: (req, res) =>{ 
         let d = req.params.d 
@@ -76,7 +75,6 @@ const output={
         } catch (err) {
             res.json(err.data);
         }
-
         
         users.findOne({id_token:user.data.id})
         .exec()
