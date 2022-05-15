@@ -1,5 +1,5 @@
 import boardEditState from './boardEditState';
-import currentDateState from './currentDateState';
+import { currentDateAtom, monthDataSelector } from './homePageStates';
 import modalState from './modalState';
 
-export { boardEditState, currentDateState, modalState };
+export { boardEditState, currentDateAtom, monthDataSelector, modalState };
