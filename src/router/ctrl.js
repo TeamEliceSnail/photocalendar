@@ -16,16 +16,15 @@ app.use(cookieParser());
 
 let now = Date.now();
 
-
-const output={ 
-    home: (req, res) =>{ 
-        let d = req.params.d 
-        let decodeValue = jwtdecode(req.cookies.user)
-        let d1 = 0; 
-        if(Number(d[d.length-1])===1){
-            d1 = 12 
-        }else{   
-            d1 = Number(d[d.length-1])+1 
+const output = {
+    home: (req, res) => {
+        let d = req.params.d;
+        let decodeValue = jwtdecode(req.cookies.user);
+        let d1 = 0;
+        if (Number(d[d.length - 1]) === 1) {
+            d1 = 12;
+        } else {
+            d1 = Number(d[d.length - 1]) + 1;
         }
         console.log(d.slice(0, 4) + '-' + d1.toString());
         const start = new Date(d);
@@ -77,30 +76,28 @@ const output={
             res.json(err.data);
         }
 
-        
-        users.findOne({id_token:user.data.id})
-        .exec()
-        .then((data)=>{
-            if(!data){
-                console.log(`해당 유저는 없습니다.${user.data.id}님에 대한 유저 생성 시작`)
-                let atc = new users({ 
-                    id_token : user.data.id, 
-                    nickname : user.data.properties.nickname, 
-                    email : user.data.kakao_account.email,
-                    refresh_token:token.data.refresh_token
-                })
-                atc.save()
-                .then((newUser) =>{
-                console.log("create 완료!")
-                })
-            }else{
-               console.log(data)
-            }
-        })
-        console.log(token.data.refresh_token) 
-         
-        
-       
+        users
+            .findOne({ id_token: user.data.id })
+            .exec()
+            .then((data) => {
+                if (!data) {
+                    console.log(
+                        `해당 유저는 없습니다.${user.data.id}님에 대한 유저 생성 시작`
+                    );
+                    let atc = new users({
+                        id_token: user.data.id,
+                        nickname: user.data.properties.nickname,
+                        email: user.data.kakao_account.email,
+                        refresh_token: token.data.refresh_token,
+                    });
+                    atc.save().then((newUser) => {
+                        console.log('create 완료!');
+                    });
+                } else {
+                    console.log(data);
+                }
+            });
+        console.log(token.data.refresh_token);
 
         // db에 id_token값을 찾거나 없으면 만들어줌 passport
         const jwttoken = jwt.sign(
@@ -125,6 +122,24 @@ const output={
         // res.send('ok');
         res.redirect('http://localhost:3000');
     },
+    auth: (req, res, next) => {
+        const clientToken = req.cookies.user;
+
+        if (!clientToken) {
+            return res.send('TokenUndefined');
+        }
+        try {
+            const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
+            if (decoded) {
+                res.locals.userId = decoded.user_id;
+                res.send('Authorized');
+            } else {
+                res.send('Unauthorized');
+            }
+        } catch (err) {
+            res.send(err.name);
+        }
+    },
     login: (req, res, next) => {
         res.json('mainpagedata');
         console.log(typeof req.params.id);
@@ -134,39 +149,48 @@ const output={
         res.send('/detail page');
     },
 
-    like: (req,res)=>{
-        let decodeValue = jwtdecode(req.cookies.user)
-        const d = new Date(req.params.d)
-        let page = req.params.pageNumber 
-       // article.find({id_token:decodeValue.id_token, like:true},(err,data)=>{if(err){console.log(err)}else{ page = data.length}})
-        
-        article.find({date:{$lte:d},id_token:decodeValue.id_token, like:true },(err,data)=>{
-            if(err){   
-                console.log(err) 
-            }else{  
-                res.json(data);
-            } 
-        }).sort({date:-1})
-        .skip((page-1)*2)
-        .limit(2)    
-         
-    }, 
-    likePost:(req,res)=>{
-        
-        const { _id,like } = req.body;
-        article.updateOne({_id:_id},{$set:{like:like}},(err,data)=>{
-            if(err){ 
-                console.log(err)
-                res.json({error:"like 수정을 실패했습니다."})
-            }else{
-                res.json({succes:`${_id}에 like를 수정하였습니다.`})
+    like: (req, res) => {
+        let decodeValue = jwtdecode(req.cookies.user);
+        const d = new Date(req.params.d);
+        let page = req.params.pageNumber;
+        // article.find({id_token:decodeValue.id_token, like:true},(err,data)=>{if(err){console.log(err)}else{ page = data.length}})
+
+        article
+            .find(
+                {
+                    date: { $lte: d },
+                    id_token: decodeValue.id_token,
+                    like: true,
+                },
+                (err, data) => {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        res.json(data);
+                    }
+                }
+            )
+            .sort({ date: -1 })
+            .skip((page - 1) * 2)
+            .limit(2);
+    },
+    likePost: (req, res) => {
+        const { _id, like } = req.body;
+        article.updateOne(
+            { _id: _id },
+            { $set: { like: like } },
+            (err, data) => {
+                if (err) {
+                    console.log(err);
+                    res.json({ error: 'like 수정을 실패했습니다.' });
+                } else {
+                    res.json({ succes: `${_id}에 like를 수정하였습니다.` });
+                }
             }
-        }) 
-
-
+        );
     },
 
-    detailGet: (req,res)=>{
+    detailGet: (req, res) => {
         const inputDate = req.params.date;
         const nextDate = (parseInt(inputDate) + 1).toString();
 
@@ -183,9 +207,8 @@ const output={
             '-' +
             nextDate.slice(6, 8);
 
-
-        const decodeValue = jwtdecode(req.cookies.user) 
-        datetag = new Date(fixedDate);  
+        const decodeValue = jwtdecode(req.cookies.user);
+        datetag = new Date(fixedDate);
 
         dateend = new Date(fixedNext);
 
