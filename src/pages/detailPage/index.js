@@ -25,17 +25,11 @@ const DetailPage = () => {
     const [file, setFile] = useState(null);
     const [fileDataURL, setFileDataURL] = useState(null);
 
-    const USER_ID = 'aaa';
-    const DEV_URL = 'http://localhost:5030';
-
     const getData = async () => {
         try {
-            const res = await axios.get(
-                `${DEV_URL}/user/${USER_ID}/date/${date}`
-            );
+            const res = await axios.get(`/user/${date}`);
             setLoading((prev) => false);
             setDetailBoardData((prev) => res.data);
-            console.log(res.data);
             if (res.data.length !== 0) setBoardEditFlag((prev) => false);
             else if (res.data.length === 0) setBoardEditFlag((prev) => true);
         } catch (error) {
@@ -73,7 +67,7 @@ const DetailPage = () => {
 
                     const res = await axios({
                         method: 'POST',
-                        url: `${DEV_URL}/sendImg`,
+                        url: `/sendImg`,
                         data: formData,
                         headers: {
                             'Content-Type': 'multipart/form-detailBoardData',
@@ -94,7 +88,7 @@ const DetailPage = () => {
 
                 const jsonStringData = JSON.stringify(data);
                 const res2 = await axios.put(
-                    `${DEV_URL}/detailUpdate/${modify_target_id}`,
+                    `/detailUpdate/${modify_target_id}`,
                     jsonStringData,
                     {
                         headers: {
@@ -111,34 +105,29 @@ const DetailPage = () => {
                 }
                 const formData = new FormData();
                 formData.append('image', file);
-
                 const res = await axios({
                     method: 'POST',
-                    url: `${DEV_URL}/sendImg`,
+                    url: `/sendImg`,
                     data: formData,
                     headers: {
                         'Content-Type': 'multipart/form-detailBoardData',
                     },
                 });
-                const imgUrl = res.data.data.url;
+                const imgUrl = res.data.url;
                 const data = {
                     imgurl: imgUrl,
-                    id_token: USER_ID,
                     date: date,
                     like: 'false',
                     title: document.querySelector('.title_textarea').value,
                     content: document.querySelector('.content_textarea').value,
                 };
+                console.log(data);
                 const jsonStringData = JSON.stringify(data);
-                const res2 = await axios.post(
-                    `${DEV_URL}/detailPost`,
-                    jsonStringData,
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
+                const res2 = await axios.post(`/detailPost`, jsonStringData, {
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                });
                 setFile(null);
                 setFileDataURL(null);
                 setAddFlag(false);
@@ -169,9 +158,7 @@ const DetailPage = () => {
 
     const deleteBoard = async () => {
         const delete_target_id = detailBoardData[page]._id;
-        const res2 = await axios.delete(
-            `${DEV_URL}/detailDel/${delete_target_id}`
-        );
+        const res2 = await axios.delete(`/detailDel/${delete_target_id}`);
 
         if (res2.status === 200) {
             await getData();
@@ -191,8 +178,8 @@ const DetailPage = () => {
         setFile(imgFile);
     };
     useEffect(() => {
-        let reader,
-            isCancel = false;
+        let reader;
+        let isCancel = false;
         if (file) {
             reader = new FileReader();
             reader.onload = (e) => {

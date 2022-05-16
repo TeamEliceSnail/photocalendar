@@ -25,7 +25,6 @@ const DetailBoard = ({
     };
 
     useEffect(() => {
-        console.log(page);
         if (detailBoardData.length !== 0) {
             setTitle(detailBoardData[page].title);
             setContent(detailBoardData[page].content);
