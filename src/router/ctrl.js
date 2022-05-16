@@ -279,6 +279,7 @@ const output = {
             post.title = title;
             post.content = content;
             post.like = like;
+            post.imgurl = imgurl
             var output = await post.save();
             console.log('업데이트 완료!');
             res.status(200).json({
