@@ -231,8 +231,9 @@ const output = {
         const parsedDate =
             date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
         const datetag = new Date(parsedDate);
+        const decodeValue = jwtdecode(req.cookies.user);
         let atc = new article({
-            id_token,
+            id_token: decodeValue.id_token,
             date: datetag,
             title,
             content,
