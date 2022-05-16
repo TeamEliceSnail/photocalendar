@@ -10,11 +10,15 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+
+app.use(cors({ origin: true, credentials: true }))
+    .use(bodyParser.json())
+    .use(cookieParser());
+
 app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 });
 
-app.use(bodyParser.json());
 app.post('/images', upload.single('image'), async (req, res) => {
     const file = req.file;
     console.log(file);
@@ -23,7 +27,6 @@ app.post('/images', upload.single('image'), async (req, res) => {
     const description = req.body.description;
     res.send('해냈다 해냈어');
 });
-app.use(cookieParser());
 
 const home = require('./src/router/router');
 const { Logger } = require('concurrently');
@@ -33,7 +36,6 @@ app.set('views', './src/pages');
 app.set('view engine', 'react');
 app.engine('html', require('ejs').renderFile);
 
-app.use(cors());
 app.use(logger('dev'));
 
 mongoose
@@ -44,6 +46,7 @@ mongoose
     })
     .then(() => console.log('성공적으로 db에 연결됐습니다'))
     .catch((err) => console.log(err));
+
 mongoose.connection.on('connected', () => {
     console.log('연결완료');
 });
