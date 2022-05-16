@@ -19,7 +19,7 @@ export default function useItemRequest(query, pageNumber) {
         let cancel
         axios({
             method: 'GET',
-            url: `${DEV_URL}/like/1`,
+            url: `http://localhost:5030/like/2022-5-13/1`,
             // params: { q: "what is", page: pageNumber },
             cancelToken: new axios.CancelToken(c => cancel = c)
         }).then(res => {
