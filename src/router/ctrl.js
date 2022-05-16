@@ -227,12 +227,12 @@ const output = {
         );
     },
     detailPost: (req, res) => {
-        const { id_token, date, title, content, imgurl, like } = req.body;
+        const { date, title, content, imgurl, like } = req.body;
         const parsedDate =
             date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
         const datetag = new Date(parsedDate);
         let atc = new article({
-            id_token,
+            id_token: jwtdecode(req.cookies.user).id_token,
             date: datetag,
             title,
             content,
