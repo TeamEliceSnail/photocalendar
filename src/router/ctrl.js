@@ -125,10 +125,7 @@ const output = {
     auth: (req, res, next) => {
         const clientToken = req.cookies.user;
 
-        if (clientToken) {
-        } else {
-            return res.send('undefined');
-        }
+        if (!clientToken) return res.send('undefined');
         try {
             const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
             if (decoded) {
