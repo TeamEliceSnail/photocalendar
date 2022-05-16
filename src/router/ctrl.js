@@ -125,17 +125,19 @@ const output = {
     auth: (req, res, next) => {
         const clientToken = req.cookies.user;
 
-        if (!clientToken) return res.send('undefined');
+        if (!clientToken) {
+            return res.send('TokenUndefined');
+        }
         try {
             const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
             if (decoded) {
                 res.locals.userId = decoded.user_id;
-                res.send('authorized');
+                res.send('Authorized');
             } else {
-                res.send('unauthorized');
+                res.send('Unauthorized');
             }
         } catch (err) {
-            res.send(err);
+            res.send(err.name);
         }
     },
     login: (req, res, next) => {

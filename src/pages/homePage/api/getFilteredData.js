@@ -3,7 +3,7 @@ import axios from 'axios';
 export async function getFilteredData(currentDate) {
     const year = String(currentDate.getFullYear());
     const month = String(currentDate.getMonth() + 1);
-    const URI = `http://localhost:5030/home/${year}-${month.padStart(2, '0')}`;
+    const URI = `/home/${year}-${month.padStart(2, '0')}`;
 
     try {
         axios.defaults.withCredentials = true;

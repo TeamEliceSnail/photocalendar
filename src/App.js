@@ -9,6 +9,7 @@ import toggleOffImg from './common/img/x.png';
 // components
 import ToggleButton from './common/components/toggleButton';
 import Navigation from './common/components/navigation';
+import PrivateRouter from './common/components/helpers/PrivateRouter';
 
 // pages
 import HomePage from './pages/homePage';
@@ -43,7 +44,14 @@ const App = () => {
                     <Navigation navFlag={navFlag} navToggle={navToggle} />
                     <Routes>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/" element={<HomePage />}></Route>
+                        <Route
+                            path="/"
+                            element={
+                                <PrivateRouter>
+                                    <HomePage />
+                                </PrivateRouter>
+                            }
+                        ></Route>
                         <Route
                             path="/detailpage/:date"
                             element={<DetailPage />}
