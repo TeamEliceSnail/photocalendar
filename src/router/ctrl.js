@@ -259,7 +259,6 @@ const output = {
             .then((output) => {
                 if (output.n == 0)
                     return res.status(404).json({ message: 'post not found' });
-                deleteFile(output.imgurl);
                 console.log('Delete 완료');
                 res.status(200).json({
                     message: 'Delete Success',

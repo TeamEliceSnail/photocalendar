@@ -27,23 +27,3 @@ function uploadFile(file) {
     return s3.upload(uploadParams).promise();
 }
 exports.uploadFile = uploadFile;
-
-//download
-function getFileStream(fileKey) {
-    const downloadParams = {
-        Key: fileKey,
-        Bucket: bucketName,
-    };
-    return s3.getObject(downloadParams).createReadStream();
-}
-exports.getFileStream = getFileStream;
-
-//delete
-function deleteFile(delurl){
-    const deleteParams = {
-        Bucket: bucketName,
-        Key: delurl.substr(71),
-    }
-    return s3.deleteObject(deleteParams).promise();
-}
-exports.deleteFile = deleteFile;
