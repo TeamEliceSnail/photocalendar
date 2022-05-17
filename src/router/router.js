@@ -49,12 +49,6 @@ router.post('/sendImg', upload.single('image'), async (req, res) => {
     }
 });
 
-router.get('/images/:key', (req, res) => {
-    const key = req.params.key;
-    const readStream = getFileStream(key);
-    readStream.pipe(res);
-});
-
 //------------------이미지업로드 테스트케이스--------------------
 
 module.exports = router;
