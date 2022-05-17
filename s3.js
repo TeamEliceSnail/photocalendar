@@ -40,9 +40,10 @@ exports.getFileStream = getFileStream;
 
 //delete
 function deleteFile(delurl){
-    s3.deleteObject({
+    const deleteParams = {
         Bucket: bucketName,
         Key: delurl.substr(71),
-    })
+    }
+    return s3.deleteObject(deleteParams).promise();
 }
 exports.deleteFile = deleteFile;
