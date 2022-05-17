@@ -12,6 +12,8 @@ const { mainPage } = require('../../db');
 const { constSelector } = require('recoil');
 const cookieParser = require('cookie-parser');
 const { jwtdecode } = require('./decode');
+const { deleteFile } = require('../../s3');
+
 app.use(cookieParser());
 
 let now = Date.now();
@@ -257,6 +259,7 @@ const output = {
             .then((output) => {
                 if (output.n == 0)
                     return res.status(404).json({ message: 'post not found' });
+                deleteFile(output.imgurl);
                 console.log('Delete 완료');
                 res.status(200).json({
                     message: 'Delete Success',
@@ -271,11 +274,12 @@ const output = {
 
     detailUpdate: async (req, res) => {
         const post_id = req.params.post_id;
-        const { title, content, like } = req.body;
+        const { title, content, like, imgurl} = req.body;
         try {
             let post = await article.findById(post_id);
             if (!post)
                 return res.status(404).json({ message: '해당 글이 없습니다' });
+            deleteFile(post.imgurl);
             post.title = title;
             post.content = content;
             post.like = like;

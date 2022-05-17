@@ -36,5 +36,13 @@ function getFileStream(fileKey) {
     };
     return s3.getObject(downloadParams).createReadStream();
 }
-
 exports.getFileStream = getFileStream;
+
+//delete
+function deleteFile(delurl){
+    s3.deleteObject({
+        Bucket: bucketName,
+        Key: delurl.substr(71),
+    })
+}
+exports.deleteFile = deleteFile;
