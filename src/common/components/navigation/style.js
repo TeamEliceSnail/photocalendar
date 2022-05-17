@@ -15,10 +15,11 @@ export default styled.nav`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    background-color: rgb(85 104 100 / 65%);
-    /* width: 270px; */
-    height: 100vh;
+    background-color: rgb(97 133 126 / 65%);
+    width: 250px;
     border-top-right-radius: 30px;
+    border-top: solid;
+    border-right: solid;
     animation: ${(props) =>
     props.navFlag
     ? css`

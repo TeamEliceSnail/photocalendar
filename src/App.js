@@ -9,12 +9,15 @@ import toggleOffImg from './common/img/x.png';
 // components
 import ToggleButton from './common/components/toggleButton';
 import Navigation from './common/components/navigation';
+import PrivateRouter from './common/components/helpers/PrivateRouter';
 
 // pages
 import HomePage from './pages/homePage';
 import Login from './pages/logIn';
 import DetailPage from './pages/detailPage';
 import LikePage from './pages/likePage';
+
+import Test from './pages/test';
 
 // recoil
 import { RecoilRoot } from 'recoil';
@@ -44,8 +47,19 @@ const App = () => {
                     <Routes>
                         <Route path="/" element={<HomePage/>}></Route>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/likepage" element={<LikePage />}></Route>
-                        <Route path="/detailpage/:date" element={<DetailPage />}
+                        <Route path="/like" element={<LikePage />}></Route>
+                        <Route path="/test" element={<Test/>}></Route>
+                        <Route
+                            path="/"
+                            element={
+                                <PrivateRouter>
+                                    <HomePage />
+                                </PrivateRouter>
+                            }
+                        ></Route>
+                        <Route
+                            path="/detailpage/:date"
+                            element={<DetailPage />}
                         ></Route>
                     </Routes>
                 </div>

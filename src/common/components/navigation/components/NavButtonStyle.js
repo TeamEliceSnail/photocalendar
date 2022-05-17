@@ -7,7 +7,7 @@ export default styled.div`
     margin-bottom: 4px;
     align-items: center;
     justify-content: center;
-    background-color: #4e4e4e69;
+    background-color: rgb(152 176 171);
     text-decoration: none;
 
     & > #nav-button-icon > img {

@@ -1,7 +1,8 @@
 import styled from 'styled-components'
 
 export default styled.div`
-    background-color: white;
+    background-color: black;
+    color: white;
     box-shadow: 4px 4px 10px grey;
     display: flex;
     flex-direction: column;
@@ -33,7 +34,6 @@ export default styled.div`
     }
 
     & > #detail-container  {
-        border-top: 2px solid gray;
         height: 25%;
         width: 90%;
         display: flex;
@@ -44,24 +44,16 @@ export default styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border-bottom: 2px solid gray;
+        padding-bottom: 1%;
         margin: 1% 0% 3% 0%;
         height: 30%;
     }
 
-    /* & > #detail-container > #detail-header > #detail-date {
-    }
-
-    & > #detail-container > #detail-header > #like-btn {
-        height: 30%;
-        margin-top: 2%;
-    } */
-
     & > #detail-container > #detail-body {
-        height: 40%;
-        color: gray;
+        height: 50%;
         font-weight: 200;
         font-size: 13px;
-        overflow-x: hidden;
-        text-overflow: ellipsis
+        overflow-y: hidden;
     }
 `

@@ -4,7 +4,7 @@ import Wrapper from './style';
 const Loading = () => {
     return (
         <Wrapper>
-            <div class="loading dot">
+            <div className="loading dot">
                 <div></div>
                 <div></div>
                 <div></div>

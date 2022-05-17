@@ -5,7 +5,7 @@ import NavButton from './NavButton';
 const NavForm = () => {
     const buttonList = [
         { title: "My Calendar", url: "/"},
-        { title: "Favorite", url: "/likepage"},
+        { title: "Favorite", url: "/like"},
         { title: "Delete Blog", url: "null"},
         { title: "Profile", url: "null"},
     ];

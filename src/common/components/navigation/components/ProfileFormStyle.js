@@ -14,6 +14,7 @@ export default styled.div`
         width: 140px;
         height: 140px;
         border-radius: 500px;
+        box-shadow: 5px 5px 10px grey
     }
 
     & > #profile-container > #nickname-container {
