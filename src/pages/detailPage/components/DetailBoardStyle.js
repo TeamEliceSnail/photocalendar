@@ -10,10 +10,14 @@ export default styled.div`
     flex-shrink: 0;
     border-left: 2px solid gray;
     margin: 3vh;
+    white-space: pre-wrap;
+
     & > #title {
         width: 100%;
         margin-left: 8vh;
         font-size: 3rem;
+        word-break: break-all;
+        overflow: scroll;
     }
 
     & > #content {
@@ -22,6 +26,7 @@ export default styled.div`
         height: 55vh;
         width: 52vh;
         word-break: break-all;
+        overflow: scroll;
     }
 
     .title_textarea {
