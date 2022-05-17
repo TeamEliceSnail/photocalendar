@@ -9,6 +9,7 @@ const { uploadFile, getFileStream } = require('../../s3');
 const unlinkFile = util.promisify(fs.unlink);
 const { verifyToken } = require('./authorization');
 
+
 router.get('/auth', ctrl.output.auth);
 
 router.get('/home/:d', verifyToken, ctrl.output.home);
