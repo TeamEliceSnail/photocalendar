@@ -258,7 +258,7 @@ const output = {
                 var updatedPost = await post.save();
                 res.status(200).json({
                     message: '업데이트 완료!',
-                    data: {post: updatedPost}
+                    data: { post: updatedPost }
                 });
             } else {
                 return res.status(404).json({ message: '해당 글이 없습니다' });

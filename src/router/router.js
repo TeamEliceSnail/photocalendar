@@ -16,7 +16,7 @@ router.get('/home/:d', ctrl.output.home);
 
 router.get('/login/:id', ctrl.output.login);
 
-router.get('/like/:d/:pageNumber', verifyToken,ctrl.output.like);
+router.get('/like/:d/:pageNumber', verifyToken, ctrl.output.like);
 
 router.post('/like', verifyToken, ctrl.output.likePost);
 

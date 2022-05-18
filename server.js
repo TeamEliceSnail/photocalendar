@@ -16,7 +16,7 @@ app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 });
 
-app.use(cors({ origin: true, credentials: true }))
+app.use(cors())
     .use(bodyParser.json())
     .use(cookieParser())
     .use('/', home)
