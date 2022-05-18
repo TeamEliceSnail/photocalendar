@@ -10,21 +10,24 @@ const { Logger } = require('concurrently');
 const logger = require('morgan');
 
 
+
+
+
 app.set('views', './src/pages');
 
 app.engine('html', require('ejs').renderFile);
+
+app.listen(process.env.PORT, () => {
+    console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
+});
 
 app.use(logger('dev'));
 
 app.use(cors({ origin: true, credentials: true }))
     .use(bodyParser.json())
-    .use(cookieParser());
+    .use(cookieParser())
+    .use('/', home);
 
-app.use('/', home);
-
-app.listen(process.env.PORT, () => {
-    console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
-});
 
 
 
