@@ -1,25 +1,20 @@
-import { useState, useEffect } from 'react';
-
 import Wrapper from './LikeItemStyle';
 import LikeBtn from '../../../common/components/likeButton';
-import favoriteImg from '../../../common/img/favorite.png';
 
 const LikeItem = ({item}) => {
-    const calcImgSize = () => {
-        let img = new Image();
-        img.src = favoriteImg;
-        return img.width > img.height ? 'w' : 'h';
-    };
-
 
     return (
-        <Wrapper>
+        <Wrapper imgSize={item.imgurl}>
             <div id="img-container">
                 <img src={item.imgurl} alt="likeimg" />
             </div>
             <div id="detail-container">
                 <div id="detail-header">
-                    <div id="detail-date">{item.date}</div>
+                    <div id="detail-date">{
+                        item.date
+                            .substr(0,10)
+                            .replace(/-/g, '.')
+                    }</div>
                     <div id="like-btn"><LikeBtn/></div>
                 </div>
                 <div id="detail-body">

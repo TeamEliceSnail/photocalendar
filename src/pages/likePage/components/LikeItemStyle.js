@@ -1,4 +1,10 @@
-import styled from 'styled-components'
+import styled, { css } from "styled-components";
+
+const calcImgSize = (imgurl) => {
+    let img = new Image();
+    img.src = imgurl;
+    return img.width > img.height ? 'w' : 'h';
+};
 
 export default styled.div`
     background-color: black;
@@ -26,8 +32,11 @@ export default styled.div`
 
     & > #img-container > img {
         position: absolute;
-        width: 100%;
-        /* height: 100%; */
+        ${(props) => 
+            calcImgSize(props.imgSize) === 'h' 
+            ? css`width: 100%;`
+            : css`height: 100%;`
+        };
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
