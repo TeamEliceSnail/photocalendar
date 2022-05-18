@@ -41,7 +41,7 @@ const App = () => {
     return (
         <RecoilRoot>
             <BrowserRouter>
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex', height: '100vh' }}>
                     <ToggleButton navToggle={navToggle} toggleImg={navBtnImg} />
                     <Navigation navFlag={navFlag} navToggle={navToggle} />
                     <Routes>
