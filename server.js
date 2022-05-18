@@ -2,41 +2,31 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
-const react = require('react');
 const cors = require('cors');
-const { article } = require('./db');
-const { uploadFile } = require('./s3');
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
+const home = require('./src/router/router');
+const { Logger } = require('concurrently');
+const logger = require('morgan');
+
+
+app.set('views', './src/pages');
+
+app.engine('html', require('ejs').renderFile);
+
+app.use(logger('dev'));
 
 app.use(cors({ origin: true, credentials: true }))
     .use(bodyParser.json())
     .use(cookieParser());
 
+app.use('/', home);
+
 app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 });
 
-app.post('/images', upload.single('image'), async (req, res) => {
-    const file = req.file;
-    console.log(file);
-    const result = await uploadFile(file);
-    console.log(result);
-    const description = req.body.description;
-    res.send('해냈다 해냈어');
-});
 
-const home = require('./src/router/router');
-const { Logger } = require('concurrently');
-const logger = require('morgan');
-
-app.set('views', './src/pages');
-app.set('view engine', 'react');
-app.engine('html', require('ejs').renderFile);
-
-app.use(logger('dev'));
 
 mongoose
     .connect(process.env.DBURL, {
@@ -60,6 +50,3 @@ mongoose.connection.on('reconnectFailed', () => {
     console.log('재연결 시도 횟수 초과');
 });
 
-var now = new Date();
-
-app.use('/', home);
