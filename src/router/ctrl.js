@@ -12,7 +12,6 @@ const { mainPage } = require('../../db');
 const { constSelector } = require('recoil');
 const cookieParser = require('cookie-parser');
 const { jwtdecode } = require('./decode');
-const { deleteFile } = require('../../s3');
 
 app.use(cookieParser());
 
@@ -278,7 +277,6 @@ const output = {
             let post = await article.findById(post_id);
             if (!post)
                 return res.status(404).json({ message: '해당 글이 없습니다' });
-            deleteFile(post.imgurl);
             post.title = title;
             post.content = content;
             post.like = like;

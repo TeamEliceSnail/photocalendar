@@ -9,7 +9,13 @@ import Header from './components/Header';
 import { useEffect, useRef, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
-
+import {
+    deleteDetailBoard,
+    getDetailAllBoard,
+    postDetailBoard,
+    postImg,
+    updateDetailBoard,
+} from './api';
 // 상세페이지 메인
 // 필요 컴포넌트 1. 왼쪽 글,일자, 감정표현 2.슬라이드
 const DetailPage = () => {
@@ -27,7 +33,7 @@ const DetailPage = () => {
 
     const getData = async () => {
         try {
-            const res = await axios.get(`/user/${date}`);
+            const res = await getDetailAllBoard(date);
             setLoading((prev) => false);
             setDetailBoardData((prev) => res.data);
             if (res.data.length !== 0) setBoardEditFlag((prev) => false);
@@ -58,44 +64,29 @@ const DetailPage = () => {
     const confirmBoard = async () => {
         if (modifyflag) {
             try {
-                const imgUrl = '';
-                const modify_target_id = detailBoardData[page]._id;
                 const data = {};
+                let imgurl = '';
                 if (file !== null) {
                     const formData = new FormData();
                     formData.append('image', file);
 
-                    const res = await axios({
-                        method: 'POST',
-                        url: `/sendImg`,
-                        data: formData,
-                        headers: {
-                            'Content-Type': 'multipart/form-detailBoardData',
-                        },
-                    });
-                    imgUrl = res.data.data.url;
-                    data = { imgurl: imgUrl };
+                    imgurl = await postImg(formData);
                     setFile(null);
                     setFileDataURL(null);
                 }
 
+                const modify_target_id = detailBoardData[page]._id;
+
                 Object.assign(data, {
                     date: date,
                     like: 'false',
+                    imgurl: imgurl || detailBoardData[page].imgurl,
                     title: document.querySelector('.title_textarea').value,
                     content: document.querySelector('.content_textarea').value,
                 });
 
-                const jsonStringData = JSON.stringify(data);
-                const res2 = await axios.put(
-                    `/detailUpdate/${modify_target_id}`,
-                    jsonStringData,
-                    {
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                    }
-                );
+                await updateDetailBoard(modify_target_id, data);
+
                 await getData();
             } catch (e) {}
         } else {
@@ -105,29 +96,19 @@ const DetailPage = () => {
                 }
                 const formData = new FormData();
                 formData.append('image', file);
-                const res = await axios({
-                    method: 'POST',
-                    url: `/sendImg`,
-                    data: formData,
-                    headers: {
-                        'Content-Type': 'multipart/form-detailBoardData',
-                    },
-                });
-                const imgUrl = res.data.url;
+
+                const imgurl = await postImg(formData);
+
                 const data = {
-                    imgurl: imgUrl,
+                    imgurl: imgurl,
                     date: date,
                     like: 'false',
                     title: document.querySelector('.title_textarea').value,
                     content: document.querySelector('.content_textarea').value,
                 };
-                console.log(data);
-                const jsonStringData = JSON.stringify(data);
-                const res2 = await axios.post(`/detailPost`, jsonStringData, {
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                });
+
+                await postDetailBoard(data);
+
                 setFile(null);
                 setFileDataURL(null);
                 setAddFlag(false);
@@ -158,15 +139,12 @@ const DetailPage = () => {
 
     const deleteBoard = async () => {
         const delete_target_id = detailBoardData[page]._id;
-        const res2 = await axios.delete(`/detailDel/${delete_target_id}`);
 
-        if (res2.status === 200) {
-            await getData();
-            setPage(page - 1);
-            setModalFlag(false);
-        } else {
-            console.log('delete error');
-        }
+        await deleteDetailBoard(delete_target_id);
+
+        await getData();
+        setPage(page - 1);
+        setModalFlag(false);
     };
 
     const uploadImage = () => {
