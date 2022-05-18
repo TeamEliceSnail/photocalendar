@@ -45,18 +45,22 @@ const DetailBoard = ({
     return (
         <Wrapper>
             <div className="likeDiv">
-                {detailBoardData[page].like ? (
-                    <AiFillHeart
-                        className="like"
-                        size={30}
-                        onClick={handleLike}
-                    />
+                {!boardEditFlag ? (
+                    detailBoardData[page].like ? (
+                        <AiFillHeart
+                            className="like"
+                            size={30}
+                            onClick={handleLike}
+                        />
+                    ) : (
+                        <AiOutlineHeart
+                            className="like"
+                            size={30}
+                            onClick={handleLike}
+                        />
+                    )
                 ) : (
-                    <AiOutlineHeart
-                        className="like"
-                        size={30}
-                        onClick={handleLike}
-                    />
+                    <></>
                 )}
             </div>
             <div id="title">
