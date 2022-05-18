@@ -7,9 +7,10 @@ const calcImgSize = (imgurl) => {
 };
 
 export default styled.div`
-    background-color: black;
-    color: white;
-    box-shadow: 4px 4px 10px grey;
+    background-color: white;
+    color: black;
+    font-weight: bold;
+    box-shadow: 4px 4px 20px grey;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,12 +58,14 @@ export default styled.div`
         padding-bottom: 1%;
         margin: 1% 0% 3% 0%;
         height: 30%;
+        font-size: 16px;
+
     }
 
     & > #detail-container > #detail-body {
         height: 50%;
         font-weight: 200;
-        font-size: 13px;
+        font-size: 14px;
         overflow-y: hidden;
     }
 `
