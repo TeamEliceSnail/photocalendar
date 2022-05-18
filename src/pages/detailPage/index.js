@@ -53,7 +53,12 @@ const DetailPage = () => {
     };
 
     const addBoard = () => {
-        detailBoardData.push({ imgurl: '', title: '', content: '' });
+        detailBoardData.push({
+            imgurl: '',
+            title: '',
+            content: '',
+            like: false,
+        });
         setDetailBoardData(detailBoardData);
         setModalFlag(false);
         setAddFlag(true);
@@ -79,7 +84,7 @@ const DetailPage = () => {
 
                 Object.assign(data, {
                     date: date,
-                    like: 'false',
+                    like: detailBoardData[page].like,
                     imgurl: imgurl || detailBoardData[page].imgurl,
                     title: document.querySelector('.title_textarea').value,
                     content: document.querySelector('.content_textarea').value,
@@ -102,7 +107,7 @@ const DetailPage = () => {
                 const data = {
                     imgurl: imgurl,
                     date: date,
-                    like: 'false',
+                    like: detailBoardData[page].like,
                     title: document.querySelector('.title_textarea').value,
                     content: document.querySelector('.content_textarea').value,
                 };
@@ -116,6 +121,27 @@ const DetailPage = () => {
             } catch (error) {
                 console.log(`데이터 추가 실패 >>> ${error}`);
             }
+        }
+    };
+
+    const updateLike = async () => {
+        try {
+            const data = {};
+            const modify_target_id = detailBoardData[page]._id;
+
+            Object.assign(data, {
+                date: date,
+                like: !detailBoardData[page].like,
+                imgurl: detailBoardData[page].imgurl,
+                title: detailBoardData[page].title,
+                content: detailBoardData[page].content,
+            });
+
+            await updateDetailBoard(modify_target_id, data);
+
+            await getData();
+        } catch (error) {
+            console.log(`데이터 추가 실패 >>> ${error}`);
         }
     };
 
@@ -201,6 +227,7 @@ const DetailPage = () => {
                             handlePage={handlePage}
                             cancelBoard={cancelBoard}
                             confirmBoard={confirmBoard}
+                            updateLike={updateLike}
                         />
                     </div>
                 )}

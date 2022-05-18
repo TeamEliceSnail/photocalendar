@@ -4,6 +4,7 @@ import Modal from '../../../common/components/modal';
 import { useRecoilState } from 'recoil';
 import modalState from '../../../recoil/modalState';
 import { useParams } from 'react-router-dom';
+
 const Header = ({ addBoard, modifyBoard, deleteBoard }) => {
     const [modalFlag, setModalFlag] = useRecoilState(modalState);
     const { date } = useParams();

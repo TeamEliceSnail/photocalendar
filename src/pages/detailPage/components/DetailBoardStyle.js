@@ -12,12 +12,37 @@ export default styled.div`
     margin: 3vh;
     white-space: pre-wrap;
 
+    & .likeDiv {
+        width: 100%;
+        margin-left: 8vh;
+        display: flex;
+        justify-content: start;
+    }
+
+    & .like {
+        top: 0%;
+        right: 0%;
+        position: relative;
+        color: #ff9999;
+        cursor: pointer;
+    }
+
     & > #title {
         width: 100%;
         margin-left: 8vh;
         font-size: 3rem;
         word-break: break-all;
         overflow: scroll;
+    }
+    & > #title {
+        width: 100%;
+        margin-left: 8vh;
+        font-size: 3rem;
+        word-break: break-all;
+        overflow: scroll;
+    }
+    & > #title::-webkit-scrollbar {
+        display: none;
     }
 
     & > #content {
@@ -27,6 +52,9 @@ export default styled.div`
         width: 52vh;
         word-break: break-all;
         overflow: scroll;
+    }
+    & > #content::-webkit-scrollbar {
+        display: none;
     }
 
     .title_textarea {

@@ -8,7 +8,7 @@ export default styled.div`
         right: 0;
         bottom: 0;
         background-image: ${(props) => `url(${props.imgUrl})`};
-        background-color: #fef7c6;
+        /* background-color: #fef7c6; */
         background-size: cover;
         background-repeat: no-repeat;
         width: 100%;
