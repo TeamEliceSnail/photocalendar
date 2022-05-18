@@ -7,9 +7,9 @@ const ProfileForm = () => {
         <Wrapper>
             <div id="profile-container">
                 <img src={profileimg} alt="profileimg" />
+                <div id="nickname-container"><span id="nickname">Jenny</span></div>
+                <div id="email-container"><span id="email">jenny123@gmail.com</span></div>
             </div>
-            <div id="nickname-container">Jenny</div>
-            <div id="email-container">jenny123@gmail.com</div>
         </Wrapper>
     );
 };

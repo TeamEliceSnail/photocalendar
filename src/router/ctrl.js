@@ -114,7 +114,7 @@ const output = {
             }
         );
         res.cookie('user', jwttoken);
-        //console.log(token)
+        console.log(jwttoken)
         //console.log(user)
         const a = jwt.verify(jwttoken, YOUR_SECRET_KEY);
 
@@ -170,8 +170,8 @@ const output = {
                 }
             )
             .sort({ date: -1 })
-            .skip((page - 1) * 2)
-            .limit(2);
+            .skip((page - 1) * 15)
+            .limit(15);
     },
     likePost: (req, res) => {
         const { _id, like } = req.body;
