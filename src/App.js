@@ -17,12 +17,14 @@ import Login from './pages/logIn';
 import DetailPage from './pages/detailPage';
 import LikePage from './pages/likePage';
 
+import Test from './pages/test';
+
 // recoil
 import { RecoilRoot } from 'recoil';
 
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
-    const [navBtnImg, setNavBtnImg] = useState(toggleOnImg);
+    const [navBtnImg, setNavBtnImg] = useState(toggleOffImg);
 
     const navToggle = () => {
         navFlag
@@ -43,7 +45,10 @@ const App = () => {
                     <ToggleButton navToggle={navToggle} toggleImg={navBtnImg} />
                     <Navigation navFlag={navFlag} navToggle={navToggle} />
                     <Routes>
+                        <Route path="/" element={<HomePage/>}></Route>
                         <Route path="/login" element={<Login />}></Route>
+                        <Route path="/like" element={<LikePage />}></Route>
+                        <Route path="/test" element={<Test/>}></Route>
                         <Route
                             path="/"
                             element={

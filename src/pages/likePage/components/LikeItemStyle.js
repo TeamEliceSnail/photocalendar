@@ -1,14 +1,26 @@
-import styled from 'styled-components'
+import styled, { css } from "styled-components";
+
+const calcImgSize = (imgurl) => {
+    let img = new Image();
+    img.src = imgurl;
+    return img.width > img.height ? 'w' : 'h';
+};
 
 export default styled.div`
     background-color: white;
-    box-shadow: 4px 4px 10px grey;
+    color: black;
+    font-weight: bold;
+    box-shadow: 4px 4px 20px grey;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 5%;
     height: 300px;
-    /* border-radius: 15px; */
+
+    &:hover {
+        filter: brightness(80%);
+        cursor: pointer;
+    }
 
     & > #img-container  {
         position: relative;
@@ -21,15 +33,17 @@ export default styled.div`
 
     & > #img-container > img {
         position: absolute;
-        width: 100%;
-        /* height: 100%; */
+        ${(props) => 
+            calcImgSize(props.imgSize) === 'h' 
+            ? css`width: 100%;`
+            : css`height: 100%;`
+        };
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
 
     & > #detail-container  {
-        border-top: 2px solid gray;
         height: 25%;
         width: 90%;
         display: flex;
@@ -40,24 +54,18 @@ export default styled.div`
         display: flex;
         justify-content: space-between;
         align-items: center;
+        border-bottom: 2px solid gray;
+        padding-bottom: 1%;
         margin: 1% 0% 3% 0%;
         height: 30%;
-    }
+        font-size: 16px;
 
-    /* & > #detail-container > #detail-header > #detail-date {
     }
-
-    & > #detail-container > #detail-header > #like-btn {
-        height: 30%;
-        margin-top: 2%;
-    } */
 
     & > #detail-container > #detail-body {
-        height: 40%;
-        color: gray;
+        height: 50%;
         font-weight: 200;
-        font-size: 13px;
-        overflow-x: hidden;
-        text-overflow: ellipsis
+        font-size: 14px;
+        overflow-y: hidden;
     }
 `
