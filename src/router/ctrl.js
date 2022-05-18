@@ -12,6 +12,7 @@ const { mainPage } = require('../../db');
 const { constSelector } = require('recoil');
 const cookieParser = require('cookie-parser');
 const { jwtdecode } = require('./decode');
+
 app.use(cookieParser());
 
 let now = Date.now();
@@ -227,12 +228,13 @@ const output = {
         );
     },
     detailPost: (req, res) => {
-        const { id_token, date, title, content, imgurl, like } = req.body;
+        const { date, title, content, imgurl, like } = req.body;
         const parsedDate =
             date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
         const datetag = new Date(parsedDate);
+        const decodeValue = jwtdecode(req.cookies.user);
         let atc = new article({
-            id_token,
+            id_token: decodeValue.id_token,
             date: datetag,
             title,
             content,
@@ -270,7 +272,7 @@ const output = {
 
     detailUpdate: async (req, res) => {
         const post_id = req.params.post_id;
-        const { title, content, like } = req.body;
+        const { title, content, like, imgurl} = req.body;
         try {
             let post = await article.findById(post_id);
             if (!post)
@@ -278,6 +280,7 @@ const output = {
             post.title = title;
             post.content = content;
             post.like = like;
+            post.imgurl = imgurl
             var output = await post.save();
             console.log('업데이트 완료!');
             res.status(200).json({

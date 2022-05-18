@@ -59,7 +59,11 @@ const App = () => {
                         ></Route>
                         <Route
                             path="/detailpage/:date"
-                            element={<DetailPage />}
+                            element={
+                                <PrivateRouter>
+                                    <DetailPage />
+                                </PrivateRouter>
+                            }
                         ></Route>
                     </Routes>
                 </div>
