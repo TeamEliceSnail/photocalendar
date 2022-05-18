@@ -8,11 +8,10 @@ export default styled.div`
         right: 0;
         bottom: 0;
         background-image: ${(props) => `url(${props.imgUrl})`};
-        /* background-color: #fef7c6; */
         background-size: cover;
         background-repeat: no-repeat;
         width: 100%;
-        height: 100%;
+        height: 100vh;
         -webkit-filter: blur(20px);
         -moz-filter: blur(20px);
         -o-filter: blur(20px);

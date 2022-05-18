@@ -19,7 +19,7 @@ export const DayComponent = ({ informationDay }) => {
                 <p>{informationDay.date}</p>
                 {article && (
                     <>
-                        {!article[0].like ? (
+                        {article[0].like ? (
                             <AiOutlineHeart className="like" />
                         ) : (
                             <AiFillHeart className="like" />
