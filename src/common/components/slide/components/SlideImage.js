@@ -11,7 +11,7 @@ const SlideImage = ({
     btnSize,
     handlePage,
     page,
-    popData,
+    cancelBoard,
     addFlag,
     uploadImage,
     fileDataURL,
@@ -22,7 +22,7 @@ const SlideImage = ({
 
     const nextSlide = () => {
         if (boardEditFlag) {
-            if (addFlag) popData();
+            if (addFlag) cancelBoard();
             setBoardEditFlag(false);
         }
         currentSlide >= detailBoardData.length - 1
@@ -32,7 +32,7 @@ const SlideImage = ({
 
     const prevSlide = () => {
         if (boardEditFlag) {
-            if (addFlag) popData();
+            if (addFlag) cancelBoard();
             setBoardEditFlag(false);
         }
         currentSlide === 0

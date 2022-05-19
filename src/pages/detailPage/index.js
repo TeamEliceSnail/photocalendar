@@ -147,10 +147,12 @@ const DetailPage = () => {
 
     const cancelBoard = () => {
         if (addFlag === true) {
+            handlePage(detailBoardData.length - 2);
             popData();
-            handlePage(detailBoardData.length - 1);
             setAddFlag(false);
         }
+        setFileDataURL(null);
+        setFile(null);
         setBoardEditFlag(false);
     };
     const popData = () => {
@@ -216,7 +218,7 @@ const DetailPage = () => {
                             detailBoardData={detailBoardData}
                             handlePage={handlePage}
                             page={page}
-                            popData={popData}
+                            cancelBoard={cancelBoard}
                             addFlag={addFlag}
                             uploadImage={uploadImage}
                             fileDataURL={fileDataURL}
