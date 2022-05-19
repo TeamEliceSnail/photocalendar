@@ -126,7 +126,7 @@ const output = {
             }
         }
         else{
-            return res.status(401).send('TokenUndefined');
+            return res.send('TokenUndefined');
         }
     },
     login: (req, res, next) => {
