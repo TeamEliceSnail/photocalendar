@@ -5,22 +5,19 @@ require('dotenv').config();
 
 const verifyToken = (req, res, next) => {
     const clientToken = req.cookies.user;
-    if (!clientToken) {
-        return res.status(401).json({ error: 'token empty' });
-    } else {
+    if (clientToken) {
         try {
             const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
             if (decoded) {
                 res.locals.userId = decoded.user_id;
-                res.status(200);
                 next();
             } else {
-                res.status(401).json({ error: 'unauthorized' });
+                res.json({ error: 'unauthorized' });
             }
         } catch (err) {
-            res.status(401).json({ error: err });
-        }
-    }
+            res.json({ error: err });
+    }}
+    else { return res.json({ error: 'token empty' }) }
 };
 
 exports.verifyToken = verifyToken;
