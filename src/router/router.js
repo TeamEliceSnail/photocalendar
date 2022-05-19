@@ -5,15 +5,16 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const util = require('util');
 const fs = require('fs');
-const { uploadFile, getFileStream } = require('../../s3');
+const { uploadFile } = require('../../s3');
 const unlinkFile = util.promisify(fs.unlink);
 const { verifyToken } = require('./authorization');
+
 
 router.get('/auth', ctrl.output.auth);
 
 router.get('/home/:date', verifyToken, ctrl.output.home);
 
-router.get('/login/:id', verifyToken, ctrl.output.login);
+router.get('/login/:id', ctrl.output.login);
 
 router.get('/like/:date/:pageNumber', verifyToken, ctrl.output.like);
 
@@ -36,7 +37,6 @@ router.post('/sendImg', upload.single('image'), async (req, res) => {
         const result = await uploadFile(file);
         await unlinkFile(file.path);
         console.log(result);
-        const description = req.body.description;
         res.json({
             url: result.Location,
         });
@@ -47,13 +47,5 @@ router.post('/sendImg', upload.single('image'), async (req, res) => {
         });
     }
 });
-
-router.get('/images/:key', (req, res) => {
-    const key = req.params.key;
-    const readStream = getFileStream(key);
-    readStream.pipe(res);
-});
-
-//------------------이미지업로드 테스트케이스--------------------
 
 module.exports = router;

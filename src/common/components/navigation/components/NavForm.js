@@ -4,16 +4,16 @@ import NavButton from './NavButton';
 
 const NavForm = () => {
     const buttonList = [
-        { id: 1, title: 'My Calendar' },
-        { id: 2, title: 'Favorites' },
-        { id: 3, title: 'Delete Item' },
-        { id: 4, title: 'Profile' },
+        { title: "My Calendar", url: "/"},
+        { title: "Favorite", url: "/like"},
+        { title: "Delete Blog", url: "null"},
+        { title: "Profile", url: "null"},
     ];
 
     return (
         <Wrapper>
             {buttonList.map((x, i) => (
-                <NavButton key={i} title={x.title} />
+                <NavButton key={i} title={x.title} url={x.url}/>
             ))}
         </Wrapper>
     );
