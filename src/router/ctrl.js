@@ -39,7 +39,7 @@ const output = {
         );
     },
     kakao: async (req, res) => {
-        let token;
+        let token, user;
         try {
             token = await axios({
                 method: 'POST',
@@ -58,7 +58,6 @@ const output = {
         } catch (err) {
             res.json(err.data);
         }
-        let user;
         try {
             user = await axios({
                 method: 'GET',
@@ -75,7 +74,10 @@ const output = {
             .findOne({ id_token: user.data.id })
             .exec()
             .then((data) => {
-                if (!data) {
+                if (data) {
+                    console.log(data);
+                    
+                } else {
                     console.log(
                         `해당 유저는 없습니다.${user.data.id}님에 대한 유저 생성 시작`
                     );
@@ -88,13 +90,9 @@ const output = {
                     atc.save().then((newUser) => {
                         console.log('create 완료!');
                     });
-                } else {
-                    console.log(data);
                 }
             });
-        console.log(token.data.refresh_token);
 
-        // db에 id_token값을 찾거나 없으면 만들어줌 passport
         const jwttoken = jwt.sign(
             {
                 id_token: user.data.id,
@@ -110,29 +108,26 @@ const output = {
             }
         );
         res.cookie('user', jwttoken);
-        console.log(jwttoken)
-        //console.log(user)
-        const a = jwt.verify(jwttoken, YOUR_SECRET_KEY);
-
-        // res.send('ok');
         res.redirect('http://localhost:3000');
     },
     auth: (req, res, next) => {
         const clientToken = req.cookies.user;
 
-        if (!clientToken) {
-            return res.send('TokenUndefined');
-        }
-        try {
-            const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
-            if (decoded) {
-                res.locals.userId = decoded.user_id;
-                res.send('Authorized');
-            } else {
-                res.send('Unauthorized');
+        if (clientToken){
+            try {
+                const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
+                if (decoded) {
+                    res.locals.userId = decoded.user_id;
+                    res.send('Authorized');
+                } else {
+                    res.send('Unauthorized');
+                }
+            } catch (err) {
+                res.send(err.name);
             }
-        } catch (err) {
-            res.send(err.name);
+        }
+        else{
+            return res.send('TokenUndefined');
         }
     },
     login: (req, res, next) => {
