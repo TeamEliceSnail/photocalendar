@@ -118,9 +118,9 @@ const output = {
                 const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
                 if (decoded) {
                     res.locals.userId = decoded.user_id;
-                    res.send('Authorized');
+                    res.status(200).send('Authorized');
                 } else {
-                    res.send('Unauthorized');
+                    res.status(401).send('Unauthorized');
                 }
             } catch (err) {
                 res.send(err.name);
