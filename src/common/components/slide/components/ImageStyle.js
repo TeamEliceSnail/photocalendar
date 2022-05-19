@@ -10,6 +10,7 @@ const ImgStyle = styled.img`
 const AddImgStyle = styled.img`
     width: 100%;
     object-fit: contain;
+    background-color: rgba(0, 0, 0, 0.8);
     /* background-color: rgba(0, 0, 0, 0.8); */
     vertical-align: middle;
     cursor: pointer;

@@ -1,4 +1,14 @@
 import styled from 'styled-components';
+import { keyframes } from 'styled-components';
+const enter = keyframes`
+  0% {
+    transform: scale(0.9);
+    
+  };
+  100% {
+    transform: scale(1);
+  }
+`;
 
 export default styled.div`
     &::before {
@@ -38,5 +48,6 @@ export default styled.div`
         display: flex;
         background-color: #fff;
         box-shadow: 4px 4px 10px grey;
+        animation: ${enter} 0.55s ease-out;
     }
 `;

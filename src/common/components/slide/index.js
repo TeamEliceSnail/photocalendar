@@ -8,7 +8,7 @@ const CustomSlide = ({
     btnSize,
     handlePage,
     page,
-    popData,
+    cancelBoard,
     addFlag,
     uploadImage,
     fileDataURL,
@@ -19,7 +19,7 @@ const CustomSlide = ({
             btnSize={btnSize}
             handlePage={handlePage}
             page={page}
-            popData={popData}
+            cancelBoard={cancelBoard}
             addFlag={addFlag}
             uploadImage={uploadImage}
             fileDataURL={fileDataURL}
