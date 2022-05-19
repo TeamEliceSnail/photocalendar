@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import Wrapper from './style';
 import LikeItem from './components/LikeItem';
 import useItemRequest from './hooks/useItemRequest';
@@ -26,14 +26,14 @@ const LikePage = () => {
         })
         if (node) observer.current.observe(node)
     }, [loading, hasMore])
-
+    console.log(items)
     return (
         <Wrapper>
-            <Header></Header>
+            <Header/>
             <div id="like-item-container">
                 {items.map((item, index) => {
                     if (items.length === index + 1) {
-                        return <div ref={lastItemElementRef} ><LikeItem key={index} item={item}/></div>
+                        return <div ref={lastItemElementRef} key={index}><LikeItem item={item}/></div>
                     } else {
                         return <LikeItem key={index} item={item}/>
                     } 

@@ -110,11 +110,6 @@ const output = {
             }
         );
         res.cookie('user', jwttoken);
-        console.log(jwttoken)
-        //console.log(user)
-        const a = jwt.verify(jwttoken, YOUR_SECRET_KEY);
-
-        // res.send('ok');
         res.redirect('http://localhost:3000');
     },
     auth: (req, res, next) => {

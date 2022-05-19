@@ -17,8 +17,6 @@ import Login from './pages/logIn';
 import DetailPage from './pages/detailPage';
 import LikePage from './pages/likePage';
 
-import Test from './pages/test';
-
 // recoil
 import { RecoilRoot } from 'recoil';
 
@@ -47,7 +45,6 @@ const App = () => {
                     <Routes>
                         <Route path="/login" element={<Login />}></Route>
                         <Route path="/like" element={<LikePage />}></Route>
-                        <Route path="/test" element={<Test />}></Route>
                         <Route
                             path="/"
                             element={
