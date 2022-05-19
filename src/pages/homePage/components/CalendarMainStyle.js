@@ -18,4 +18,11 @@ export const Wrapper = styled.main`
             align-items: center;
         }
     }
+
+    & > div {
+        position: absolute;
+        top: 50%;
+        left: 52%;
+        transform: translate(-50%, -50%);
+    }
 `;

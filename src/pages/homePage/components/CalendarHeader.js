@@ -42,11 +42,7 @@ const CalendarHeader = () => {
     return (
         <Wrapper>
             <MdKeyboardArrowUp onClick={onUpClick} className="icon_arrow up" />
-            {modalState ? (
-                <MonthModal toggleDateModal={toggleDateModal} />
-            ) : (
-                <></>
-            )}
+            {modalState && <MonthModal toggleDateModal={toggleDateModal} />}
             <h1 className="current_date" onClick={toggleDateModal}>
                 <p className="month">
                     {currentDate.toLocaleString('en-US', { month: 'long' })}

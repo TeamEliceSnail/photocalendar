@@ -3,20 +3,20 @@ import styled, { keyframes } from 'styled-components';
 const upside = keyframes`
     0%,
     100% {
-        transform: translateY(0px);
+        transform: translateY(0px) scale(1.2);
     }
     50% {
-        transform: translateY(-15px);       
+        transform: translateY(-15px) scale(1.2);
     }
 `;
 
 const downside = keyframes`
     0%,
     100% {
-        transform: translateY(0px);
+        transform: translateY(0px) scale(1.2);
     }
     50% {
-        transform: translateY(15px);       
+        transform: translateY(15px) scale(1.2);       
     }
 `;
 
@@ -45,6 +45,7 @@ export const Wrapper = styled.header`
     .current_date {
         margin: 0;
         margin-bottom: 1rem;
+        transition: transform 0.5s ease;
         text-align: center;
         cursor: pointer;
 
@@ -53,6 +54,10 @@ export const Wrapper = styled.header`
             &.month {
                 color: #ff9999;
             }
+        }
+
+        &:hover {
+            transform: scale(1.3);
         }
     }
 `;
