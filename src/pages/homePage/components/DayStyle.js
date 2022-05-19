@@ -65,7 +65,7 @@ export const Wrapper = styled.div`
 
     img {
         width: 100%;
-        height: 115px;
+        height: 38%;
         object-fit: contain;
 
         &.active:hover {

@@ -58,7 +58,7 @@
 |  <img src="https://avatars.githubusercontent.com/u/65718183?v=4" width="100" height="100"><br>[박노준](https://github.com/Circlewee)  | Frontend |
 | <img src="https://avatars.githubusercontent.com/u/88070657?v=4" width="100" height="100"><br>[김성은](https://github.com/Seongeuniii) | Frontend |
 |  <img src="https://avatars.githubusercontent.com/u/86966661?v=4" width="100" height="100"><br> [주지호](https://github.com/kypa123)   | Backend  |
-|  <img src="https://avatars.githubusercontent.com/u/30984241?v=4" width="100" height="100"><br> [정재홍](https://github.com/hong1995)  | Backend  |
+|  <img src="https://avatars.githubusercontent.com/u/30984241?v=4" width="100" height="100"><br> [조재홍](https://github.com/hong1995)  | Backend  |
 |   <img src="https://avatars.githubusercontent.com/u/83265848?v=4" width="100" height="100"><br> [김지호](https://github.com/sokojh)   | Backend  |
 
 ### Color System
