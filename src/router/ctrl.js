@@ -123,7 +123,7 @@ const output = {
                     res.status(401).send('Unauthorized');
                 }
             } catch (err) {
-                res.send(err.name);
+                res.status(401).send(err.name);
             }
         }
         else{
