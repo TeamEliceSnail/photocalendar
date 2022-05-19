@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { keyframes } from 'styled-components';
 const enter = keyframes`
   0% {
-    transform: scale(0.9);
+    transform: scale(0.95);
     
   };
   100% {
