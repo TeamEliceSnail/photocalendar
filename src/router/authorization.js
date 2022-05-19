@@ -5,23 +5,21 @@ require('dotenv').config();
 
 const verifyToken = (req, res, next) => {
     const clientToken = req.cookies.user;
-    if (clientToken) {
+    if (!clientToken) {
+        return res.status(401).json({ error: 'token empty' });
+    } else {
         try {
             const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
             if (decoded) {
                 res.locals.userId = decoded.user_id;
+                res.status(200);
                 next();
             } else {
-                res.redirect(LOGINURL);
                 res.status(401).json({ error: 'unauthorized' });
             }
         } catch (err) {
-            console.log(err);
-            res.redirect(LOGINURL);
+            res.status(401).json({ error: err });
         }
-    } else {
-        res.redirect(LOGINURL);
-    }
 };
 
 exports.verifyToken = verifyToken;

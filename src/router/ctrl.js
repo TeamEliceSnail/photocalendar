@@ -17,20 +17,16 @@ let now = Date.now();
 
 const output = {
     home: (req, res) => {
-        let d = req.params.d;
+        let date = req.params.date;
         let decodeValue = jwtdecode(req.cookies.user);
         let d1 = 0;
-        if (Number(d[d.length - 1]) === 1) {
+        if (Number(date[date.length - 1]) === 1) {
             d1 = 12;
         } else {
-            d1 = Number(d[d.length - 1]) + 1;
+            d1 = Number(date[date.length - 1]) + 1;
         }
-        console.log(d.slice(0, 4) + '-' + d1.toString());
-        const start = new Date(d);
-        const end = new Date(d.slice(0, 4) + '-' + d1.toString());
-
-        console.log(start);
-        console.log(end);
+        const start = new Date(date);
+        const end = new Date(date.slice(0, 4) + '-' + d1.toString());
         article.find(
             { id_token: decodeValue.id_token, date: { $gte: start, $lt: end } },
             function (err, data) {
@@ -150,14 +146,12 @@ const output = {
 
     like: (req, res) => {
         let decodeValue = jwtdecode(req.cookies.user);
-        const d = new Date(req.params.d);
+        const date = new Date(req.params.date);
         let page = req.params.pageNumber;
-        // article.find({id_token:decodeValue.id_token, like:true},(err,data)=>{if(err){console.log(err)}else{ page = data.length}})
-
         article
             .find(
                 {
-                    date: { $lte: d },
+                    date: { $lte: date },
                     id_token: decodeValue.id_token,
                     like: true,
                 },
@@ -183,7 +177,7 @@ const output = {
                     console.log(err);
                     res.json({ error: 'like 수정을 실패했습니다.' });
                 } else {
-                    res.json({ succes: `${_id}에 like를 수정하였습니다.` });
+                    res.json({ succes: `like를 수정하였습니다.` });
                 }
             }
         );

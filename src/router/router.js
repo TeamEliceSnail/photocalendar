@@ -12,11 +12,11 @@ const { verifyToken } = require('./authorization');
 
 router.get('/auth', ctrl.output.auth);
 
-router.get('/home/:d', ctrl.output.home);
+router.get('/home/:date', verifyToken, ctrl.output.home);
 
 router.get('/login/:id', ctrl.output.login);
 
-router.get('/like/:d/:pageNumber', verifyToken, ctrl.output.like);
+router.get('/like/:date/:pageNumber', verifyToken, ctrl.output.like);
 
 router.post('/like', verifyToken, ctrl.output.likePost);
 
