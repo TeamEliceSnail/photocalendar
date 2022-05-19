@@ -8,8 +8,6 @@ const kakaoClientID = '904d1d2aa96e5c26e05b03905933ef87';
 const kakaoClientSecret = 'rzK8inmejYty3s16HLr8QuuExuUqsP0H';
 const YOUR_SECRET_KEY = process.env.JWT_SECRET;
 const redirectUri = 'http://localhost:5030/auth/kakao/callback';
-const { mainPage } = require('../../db');
-const { constSelector } = require('recoil');
 const cookieParser = require('cookie-parser');
 const { jwtdecode } = require('./decode');
 
@@ -19,20 +17,16 @@ let now = Date.now();
 
 const output = {
     home: (req, res) => {
-        let d = req.params.d;
+        let date = req.params.date;
         let decodeValue = jwtdecode(req.cookies.user);
         let d1 = 0;
-        if (Number(d[d.length - 1]) === 1) {
+        if (Number(date[date.length - 1]) === 1) {
             d1 = 12;
         } else {
-            d1 = Number(d[d.length - 1]) + 1;
+            d1 = Number(date[date.length - 1]) + 1;
         }
-        console.log(d.slice(0, 4) + '-' + d1.toString());
-        const start = new Date(d);
-        const end = new Date(d.slice(0, 4) + '-' + d1.toString());
-
-        console.log(start);
-        console.log(end);
+        const start = new Date(date);
+        const end = new Date(date.slice(0, 4) + '-' + d1.toString());
         article.find(
             { id_token: decodeValue.id_token, date: { $gte: start, $lt: end } },
             function (err, data) {
@@ -147,14 +141,12 @@ const output = {
 
     like: (req, res) => {
         let decodeValue = jwtdecode(req.cookies.user);
-        const d = new Date(req.params.d);
+        const date = new Date(req.params.date);
         let page = req.params.pageNumber;
-        // article.find({id_token:decodeValue.id_token, like:true},(err,data)=>{if(err){console.log(err)}else{ page = data.length}})
-
         article
             .find(
                 {
-                    date: { $lte: d },
+                    date: { $lte: date },
                     id_token: decodeValue.id_token,
                     like: true,
                 },
@@ -180,80 +172,57 @@ const output = {
                     console.log(err);
                     res.json({ error: 'like 수정을 실패했습니다.' });
                 } else {
-                    res.json({ succes: `${_id}에 like를 수정하였습니다.` });
+                    res.json({ succes: `like를 수정하였습니다.` });
                 }
             }
         );
     },
 
     detailGet: (req, res) => {
-        const inputDate = req.params.date;
-        const nextDate = (parseInt(inputDate) + 1).toString();
+        const selectedDate = req.params.date;
+        const nextDate = (parseInt(selectedDate) + 1).toString();
+        const fixedDate = `${selectedDate.slice(0, 4)}-${selectedDate.slice(4, 6)}-${selectedDate.slice(6, 8)}`
+        const fixedNext = `${nextDate.slice(0, 4)}-${nextDate.slice(4, 6)}-${nextDate.slice(6, 8)}`
 
-        const fixedDate =
-            inputDate.slice(0, 4) +
-            '-' +
-            inputDate.slice(4, 6) +
-            '-' +
-            inputDate.slice(6, 8);
-        const fixedNext =
-            nextDate.slice(0, 4) +
-            '-' +
-            nextDate.slice(4, 6) +
-            '-' +
-            nextDate.slice(6, 8);
-
-        const decodeValue = jwtdecode(req.cookies.user);
         datetag = new Date(fixedDate);
-
         dateend = new Date(fixedNext);
-
-        article.find(
-            {
-                id_token: decodeValue.id_token,
-                date: { $gte: datetag, $lt: dateend },
-            },
-            (err, data) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.json(data);
-                }
-            }
-        );
+        
+        const decodeValue = jwtdecode(req.cookies.user);
+        
+        article.find({
+            id_token: decodeValue.id_token, 
+            date: { $gte: datetag, $lt: dateend }
+            }, (err, data) => {
+                if (err) { res.json(err) } 
+                else { res.json(data) }
+            });
     },
     detailPost: (req, res) => {
         const { date, title, content, imgurl, like } = req.body;
-        const parsedDate =
-            date.slice(0, 4) + '-' + date.slice(4, 6) + '-' + date.slice(6, 8);
+        const parsedDate = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`
         const datetag = new Date(parsedDate);
         const decodeValue = jwtdecode(req.cookies.user);
-        let atc = new article({
+        let newArticle = new article({
             id_token: decodeValue.id_token,
             date: datetag,
-            title,
-            content,
-            imgurl,
-            like,
+            title: title,
+            content : content,
+            imgurl : imgurl,
+            like : like,
         });
-        atc.save().then((newPost) => {
-            console.log('create 완료!');
-            res.json({
-                message: 'Create Success!',
-                data: {
-                    post: newPost,
-                },
-            });
+
+        newArticle.save().then((newPost) => {
+            res.json( {data: { post: newPost },} );
         });
     },
-    detailDelete: async (req, res, next) => {
-        const post_id = req.params.post_id; //_id로 삭제할겁니다. 고유값이니까
+
+    detailDelete: async (req, res) => {
+        const post_id = req.params.post_id;
         article
-            .deleteOne({ _id: post_id })
+            .deleteOne( { _id: post_id } )
             .then((output) => {
                 if (output.n == 0)
                     return res.status(404).json({ message: 'post not found' });
-                console.log('Delete 완료');
                 res.status(200).json({
                     message: 'Delete Success',
                 });
@@ -267,27 +236,24 @@ const output = {
 
     detailUpdate: async (req, res) => {
         const post_id = req.params.post_id;
-        const { title, content, like, imgurl} = req.body;
+        const { title, content, like, imgurl } = req.body;
         try {
             let post = await article.findById(post_id);
-            if (!post)
+            if(post){
+                post.title = title;
+                post.content = content;
+                post.like = like;
+                post.imgurl = imgurl
+                var updatedPost = await post.save();
+                res.status(200).json({
+                    message: '업데이트 완료!',
+                    data: { post: updatedPost }
+                });
+            } else {
                 return res.status(404).json({ message: '해당 글이 없습니다' });
-            post.title = title;
-            post.content = content;
-            post.like = like;
-            post.imgurl = imgurl
-            var output = await post.save();
-            console.log('업데이트 완료!');
-            res.status(200).json({
-                message: 'Update success',
-                data: {
-                    post: output,
-                },
-            });
+            }
         } catch (err) {
-            res.status(500).json({
-                message: err,
-            });
+            res.status(500).json({ message: err });
         }
     },
 };

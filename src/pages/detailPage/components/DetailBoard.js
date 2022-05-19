@@ -3,6 +3,7 @@ import { useRecoilState } from 'recoil';
 import boardEditState from '../../../recoil/boardEditState';
 import Wrapper from './DetailBoardStyle';
 import PropTypes from 'prop-types';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
 const DetailBoard = ({
     detailBoardData,
@@ -10,6 +11,7 @@ const DetailBoard = ({
     handlePage,
     cancelBoard,
     confirmBoard,
+    updateLike,
 }) => {
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
 
@@ -36,8 +38,31 @@ const DetailBoard = ({
             setContent('');
         }
     }, [detailBoardData]);
+
+    const handleLike = async () => {
+        await updateLike();
+    };
     return (
         <Wrapper>
+            <div className="likeDiv">
+                {!boardEditFlag ? (
+                    detailBoardData[page].like ? (
+                        <AiFillHeart
+                            className="like"
+                            size={30}
+                            onClick={handleLike}
+                        />
+                    ) : (
+                        <AiOutlineHeart
+                            className="like"
+                            size={30}
+                            onClick={handleLike}
+                        />
+                    )
+                ) : (
+                    <></>
+                )}
+            </div>
             <div id="title">
                 {!boardEditFlag ? (
                     title

@@ -9,8 +9,6 @@ export function calculateCalendar(
     const nextDate = nextMonth.getDate();
     const nextDay = nextMonth.getDay();
 
-    // console.log(monthData);
-
     const calendar = [];
     let dayCount = 0;
     let i;
@@ -86,9 +84,10 @@ export function isNowDate({ year, month, date }) {
 }
 
 /**
- * 해당 날짜의 detailpage URL을 문자열로 반환하는 함수 */
+ * 해당 날짜의 detailpage URL을 문자열로 반환하는 함수
+ * */
 export function getRouteString(year, month, date) {
-    return `detailpage/${
+    return `/detailpage/${
         String(year) +
         String(month + 1).padStart(2, '0') +
         String(date).padStart(2, '0')
