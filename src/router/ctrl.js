@@ -112,18 +112,17 @@ const output = {
     },
     auth: (req, res, next) => {
         const clientToken = req.cookies.user;
-
         if (clientToken){
             try {
                 const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
                 if (decoded) {
                     res.locals.userId = decoded.user_id;
-                    res.status(200).send('Authorized');
+                    res.send('Authorized');
                 } else {
-                    res.status(401).send('Unauthorized');
+                    res.send('Unauthorized');
                 }
             } catch (err) {
-                res.status(401).send(err.name);
+                res.send(err.name);
             }
         }
         else{
