@@ -1,42 +1,46 @@
-require("dotenv").config();
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
 const app = express();
-const mongoose = require("mongoose");
-const cors = require('cors')
-const { article } = require("./db");
-const { uploadFile } = require('./s3');
-const multer = require('multer');
-const upload = multer({dest: 'uploads/'});
+const mongoose = require('mongoose');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-app.listen(process.env.PORT, ()=>{
+const home = require('./src/router/router');
+const { Logger } = require('concurrently');
+const logger = require('morgan');
+
+
+app.set('views', './src/pages');
+app.engine('html', require('ejs').renderFile);
+app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
-})
+});
 
-app.use(bodyParser.json());
+app.use(cors())
+    .use(bodyParser.json())
+    .use(cookieParser())
+    .use('/', home)
+    .use(logger('dev'));
 
-app.use(cookieParser())
-
-const home = require("./router/router");
-// const { Logger } = require("concurrently");
-const logger = require('morgan')
-
-// app.set("views", "./src/pages");
-// app.set("view engine", "react");
-// app.engine("html", require("ejs").renderFile);
-
-app.use(cors());
-app.use(logger('dev'))
-
-mongoose.connect(process.env.DBURL, {
-    useNewUrlParser: true, 
-    useUnifiedTopology: true,
-    dbName: "photocalendar"
+mongoose
+    .connect(process.env.DBURL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+        dbName: 'photocalendar',
     })
-    .then(()=> console.log("성공적으로 db에 연결됐습니다"))
-    .catch((err)=> console.log(err));
+    .then(() => console.log('성공적으로 db에 연결됐습니다'))
+    .catch((err) => console.log(err));
 
-app.use("/", home);
-
-
+mongoose.connection.on('connected', () => {
+    console.log('연결완료');
+});
+mongoose.connection.on('disconnected', () => {
+    console.log('연결이 끊겼습니다.');
+});
+mongoose.connection.on('reconnected', () => {
+    console.log('재연결완료');
+});
+mongoose.connection.on('reconnectFailed', () => {
+    console.log('재연결 시도 횟수 초과');
+});
 
