@@ -1,33 +1,21 @@
-import { useState } from 'react';
-
+import { Link } from 'react-router-dom'
 import Wrapper from './LikeItemStyle';
 import LikeBtn from '../../../common/components/likeButton';
 
-import favoriteImg from '../../../common/img/favorite.png';
-
-const LikeItem = () => {
-
-    const calcImgSize = () => {
-        let img = new Image();
-        img.src = favoriteImg;
-        return img.width > img.height ? 'w' : 'h';
-    };
+const LikeItem = ({item}) => {
+    const date = item.date.substr(0,10)
 
     return (
-        <Wrapper>
+        <Wrapper imgSize={item.imgurl}>
             <div id="img-container">
-                <img src={favoriteImg} alt="" />
+                <img src={item.imgurl} alt="likeimg" />
             </div>
             <div id="detail-container">
                 <div id="detail-header">
-                    <div id="detail-date">2022.04.27</div>
+                    <div id="detail-date">{date.replace(/-/g, '.')}</div>
                     <div id="like-btn"><LikeBtn/></div>
                 </div>
-                <div id="detail-body">
-                    Remember that happiness is a way of travel not a
-                    destination. Doesn’t matter which road you take, as long as
-                    you get to your destination.
-                </div>
+                <div id="detail-body">{item.content}</div>
             </div>
         </Wrapper>
     );

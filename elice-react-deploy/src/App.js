@@ -9,6 +9,7 @@ import toggleOffImg from './common/img/x.png';
 // components
 import ToggleButton from './common/components/toggleButton';
 import Navigation from './common/components/navigation';
+import PrivateRouter from './common/components/helpers/PrivateRouter';
 
 // pages
 import HomePage from './pages/homePage';
@@ -21,7 +22,7 @@ import { RecoilRoot } from 'recoil';
 
 const App = () => {
     const [navFlag, setNavFlag] = useState(true);
-    const [navBtnImg, setNavBtnImg] = useState(toggleOnImg);
+    const [navBtnImg, setNavBtnImg] = useState(toggleOffImg);
 
     const navToggle = () => {
         navFlag
@@ -38,15 +39,27 @@ const App = () => {
     return (
         <RecoilRoot>
             <BrowserRouter>
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex', height: '100vh' }}>
                     <ToggleButton navToggle={navToggle} toggleImg={navBtnImg} />
                     <Navigation navFlag={navFlag} navToggle={navToggle} />
                     <Routes>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/" element={<HomePage />}></Route>
+                        <Route path="/like" element={<LikePage />}></Route>
                         <Route
-                            path="/detailpage"
-                            element={<DetailPage />}
+                            path="/"
+                            element={
+                                <PrivateRouter>
+                                    <HomePage />
+                                </PrivateRouter>
+                            }
+                        ></Route>
+                        <Route
+                            path="/detailpage/:date"
+                            element={
+                                <PrivateRouter>
+                                    <DetailPage />
+                                </PrivateRouter>
+                            }
                         ></Route>
                     </Routes>
                 </div>

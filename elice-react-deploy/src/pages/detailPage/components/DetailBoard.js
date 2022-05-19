@@ -3,8 +3,16 @@ import { useRecoilState } from 'recoil';
 import boardEditState from '../../../recoil/boardEditState';
 import Wrapper from './DetailBoardStyle';
 import PropTypes from 'prop-types';
+import { AiFillHeart, AiOutlineHeart } from 'react-icons/ai';
 
-const DetailBoard = ({ data, page, cancelBoard }) => {
+const DetailBoard = ({
+    detailBoardData,
+    page,
+    handlePage,
+    cancelBoard,
+    confirmBoard,
+    updateLike,
+}) => {
     const [boardEditFlag, setBoardEditFlag] = useRecoilState(boardEditState);
 
     const [title, setTitle] = useState('');
@@ -19,12 +27,42 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
     };
 
     useEffect(() => {
-        setTitle(data[page].title);
-        setContent(data[page].content);
+        if (detailBoardData.length !== 0) {
+            setTitle(detailBoardData[page].title);
+            setContent(detailBoardData[page].content);
+        }
     }, [page]);
+    useEffect(() => {
+        if (detailBoardData.length === 0) {
+            setTitle('');
+            setContent('');
+        }
+    }, [detailBoardData]);
 
+    const handleLike = async () => {
+        await updateLike();
+    };
     return (
         <Wrapper>
+            <div className="likeDiv">
+                {!boardEditFlag ? (
+                    detailBoardData[page].like ? (
+                        <AiFillHeart
+                            className="like"
+                            size={30}
+                            onClick={handleLike}
+                        />
+                    ) : (
+                        <AiOutlineHeart
+                            className="like"
+                            size={30}
+                            onClick={handleLike}
+                        />
+                    )
+                ) : (
+                    <></>
+                )}
+            </div>
             <div id="title">
                 {!boardEditFlag ? (
                     title
@@ -32,7 +70,7 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
                     <textarea
                         className="title_textarea"
                         onChange={handleTitle}
-                        value={title}
+                        value={title || ''}
                         placeholder="제목을 입력하세요."
                     />
                 )}
@@ -44,7 +82,7 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
                     <textarea
                         className="content_textarea"
                         onChange={handleContent}
-                        value={content}
+                        value={content || ''}
                         placeholder="내용을 입력하세요."
                     />
                 )}
@@ -52,8 +90,10 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
             <div id="btn_detail_confirm_cancle">
                 {!boardEditFlag ? null : (
                     <>
-                        <button onClick={cancelBoard}>확인</button>
-                        <button onClick={cancelBoard}>취소</button>
+                        <button onClick={confirmBoard}>확인</button>
+                        {detailBoardData.length !== 0 ? (
+                            <button onClick={cancelBoard}>취소</button>
+                        ) : null}
                     </>
                 )}
             </div>
@@ -64,15 +104,9 @@ const DetailBoard = ({ data, page, cancelBoard }) => {
 export default DetailBoard;
 
 DetailBoard.defaultProps = {
-    data: [
-        {
-            url: 'images/picture01.jpg',
-            title: '없음',
-            content: '없음',
-        },
-    ],
+    detailBoardData: [],
 };
 
 DetailBoard.propTypes = {
-    data: PropTypes.array,
+    detailBoardData: PropTypes.array,
 };

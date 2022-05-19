@@ -5,8 +5,8 @@ export default styled.div`
         position: fixed;
         left: 20px;
         top: 20px;
-        width: 25px;
-        height: 25px;
+        width: 22px;
+        height: 22px;
         cursor: pointer;
     }
 

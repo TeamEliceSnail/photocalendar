@@ -1,26 +1,22 @@
 import styled, { keyframes } from 'styled-components';
 
 const upside = keyframes`
-    0% {
-        transform: translateY(0px);
+    0%,
+    100% {
+        transform: translateY(0px) scale(1.2);
     }
     50% {
-        transform: translateY(-15px);       
-    }
-    100% {
-        transform: translateY(0px);
+        transform: translateY(-15px) scale(1.2);
     }
 `;
 
 const downside = keyframes`
-    0% {
-        transform: translateY(0px);
+    0%,
+    100% {
+        transform: translateY(0px) scale(1.2);
     }
     50% {
-        transform: translateY(15px);       
-    }
-    100% {
-        transform: translateY(0px);
+        transform: translateY(15px) scale(1.2);       
     }
 `;
 
@@ -33,31 +29,35 @@ export const Wrapper = styled.header`
     flex-direction: column;
 
     .icon_arrow {
-        font-size: 5rem;
+        font-size: 4.8rem;
         cursor: pointer;
         transition: transform infinite;
     }
 
     .up:hover {
-        animation: ${upside} 0.5s infinite;
+        animation: ${upside} 0.7s infinite;
     }
 
     .down:hover {
-        animation: ${downside} 0.5s infinite;
+        animation: ${downside} 0.7s infinite;
     }
 
     .current_date {
         margin: 0;
         margin-bottom: 1rem;
+        transition: transform 0.5s ease;
         text-align: center;
-
-        span {
-            font-size: 3rem;
-        }
-
-        span.highlight_month {
-            color: #ff9999;
-        }
         cursor: pointer;
+
+        p {
+            font-size: 3rem;
+            &.month {
+                color: #ff9999;
+            }
+        }
+
+        &:hover {
+            transform: scale(1.3);
+        }
     }
 `;
