@@ -5,13 +5,12 @@ const mongoose = require('mongoose');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const home = require('./src/router/router');
+const home = require('./router/router');
 const { Logger } = require('concurrently');
 const logger = require('morgan');
 
 
 app.set('views', './src/pages');
-app.engine('html', require('ejs').renderFile);
 app.listen(process.env.PORT, () => {
     console.log(`${process.env.PORT}포트로 서버가 가동되었습니다`);
 });

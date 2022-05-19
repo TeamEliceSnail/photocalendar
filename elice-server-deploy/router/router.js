@@ -5,7 +5,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'uploads/' });
 const util = require('util');
 const fs = require('fs');
-const { uploadFile } = require('../../s3');
+const { uploadFile } = require('../s3');
 const unlinkFile = util.promisify(fs.unlink);
 const { verifyToken } = require('./authorization');
 
