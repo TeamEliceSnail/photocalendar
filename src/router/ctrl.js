@@ -76,7 +76,6 @@ const output = {
             .then((data) => {
                 if (data) {
                     console.log(data);
-                    
                 } else {
                     console.log(
                         `해당 유저는 없습니다.${user.data.id}님에 대한 유저 생성 시작`
@@ -112,7 +111,7 @@ const output = {
     },
     auth: (req, res, next) => {
         const clientToken = req.cookies.user;
-        if (clientToken){
+        if (clientToken) {
             try {
                 const decoded = jwt.verify(clientToken, YOUR_SECRET_KEY);
                 if (decoded) {
@@ -124,8 +123,7 @@ const output = {
             } catch (err) {
                 res.send(err.name);
             }
-        }
-        else{
+        } else {
             return res.send('TokenUndefined');
         }
     },
@@ -180,45 +178,60 @@ const output = {
     detailGet: (req, res) => {
         const selectedDate = req.params.date;
         const nextDate = (parseInt(selectedDate) + 1).toString();
-        const fixedDate = `${selectedDate.slice(0, 4)}-${selectedDate.slice(4, 6)}-${selectedDate.slice(6, 8)}`
-        const fixedNext = `${nextDate.slice(0, 4)}-${nextDate.slice(4, 6)}-${nextDate.slice(6, 8)}`
+        const fixedDate = `${selectedDate.slice(0, 4)}-${selectedDate.slice(
+            4,
+            6
+        )}-${selectedDate.slice(6, 8)}`;
+        const fixedNext = `${nextDate.slice(0, 4)}-${nextDate.slice(
+            4,
+            6
+        )}-${nextDate.slice(6, 8)}`;
 
         datetag = new Date(fixedDate);
         dateend = new Date(fixedNext);
-        
+
         const decodeValue = jwtdecode(req.cookies.user);
-        
-        article.find({
-            id_token: decodeValue.id_token, 
-            date: { $gte: datetag, $lt: dateend }
-            }, (err, data) => {
-                if (err) { res.json(err) } 
-                else { res.json(data) }
-            });
+
+        article.find(
+            {
+                id_token: decodeValue.id_token,
+                date: { $gte: datetag, $lt: dateend },
+            },
+            (err, data) => {
+                if (err) {
+                    res.json(err);
+                } else {
+                    res.json(data);
+                }
+            }
+        );
     },
     detailPost: (req, res) => {
         const { date, title, content, imgurl, like } = req.body;
-        const parsedDate = `${date.slice(0, 4)}-${date.slice(4, 6)}-${date.slice(6, 8)}`
+        const parsedDate = `${date.slice(0, 4)}-${date.slice(
+            4,
+            6
+        )}-${date.slice(6, 8)}`;
         const datetag = new Date(parsedDate);
         const decodeValue = jwtdecode(req.cookies.user);
         let newArticle = new article({
             id_token: decodeValue.id_token,
             date: datetag,
             title: title,
-            content : content,
-            imgurl : imgurl,
-            like : like,
+            content: content,
+            imgurl: imgurl,
+            like: like,
         });
 
         newArticle.save().then((newPost) => {
-            res.json( {data: { post: newPost },} );
+            res.json({ data: { post: newPost } });
         });
     },
 
     detailDelete: async (req, res) => {
         const post_id = req.params.post_id;
         article
-            .deleteOne( { _id: post_id } )
+            .deleteOne({ _id: post_id })
             .then((output) => {
                 if (output.n == 0)
                     return res.status(404).json({ message: 'post not found' });
@@ -238,15 +251,15 @@ const output = {
         const { title, content, like, imgurl } = req.body;
         try {
             let post = await article.findById(post_id);
-            if(post){
+            if (post) {
                 post.title = title;
                 post.content = content;
                 post.like = like;
-                post.imgurl = imgurl
+                post.imgurl = imgurl;
                 var updatedPost = await post.save();
                 res.status(200).json({
                     message: '업데이트 완료!',
-                    data: { post: updatedPost }
+                    data: { post: updatedPost },
                 });
             } else {
                 return res.status(404).json({ message: '해당 글이 없습니다' });
