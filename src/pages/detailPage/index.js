@@ -16,6 +16,8 @@ import {
     postImg,
     updateDetailBoard,
 } from './api';
+import Loading from '../../common/components/loading';
+
 // 상세페이지 메인
 // 필요 컴포넌트 1. 왼쪽 글,일자, 감정표현 2.슬라이드
 const DetailPage = () => {
@@ -34,7 +36,7 @@ const DetailPage = () => {
     const getData = async () => {
         try {
             const res = await getDetailAllBoard(date);
-            setLoading((prev) => false);
+            setTimeout(() => setLoading((prev) => false), 800);
             setDetailBoardData((prev) => res.data);
             if (res.data.length !== 0) setBoardEditFlag((prev) => false);
             else if (res.data.length === 0) setBoardEditFlag((prev) => true);
@@ -211,7 +213,9 @@ const DetailPage = () => {
                     deleteBoard={deleteBoard}
                 />
                 {loading ? (
-                    <div>loading...</div>
+                    <div className="content">
+                        <Loading />
+                    </div>
                 ) : (
                     <div className="content">
                         <CustomSlide
