@@ -1,66 +1,60 @@
-import { useState } from 'react';
-import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from 'react-icons/md';
+import { useRecoilState } from 'recoil';
+import { MdKeyboardArrowUp, MdKeyboardArrowDown } from 'react-icons/md';
 import { Wrapper } from './CalendarHeaderStyle';
+import { currentDateAtom } from '../../../recoil';
+import { useState } from 'react';
+import { MonthModal } from './MonthModal';
 
 const CalendarHeader = () => {
-    const monthList = [
-        'January',
-        'February',
-        'March',
-        'April',
-        'May',
-        'June',
-        'July',
-        'August',
-        'September',
-        'October',
-        'November',
-        'December',
-    ];
-    const nowDate = new Date();
-    const [monthPosition, setMonthPositon] = useState(nowDate.getMonth());
-    const [nowMonth, setNowMonth] = useState(monthList[monthPosition]);
+    const [currentDate, setCurrentDate] = useRecoilState(currentDateAtom);
+    const [modalState, setModalState] = useState(false);
 
-    const handleLeftClick = () => {
-        let currentPos = monthPosition;
-        if (currentPos - 1 < 0) {
-            currentPos = 11;
+    function onUpClick() {
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+
+        if (currentMonth + 1 > 11) {
+            currentMonth = 0;
+            currentYear += 1;
         } else {
-            currentPos -= 1;
+            currentMonth += 1;
         }
-        setMonthPositon(currentPos);
-        setNowMonth(monthList[currentPos]);
-    };
+        setCurrentDate(new Date(currentYear, currentMonth));
+    }
 
-    const handleRightClick = () => {
-        let currentPos = monthPosition;
+    function onDownClick() {
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
 
-        if (currentPos + 1 > 11) {
-            currentPos = 0;
+        if (currentMonth - 1 < 0) {
+            currentMonth = 11;
+            currentYear -= 1;
         } else {
-            currentPos += 1;
+            currentMonth -= 1;
         }
-        setMonthPositon(currentPos);
-        setNowMonth(monthList[currentPos]);
-    };
+        setCurrentDate(new Date(currentYear, currentMonth));
+    }
+
+    function toggleDateModal() {
+        setModalState((prev) => !prev);
+    }
 
     return (
         <Wrapper>
-            <MdKeyboardArrowLeft onClick={handleLeftClick} className='icon_arrow' />
-            <h1 className='month'>{paintMonth(nowMonth)}</h1>
-            <MdKeyboardArrowRight onClick={handleRightClick} className='icon_arrow' />
+            <MdKeyboardArrowUp onClick={onUpClick} className="icon_arrow up" />
+            {modalState && <MonthModal toggleDateModal={toggleDateModal} />}
+            <h1 className="current_date" onClick={toggleDateModal}>
+                <p className="month">
+                    {currentDate.toLocaleString('en-US', { month: 'long' })}
+                </p>
+                <p>{currentDate.getFullYear()}</p>
+            </h1>
+            <MdKeyboardArrowDown
+                onClick={onDownClick}
+                className="icon_arrow down"
+            />
         </Wrapper>
     );
 };
-
-function paintMonth(str) {
-    const [highlightWord, rest] = [str.slice(0, 3), str.slice(3)];
-    return (
-        <>
-            <span className='highlight'>{highlightWord}</span>
-            <span>{rest}</span>
-        </>
-    );
-}
 
 export default CalendarHeader;
