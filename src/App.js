@@ -44,7 +44,14 @@ const App = () => {
                     <Navigation navFlag={navFlag} navToggle={navToggle} />
                     <Routes>
                         <Route path="/login" element={<Login />}></Route>
-                        <Route path="/like" element={<LikePage />}></Route>
+                        <Route
+                            path="/like"
+                            element={
+                                <PrivateRouter>
+                                    <LikePage />
+                                </PrivateRouter>
+                            }
+                        ></Route>
                         <Route
                             path="/"
                             element={
