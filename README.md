@@ -14,41 +14,27 @@
 
 ### 무한스크롤
 
-[이미지]
+![무한스크롤](./public/images/scroll.gif)
 
 ### 게시글 작성
 
-[이미지]
+![게시글작성](./public/images/article_create.gif)
 
 ### 게시글 수정
 
-[이미지]
+![게시글수정](./public/images/article_edit.gif)
 
 ### 게시글 삭제
 
-[이미지]
+![게시글삭제](./public/images/article_delete.gif)
 
 ### 좋아요 기능
 
-[이미지]
-
-### LikePage
-
-[이미지]
+![좋아요기능](./public/images/article_likefeature.gif)
 
 # kakao Oauth
 
-## 구조
-
-[이미지]
-
-### Jwt 토큰으로 관리
-
-[이미지]
-
-# 🗄 디렉토리 구조
-
-[폴더 구조]
+📔[Notion](https://lofty-aerosteon-2dd.notion.site/API-a24084b566ec474394ef31de9a5276aa)
 
 # Team Snail
 
