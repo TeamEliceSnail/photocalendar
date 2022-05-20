@@ -32,19 +32,17 @@ export default styled.div`
         content: '';
     }
 
-    display: grid;
-    grid-gap: 5px;
-    place-items: center;
-    grid-template-areas:
-        'header'
-        'content';
+    display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
+    flex-direction: column;
+    flex: 1;
     .content {
         width: 90%;
         height: 90%;
         margin: 40px;
         justify-content: space-around;
+        align-items: center;
         display: flex;
         background-color: #fff;
         box-shadow: 4px 4px 10px grey;
