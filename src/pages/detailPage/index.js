@@ -109,7 +109,7 @@ const DetailPage = () => {
                 const data = {
                     imgurl: imgurl,
                     date: date,
-                    like: detailBoardData[page].like,
+                    like: false,
                     title: document.querySelector('.title_textarea').value,
                     content: document.querySelector('.content_textarea').value,
                 };
